@@ -1,6 +1,6 @@
 ﻿using FluentMigrator;
 
-namespace FesteroApp.Migrations.Migrations
+namespace FesteroApp.Migrations.Versions
 {
     [Migration(202507172214)]
     public class CreateUsersTable : Migration

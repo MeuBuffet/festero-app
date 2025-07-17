@@ -1,7 +1,4 @@
-﻿using System.Security.Claims;
-using System.Text;
-
-namespace FesteroApp.Domain.Entities.Users
+﻿namespace FesteroApp.Domain.Entities.Users
 {
     public class User
     {

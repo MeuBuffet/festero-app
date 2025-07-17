@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
 
-namespace FesteroApp.Tests.Controllers
+namespace FesteroApp.Tests.Api.Controllers
 {
     [TestFixture]
     public class UserControllerTests
