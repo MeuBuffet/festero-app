@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>e9c4ef01-4d1a-4906-a7fc-d45944ce1bee</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MeuBuffet.Application\MeuBuffet.Application.csproj" />
+    <ProjectReference Include="..\MeuBuffet.Domain\MeuBuffet.Domain.csproj" />
+    <ProjectReference Include="..\MeuBuffet.Infrastructure\MeuBuffet.Infrastructure.csproj" />
+    <ProjectReference Include="..\MeuBuffet.Migrations\MeuBuffet.Migrations.csproj" />
+    <ProjectReference Include="..\MeuBuffet.Shared\MeuBuffet.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

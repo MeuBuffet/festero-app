@@ -1,0 +1,33 @@
+version: '3.9'
+
+services:
+
+  api:
+    build:
+      context: ../
+      dockerfile: .devops/Dockerfile
+    container_name: meubuffet-api
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=db;Database=MEU_BUFFET;User Id=sa;Password=meubuffet2025!@$#;TrustServerCertificate=True;
+    networks:
+      - meubuffet-network
+
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: meubuffet-sql
+    ports:
+      - "1433:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=meubuffet2025!@$#
+    networks:
+      - meubuffet-network
+
+networks:
+  meubuffet-network:
+    driver: bridge
