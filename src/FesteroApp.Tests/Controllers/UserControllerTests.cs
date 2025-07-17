@@ -131,7 +131,7 @@ namespace FesteroApp.Tests.Controllers
 
             _loginHandlerMock
                 .Setup(x => x.HandleAsync(command))
-                .ReturnsAsync(resultFromHandler);
+                .ReturnsAsync(resultFromHandler!);
 
             var result = await _controller.Login(command);
             var unauthorized = result as UnauthorizedObjectResult;
@@ -157,7 +157,7 @@ namespace FesteroApp.Tests.Controllers
 
             var ok = result as OkObjectResult;
 
-            Assert.IsNotNull(ok);
+            Assert.That(ok, Is.Not.Null);
             dynamic body = ok!.Value!;
             Assert.AreEqual(token, body);
         }

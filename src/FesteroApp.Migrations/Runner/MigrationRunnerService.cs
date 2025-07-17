@@ -25,6 +25,8 @@ namespace FesteroApp.Migrations.Runner
             }
             catch (Exception ex)
             {
+                var message = ex.Message;
+
                 throw;
             }
         }
