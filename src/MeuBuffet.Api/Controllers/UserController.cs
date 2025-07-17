@@ -1,6 +1,7 @@
 using MeuBuffet.Application.UseCases.CreateUser;
 using MeuBuffet.Application.UseCases.DetailUser;
 using MeuBuffet.Application.UseCases.LoginUser;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MeuBuffet.Api.Controllers
@@ -31,6 +32,7 @@ namespace MeuBuffet.Api.Controllers
         /// <summary>
         /// Cria um novo usuário.
         /// </summary>
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Create([FromForm] CreateUserCommand command)
         {

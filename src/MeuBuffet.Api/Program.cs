@@ -16,7 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
 MigrationRunnerService.Execute(builder.Configuration.GetConnectionString("DefaultConnection")!);
 
 // 🔐 Configura autenticação JWT
-var key = Encoding.ASCII.GetBytes(builder.Configuration["Jwt:Key"]!);
+var key = Encoding.ASCII.GetBytes(builder.Configuration["Security:Key"]!);
 
 builder.Services.AddAuthentication(options =>
 {
@@ -32,9 +32,9 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey(key),
         ValidateIssuer = true,
-        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidIssuer = builder.Configuration["Security:Issuer"],
         ValidateAudience = true,
-        ValidAudience = builder.Configuration["Jwt:Audience"],
+        ValidAudience = builder.Configuration["Security:Audience"],
         ValidateLifetime = true,
         ClockSkew = TimeSpan.Zero
     };

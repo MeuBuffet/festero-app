@@ -33,7 +33,7 @@ namespace MeuBuffet.Domain.Security
 
             var tokenHandler = new JwtSecurityTokenHandler();
 
-            return $"Bearer {tokenHandler.WriteToken(tokenHandler.CreateToken(tokenDescriptor))}";
+            return tokenHandler.WriteToken(tokenHandler.CreateToken(tokenDescriptor));
         }
     }
 }
