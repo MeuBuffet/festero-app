@@ -4,18 +4,61 @@ using MeuBuffet.Application;
 using MeuBuffet.Domain;
 using MeuBuffet.Infrastructure;
 using MeuBuffet.Migrations.Runner;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// 🔧 Executa migrations
 MigrationRunnerService.Execute(builder.Configuration.GetConnectionString("DefaultConnection")!);
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
+// 🔐 Configura autenticação JWT
+var key = Encoding.ASCII.GetBytes(builder.Configuration["Jwt:Key"]!);
 
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.RequireHttpsMetadata = false; // em produção, mude para true
+    options.SaveToken = true;
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        ValidateIssuer = true,
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidateAudience = true,
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+        ValidateLifetime = true,
+        ClockSkew = TimeSpan.Zero
+    };
+});
+
+// 🧱 Add DI
+builder.Services.AddApplication();
+builder.Services.AddDomain();
+builder.Services.AddInfrastructure(builder.Configuration);
+
+// 🧩 Filters e ModelState
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<HttpExceptionFilter>();
+    options.Filters.Add<FluentValidationFilter>();
+});
+
+builder.Services.Configure<ApiBehaviorOptions>(options =>
+{
+    options.SuppressModelStateInvalidFilter = true;
+});
+
+// 🌐 Swagger
+builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
     options.SchemaFilter<EmptyFieldsSchemaFilter>();
@@ -27,7 +70,7 @@ builder.Services.AddSwaggerGen(options =>
         Version = "v1"
     });
 
-    // 🔐 Definição do esquema de segurança JWT
+    // 🔐 Definição de esquema JWT
     var securityScheme = new OpenApiSecurityScheme
     {
         Name = "Authorization",
@@ -44,31 +87,15 @@ builder.Services.AddSwaggerGen(options =>
     };
 
     options.AddSecurityDefinition("Bearer", securityScheme);
-
-    // ✅ Requisita o token para acessar endpoints protegidos
     options.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
-        { securityScheme, new[] { "Bearer" } }
+        { securityScheme, Array.Empty<string>() }
     });
-});
-
-builder.Services.AddApplication();
-builder.Services.AddDomain();
-builder.Services.AddInfrastructure(builder.Configuration);
-builder.Services.AddControllers(options =>
-{
-    options.Filters.Add<HttpExceptionFilter>();
-    options.Filters.Add<FluentValidationFilter>();
-});
-
-builder.Services.Configure<ApiBehaviorOptions>(options =>
-{
-    options.SuppressModelStateInvalidFilter = true;
 });
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// 🌍 Middleware pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -77,7 +104,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseHttpsRedirection();
+
+app.UseAuthentication(); // 🛡️ antes do UseAuthorization
 app.UseAuthorization();
+
 app.MapControllers();
 
 app.Run();
