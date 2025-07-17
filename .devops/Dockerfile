@@ -10,20 +10,20 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
 # Corrigido aqui 👇
-COPY src/MeuBuffet.Api/MeuBuffet.Api.csproj src/MeuBuffet.Api/
-RUN dotnet restore src/MeuBuffet.Api/MeuBuffet.Api.csproj
+COPY src/FesteroApp.Api/FesteroApp.Api.csproj src/FesteroApp.Api/
+RUN dotnet restore src/FesteroApp.Api/FesteroApp.Api.csproj
 
 COPY . .
-WORKDIR /src/src/MeuBuffet.Api
-RUN dotnet build MeuBuffet.Api.csproj -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR /src/src/FesteroApp.Api
+RUN dotnet build FesteroApp.Api.csproj -c $BUILD_CONFIGURATION -o /app/build
 
 # Publicação
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish MeuBuffet.Api.csproj -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish FesteroApp.Api.csproj -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # Execução final
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "MeuBuffet.Api.dll"]
+ENTRYPOINT ["dotnet", "FesteroApp.Api.dll"]

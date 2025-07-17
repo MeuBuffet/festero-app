@@ -1,5 +1,5 @@
 
-# 🎉 MeuBuffet - Sistema de Gerenciamento de Buffet
+# 🎉 FesteroApp - Sistema de Gerenciamento de Buffet
 
 ![.NET Core](https://img.shields.io/badge/.NET-8.0-blueviolet)
 ![C#](https://img.shields.io/badge/C%23-Developer-blue)
@@ -8,7 +8,7 @@
 
 ## 🧠 Sobre o Projeto
 
-O **MeuBuffet** é uma aplicação web desenvolvida com foco no gerenciamento completo de eventos de buffet, com suporte a:
+O **FesteroApp** é uma aplicação web desenvolvida com foco no gerenciamento completo de eventos de buffet, com suporte a:
 
 - 🎯 Cadastro de clientes e eventos
 - 📅 Controle de datas e reservas
@@ -34,13 +34,13 @@ O **MeuBuffet** é uma aplicação web desenvolvida com foco no gerenciamento co
 ## 📁 Estrutura do Projeto
 
 ```
-MeuBuffet
-├── MeuBuffet.API                 # Camada de apresentação (Web API)
-├── MeuBuffet.Application        # Casos de uso / comandos e handlers
-├── MeuBuffet.Domain             # Entidades, interfaces e regras de negócio
-├── MeuBuffet.Infrastructure     # Persistência, serviços externos
-├── MeuBuffet.Migrations         # Versões e scripts de banco de dados
-└── MeuBuffet.Tests              # Testes unitários com cobertura realista
+FesteroApp
+├── FesteroApp.API                 # Camada de apresentação (Web API)
+├── FesteroApp.Application        # Casos de uso / comandos e handlers
+├── FesteroApp.Domain             # Entidades, interfaces e regras de negócio
+├── FesteroApp.Infrastructure     # Persistência, serviços externos
+├── FesteroApp.Migrations         # Versões e scripts de banco de dados
+└── FesteroApp.Tests              # Testes unitários com cobertura realista
 ```
 
 ---
@@ -49,14 +49,14 @@ MeuBuffet
 
 ```bash
 # Clone o repositório
-git clone https://github.com/seu-usuario/meubuffet.git
-cd meubuffet
+git clone https://github.com/seu-usuario/festero-app.git
+cd festero-app
 
 # Restaure os pacotes
 dotnet restore
 
 # Rode a aplicação
-dotnet run --project MeuBuffet.API
+dotnet run --project FesteroApp.API
 ```
 
 📍 Por padrão, a API estará disponível em: `https://localhost:5001`

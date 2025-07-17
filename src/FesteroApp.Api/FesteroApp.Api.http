@@ -1,0 +1,6 @@
+@FesteroApp.Api_HostAddress = http://localhost:5105
+
+GET {{FesteroApp.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

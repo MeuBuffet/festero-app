@@ -6,28 +6,28 @@ services:
     build:
       context: ../
       dockerfile: .devops/Dockerfile
-    container_name: meubuffet-api
+    container_name: festeroapp-api
     ports:
       - "8080:8080"
     depends_on:
       - db
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Server=db;Database=MEU_BUFFET;User Id=sa;Password=meubuffet2025!@$#;TrustServerCertificate=True;
+      - ConnectionStrings__DefaultConnection=Server=db;Database=FESTERO_APP;User Id=sa;Password=meubuffet2025!@$#;TrustServerCertificate=True;
     networks:
-      - meubuffet-network
+      - festeroapp-network
 
   db:
     image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: meubuffet-sql
+    container_name: festeroapp-sql
     ports:
       - "1433:1433"
     environment:
       - ACCEPT_EULA=Y
-      - SA_PASSWORD=meubuffet2025!@$#
+      - SA_PASSWORD=festeroapp2025!@$#
     networks:
-      - meubuffet-network
+      - festeroapp-network
 
 networks:
-  meubuffet-network:
+  festeroapp-network:
     driver: bridge
