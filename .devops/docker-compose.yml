@@ -13,7 +13,7 @@ services:
       - db
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Server=db;Database=FESTERO_APP;User Id=sa;Password=meubuffet2025!@$#;TrustServerCertificate=True;
+      - ConnectionStrings__DefaultConnection=Server=db;Database=FESTEROAPP;User Id=sa;Password=festeroapp2025!@$#;TrustServerCertificate=True;
     networks:
       - festeroapp-network
 

@@ -13,8 +13,8 @@ namespace FesteroApp.Migrations.Versions
                 .WithColumn("Email").AsString(500).NotNullable()
                 .WithColumn("Password").AsString(50).NotNullable()
                 .WithColumn("CreatedOn").AsDateTime().NotNullable()
-                .WithColumn("UpdateOn").AsDateTime().NotNullable()
-                .WithColumn("DeleteOn").AsDateTime().Nullable();
+                .WithColumn("UpdatedOn").AsDateTime().NotNullable()
+                .WithColumn("DeletedOn").AsDateTime().Nullable();
         }
 
         public override void Down()

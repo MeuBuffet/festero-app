@@ -18,6 +18,7 @@ namespace FesteroApp.Api.Controllers
         /// <summary>
         /// Obt�m um usuario por ID.
         /// </summary>
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<UserDetailQueryResult>> GetById(Guid id)
         {
@@ -32,7 +33,6 @@ namespace FesteroApp.Api.Controllers
         /// <summary>
         /// Cria um novo usuario.
         /// </summary>
-        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Create([FromForm] CreateUserCommand command)
         {
