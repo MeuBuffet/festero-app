@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>e9c4ef01-4d1a-4906-a7fc-d45944ce1bee</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.18" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Shareds\FesteroApp.SharedKernel\FesteroApp.SharedKernel.csproj" />
+    <ProjectReference Include="..\FesteroApp.Users.Application\FesteroApp.Users.Application.csproj" />
+    <ProjectReference Include="..\FesteroApp.Users.Infrastructure\FesteroApp.Users.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
