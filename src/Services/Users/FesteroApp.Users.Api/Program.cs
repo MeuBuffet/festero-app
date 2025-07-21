@@ -1,105 +1,172 @@
-﻿using FesteroApp.Users.Application;
+﻿using System.Data.Common;
+using System.Globalization;
+using System.Reflection;
+using FesteroApp.Users.Application;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
-using FesteroApp.Users.Api.Filters;
-using FesteroApp.Users.Api.Middleware;
+using System.Text.Json.Serialization;
+using FesteroApp.Mvc;
 using FesteroApp.Users.Domain;
 using FesteroApp.Users.Infrastructure;
+using Microsoft.Data.SqlClient;
+using NLog;
+using NLog.Extensions.Logging;
+using SrShut.Common.AppSettings;
+using SrShut.Cqrs.Traces;
+using SrShut.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 🔐 Configura autenticação JWT
-var key = Encoding.ASCII.GetBytes(builder.Configuration["Security:Key"]!);
+DbProviderFactories.RegisterFactory("System.Data.SqlClient", SqlClientFactory.Instance);
 
-builder.Services.AddAuthentication(options =>
-    {
-        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    })
-    .AddJwtBearer(options =>
-    {
-        options.RequireHttpsMetadata = false; // em produção, mude para true
-        options.SaveToken = true;
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(key),
-            ValidateIssuer = true,
-            ValidIssuer = builder.Configuration["Security:Issuer"],
-            ValidateAudience = true,
-            ValidAudience = builder.Configuration["Security:Audience"],
-            ValidateLifetime = true,
-            ClockSkew = TimeSpan.Zero
-        };
-    });
+builder.WebHost.ConfigureKestrel(serverOptions =>
+{
+    serverOptions.AddServerHeader = false;
+    serverOptions.Limits.MaxRequestBodySize = long.MaxValue;
+});
+
+IServiceCollection services = builder.Services;
+IConfiguration configuration = builder.Configuration;
+
+var culture = CultureInfo.CurrentCulture = new CultureInfo("pt-BR");
+CultureInfo.CurrentUICulture = culture;
+CultureInfo.DefaultThreadCurrentCulture = culture;
+CultureInfo.DefaultThreadCurrentUICulture = culture;
 
 // 🧱 Add DI
 builder.Services.AddApplication();
 builder.Services.AddDomain();
 builder.Services.AddInfrastructure(builder.Configuration);
 
-// 🧩 Filters e ModelState
-builder.Services.AddControllers(options =>
+builder.Services.AddHttpContextAccessor();
+
+services.AddControllers(a => { a.Filters.Add(typeof(UnitOfWorkAttribute)); })
+    .AddJsonOptions(a => { a.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()); });
+
+// LogManager.Configuration = new NLogLoggingConfiguration(builder.Configuration.GetSection("NLog"));
+// builder.Logging.ClearProviders();
+// builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
+// builder.Logging.AddNLog(configuration);
+
+services.AddCors(option => option.AddPolicy("FesteroAppPolicy", policyBuilder =>
 {
-    options.Filters.Add<HttpExceptionFilter>();
-    options.Filters.Add<FluentValidationFilter>();
+    policyBuilder.WithExposedHeaders("Content-Disposition")
+        .AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader();
+}));
+
+services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "FesteroApp Users API", Version = "v1" });
+
+    // JWT auth config
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description = @"JWT Authorization header.  
+                        Informe assim: Bearer **seu_token_aqui**",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                },
+                Scheme = "Bearer",
+                Name = "Bearer",
+                In = ParameterLocation.Header
+            },
+            new List<string>()
+        }
+    });
+
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
+
+    c.MapType<DateTime>(() => new OpenApiSchema { Type = "string", Format = "date" });
+    c.OrderActionsBy(apiDesc => apiDesc.RelativePath);
 });
 
-builder.Services.Configure<ApiBehaviorOptions>(options => { options.SuppressModelStateInvalidFilter = true; });
-
-// 🌐 Swagger
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(options =>
+builder.Services.AddAuthentication("Bearer").AddJwtBearer("Bearer", options =>
 {
-    options.SchemaFilter<EmptyFieldsSchemaFilter>();
-    options.SupportNonNullableReferenceTypes();
-
-    options.SwaggerDoc("v1", new() { Title = "FesteroApp Users API", Version = "v1" });
-
-    // 🔐 Definição de esquema JWT
-    var securityScheme = new OpenApiSecurityScheme
+    options.TokenValidationParameters = new TokenValidationParameters
     {
-        Name = "Authorization",
-        Description = "Insira o token JWT no formato: Bearer {seu_token}",
-        In = ParameterLocation.Header,
-        Type = SecuritySchemeType.Http,
-        Scheme = "bearer",
-        BearerFormat = "JWT",
-        Reference = new OpenApiReference
-        {
-            Type = ReferenceType.SecurityScheme,
-            Id = "Bearer"
-        }
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidIssuer = "festeroapp",
+        ValidAudience = "festeroapp",
+        IssuerSigningKey = new SymmetricSecurityKey(
+            Encoding.UTF8.GetBytes(configuration["Security:Secret"]!))
     };
 
-    options.AddSecurityDefinition("Bearer", securityScheme);
-    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    options.Events = new JwtBearerEvents
     {
-        { securityScheme, Array.Empty<string>() }
-    });
+        OnForbidden = context =>
+        {
+            context.Response.StatusCode = StatusCodes.Status403Forbidden;
+            context.Response.ContentType = "application/json";
+
+            var result = System.Text.Json.JsonSerializer.Serialize(new
+            {
+                success = false,
+                message = "Voce nao tem permissao para acessar este recurso."
+            });
+
+            return context.Response.WriteAsync(result);
+        }
+    };
 });
 
 var app = builder.Build();
 
-// 🌍 Middleware pipeline
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Users API v1");
-    });
+    app.UseDeveloperExceptionPage();
+}
+else
+{
+    app.UseExceptionHandler("/Error");
+    app.UseHsts();
 }
 
-app.UseMiddleware<ExceptionMiddleware>();
+app.UseStaticFiles();
+app.UseMiddleware<ExceptionHandlingMiddleware>();
+app.UseTrace();
 app.UseHttpsRedirection();
-
-app.UseAuthentication(); // 🛡️ antes do UseAuthorization
+app.UseRouting();
+app.UseCors("FesteroAppPolicy");
+app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
+app.UseSwagger(c =>
+{
+    var apiUrl = configuration.AppSettings("ApiUrl")!;
+    
+    if (!string.IsNullOrEmpty(apiUrl))
+    {
+        c.PreSerializeFilters.Add((swagger, _) =>
+        {
+            swagger.Servers = new List<OpenApiServer>
+            {
+                new OpenApiServer { Url = apiUrl }
+            };
+        });
+    }
+});
+
+app.UseSwaggerUI(options => { options.SwaggerEndpoint("./v1/swagger.json", "FesteroApp Users - API"); });
 
 app.Run();

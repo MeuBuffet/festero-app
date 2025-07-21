@@ -5,11 +5,9 @@ namespace FesteroApp.Users.Domain
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddDomain(this IServiceCollection services)
+        public static void AddDomain(this IServiceCollection services)
         {
-            services.AddScoped<ITokenGenerator, JwtTokenGenerator>();
-
-            return services;
+            services.AddSingleton<ITokenGenerator, JwtTokenGenerator>();
         }
     }
 }

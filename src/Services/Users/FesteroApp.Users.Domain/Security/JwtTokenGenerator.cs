@@ -12,7 +12,7 @@ namespace FesteroApp.Users.Domain.Security
     {
         private readonly IConfiguration _configuration = configuration;
 
-        public string Generate(User user)
+        public string Generate(User company)
         {
             var key = Encoding.ASCII.GetBytes(_configuration["Security:Key"]!);
             var expiration = DateTime.UtcNow.AddHours(8);
@@ -21,9 +21,9 @@ namespace FesteroApp.Users.Domain.Security
             {
                 Subject = new ClaimsIdentity(
                 [
-                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                    new Claim(ClaimTypes.Email, user.Email!),
-                    new Claim(ClaimTypes.Name, user.Name!)
+                    new Claim(ClaimTypes.NameIdentifier, company.Id.ToString()),
+                    new Claim(ClaimTypes.Email, company.Email!),
+                    new Claim(ClaimTypes.Name, company.Name!)
                 ]),
                 Expires = expiration,
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),

@@ -2,8 +2,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Moq;
 using System.Net;
+using FesteroApp.Mvc;
 using FesteroApp.SharedKernel.Exceptions;
-using FesteroApp.Users.Api.Middleware;
 
 namespace FesteroApp.Tests.Api.Middleware
 {

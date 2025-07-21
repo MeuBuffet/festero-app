@@ -1,20 +1,29 @@
-﻿using FesteroApp.Users.Domain.Entities.Users;
+﻿using FesteroApp.Companies.Domain.Interfaces;
+using FesteroApp.Users.Domain.Entities.Users;
 using FesteroApp.Users.Domain.Interfaces;
+using SrShut.Common;
+using SrShut.Cqrs.Commands;
+using SrShut.Data;
 
 namespace FesteroApp.Users.Application.UseCases.UpdateUser
 {
-    public class UpdateUserHandler(IRepository<User> userRepository, IUnitOfWork unitOfWork)
+    public class UpdateUserHandler : ICommandHandler<UpdateUserCommand>
     {
-        private readonly IRepository<User> _repository = userRepository;
-        private readonly IUnitOfWork _unitOfWork = unitOfWork;
+        private readonly IUserRepository _repository;
+        private readonly IUnitOfWorkFactory _unitOfWork;
 
-        public async Task<Guid> HandleAsync(UpdateUserCommand command)
+        public UpdateUserHandler(IUserRepository repository, IUnitOfWorkFactory unitOfWork)
         {
-            var user = await _repository.GetByIdAsync(command.Id);
+            _repository = repository;
+            _unitOfWork = unitOfWork;
+        }
 
-            await _repository.UpdateAndCommitAsync(user!);
-
-            return user!.Id;
+        public async Task HandleAsync(UpdateUserCommand command)
+        {
+            var user = await _repository.GetAsyncById(command.Id);
+            Throw.IsNull(user, "User", "Usuário nao encontrado.");
+            
+            await _repository.UpdateAsync(user!);
         }
     }
 }

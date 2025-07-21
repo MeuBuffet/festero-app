@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Routing;
 using System.Net;
+using FesteroApp.Mvc;
+using FesteroApp.SharedKernel;
 using FesteroApp.SharedKernel.Exceptions;
 using FesteroApp.Users.Api.Controllers;
 

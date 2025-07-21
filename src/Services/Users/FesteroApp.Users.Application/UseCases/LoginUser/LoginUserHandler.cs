@@ -1,26 +1,34 @@
-﻿using FesteroApp.Users.Domain.Entities.Users;
-using FesteroApp.Users.Domain.Interfaces;
+﻿using FesteroApp.Users.Domain.Interfaces;
 using FesteroApp.Users.Domain.Security;
+using SrShut.Common;
+using SrShut.Cqrs.Commands;
+using SrShut.Cqrs.Requests;
+using SrShut.Data;
 
 namespace FesteroApp.Users.Application.UseCases.LoginUser
 {
-    public class LoginUserHandler(IRepository<User> userRepository, IUnitOfWork unitOfWork, ITokenGenerator token) : ILoginUserHandler
+    public class LoginUserHandler : ICommandHandler<LoginUserCommand>
     {
-        private readonly IRepository<User> _repository = userRepository;
-        private readonly IUnitOfWork _unitOfWork = unitOfWork;
-        private readonly ITokenGenerator _token = token;
+        private readonly IUserRepository _repository;
+        private readonly IUnitOfWorkFactory _unitOfWork;
+        private readonly ITokenGenerator _token;
 
-        public async Task<string> HandleAsync(LoginUserCommand command)
+        public LoginUserHandler(IUserRepository repository, IUnitOfWorkFactory unitOfWork, ITokenGenerator token)
         {
-            var user = await _repository.GetByAsync<User>(u => u.Email == command.Email
-                                                            && u.Password == command.Password);
+            _repository = repository;
+            _unitOfWork = unitOfWork;
+            _token = token;
+        }
 
-            if (user is null)
-                return string.Empty;
+        public async Task HandleAsync(LoginUserCommand command)
+        {
+            Throw.IsFalse(await _repository.IsCredentialsValid(command.Email!, command.Password), "User.Login",
+                "Usuário e/ou senha incorretas.");
 
+            var user = await _repository.GetAsyncByEmail(command.Email!);
             var token = _token.Generate(user);
 
-            return token;
+            command.Token = token;
         }
     }
 }

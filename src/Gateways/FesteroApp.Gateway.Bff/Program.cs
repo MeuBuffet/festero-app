@@ -1,11 +1,7 @@
-using FesteroApp.Migrations.Runner;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// 🔧 Executa migrations
-MigrationRunnerService.Execute(builder.Configuration.GetConnectionString("DefaultConnection")!);
 
 builder.Configuration
     .AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);

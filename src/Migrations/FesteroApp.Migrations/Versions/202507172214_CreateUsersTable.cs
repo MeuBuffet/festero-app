@@ -7,7 +7,7 @@ namespace FesteroApp.Migrations.Versions
     {
         public override void Up()
         {
-            Create.Table("Users")
+            Create.Table("User")
                 .WithColumn("Id").AsGuid().PrimaryKey()
                 .WithColumn("Name").AsString(150).NotNullable()
                 .WithColumn("Email").AsString(500).NotNullable()

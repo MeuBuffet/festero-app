@@ -1,9 +1,9 @@
+using FesteroApp.Mvc;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Moq;
-using FesteroApp.Users.Api.Filters;
 
 namespace FesteroApp.Tests.Api.Filters
 {

@@ -1,4 +1,4 @@
-using FesteroApp.Users.Api.Filters;
+using FesteroApp.Mvc;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;

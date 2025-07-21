@@ -1,20 +1,30 @@
-﻿using FesteroApp.Users.Domain.Entities.Users;
+﻿using FesteroApp.Companies.Domain.Interfaces;
+using FesteroApp.Users.Domain.Entities.Users;
 using FesteroApp.Users.Domain.Interfaces;
+using SrShut.Cqrs.Commands;
+using SrShut.Data;
 
 namespace FesteroApp.Users.Application.UseCases.CreateUser
 {
-    public class CreateUserHandler(IRepository<User> userRepository, IUnitOfWork unitOfWork) : ICreateUserHandler
+    public class CreateUserHandler :
+     ICommandHandler<CreateUserCommand>
     {
-        private readonly IRepository<User> _repository = userRepository;
-        private readonly IUnitOfWork _unitOfWork = unitOfWork;
+        private readonly IUserRepository _repository;
+        private readonly IUnitOfWorkFactory _unitOfWork;
 
-        public async Task<Guid> HandleAsync(CreateUserCommand dto)
+        public CreateUserHandler(IUserRepository repository, IUnitOfWorkFactory unitOfWork)
         {
-            var user = new User(Guid.NewGuid(), dto.Name, dto.Email, dto.Password);
+            _repository = repository;
+            _unitOfWork = unitOfWork;
+        }
 
-            await _repository.AddAndCommitAsync(user);
+        public async Task HandleAsync(CreateUserCommand command)
+        {
+            var user = new User(Guid.NewGuid(), command.Name, command.Email, command.Password);
 
-            return user.Id;
+            await _repository.AddAsync(user);
+    
+            command.Id = user.Id;
         }
     }
 }

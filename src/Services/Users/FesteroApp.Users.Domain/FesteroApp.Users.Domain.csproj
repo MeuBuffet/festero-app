@@ -28,4 +28,10 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.35.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="SrShut.Data">
+      <HintPath>..\..\..\Libraries\SrShut.Data.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

@@ -1,24 +1,76 @@
-﻿using FesteroApp.Users.Domain.Interfaces;
-using FesteroApp.Users.Infrastructure.Persistence;
-using FesteroApp.Users.Infrastructure.Persistence.DbContexts;
-using FesteroApp.Users.Infrastructure.Persistence.Repositories;
-using Microsoft.EntityFrameworkCore;
+﻿using System.Data;
+using FesteroApp.Users.Domain.Interfaces;
+using FesteroApp.Users.Infrastructure.Databases.Mappings;
+using FesteroApp.Users.Infrastructure.Databases.Repositories;
+using FluentNHibernate.Cfg;
+using FluentNHibernate.Cfg.Db;
+using FluentNHibernate.Conventions.Helpers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NHibernate;
+using SrShut.Cache;
+using SrShut.Common.Options;
+using SrShut.Cqrs.Bus.DependencyInjections;
+using SrShut.Cqrs.Traces.DependencyInjection;
+using SrShut.Data.ConnectionStrings;
+using SrShut.Data.Nhibernate;
+using SrShut.Security.Core;
 
 namespace FesteroApp.Users.Infrastructure
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration config)
+        public static void AddInfrastructure(this IServiceCollection services,
+            IConfiguration configuration)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
+            var nhFactory = CreateNhFactory(configuration);
 
-            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddNhibernate(nhFactory);
+            services.AddTrace().WithGuidProvider();
+            services.AddCache(new CacheOptions(CacheType.LocalMemory));
 
-            return services;
+            RegisterServices(services, configuration);
+            RegisterRepositories(services);
+
+            RegisterBus(services);
+            // RegisterEvents(services);
+        }
+
+        private static void RegisterServices(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.Configure<AppSettingsOptions>(configuration.GetSection("AppSettings"));
+            services.Configure<SecurityOptions>(configuration.GetSection("Security"));
+
+            services.AddTransient<HttpClientSecurityDelegatingHandler>();
+        }
+
+        private static void RegisterRepositories(this IServiceCollection services)
+        {
+            services.AddSingleton<IUserRepository, UserNHRpository>();
+        }
+
+        private static void RegisterBus(this IServiceCollection services)
+        {
+            services.AddBus(a =>
+            {
+                a.AddMemory();
+            });
+        }
+        
+        // private static void RegisterEvents(IServiceCollection services)
+        // {
+        // }
+
+        private static ISessionFactory CreateNhFactory(IConfiguration configuration)
+        {
+            var connection = configuration.GetConnectionString("DefaultConnection");
+            
+            return Fluently.Configure()
+                .Database(MsSqlConfiguration.MsSql2012.IsolationLevel(IsolationLevel.ReadCommitted)
+                    .ConnectionString(connection))
+                .Mappings(m => m.FluentMappings.AddFromAssemblyOf<UserMap>()
+                    .Conventions.Add(DefaultLazy.Never()))
+                .BuildSessionFactory();
         }
     }
 }

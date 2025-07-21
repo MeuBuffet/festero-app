@@ -2,8 +2,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Net;
+using FesteroApp.Mvc;
 using FesteroApp.SharedKernel.Exceptions;
-using FesteroApp.Users.Api.Filters;
 
 namespace FesteroApp.Tests.Api.Filters
 {

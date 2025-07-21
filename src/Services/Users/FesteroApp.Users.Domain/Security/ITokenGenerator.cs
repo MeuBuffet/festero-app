@@ -4,6 +4,6 @@ namespace FesteroApp.Users.Domain.Security
 {
     public interface ITokenGenerator
     {
-        string Generate(User user);
+        string Generate(User company);
     }
 }
