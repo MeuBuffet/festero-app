@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.18" />
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.18"/>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Shareds\FesteroApp.Mvc\FesteroApp.Mvc.csproj" />
+      <ProjectReference Include="..\FesteroApp.Companies.Application\FesteroApp.Companies.Application.csproj" />
+      <ProjectReference Include="..\FesteroApp.Companies.Domain\FesteroApp.Companies.Domain.csproj" />
+      <ProjectReference Include="..\FesteroApp.Companies.Infrastructure\FesteroApp.Companies.Infrastructure.csproj" />
+    </ItemGroup>
+
+</Project>

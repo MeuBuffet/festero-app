@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Compile Remove="Class1.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="DTOs\" />
+      <Folder Include="Interfaces\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="FluentValidation" Version="11.11.0" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="SrShut.Common">
+        <HintPath>..\..\..\Libraries\SrShut.Common.dll</HintPath>
+      </Reference>
+      <Reference Include="SrShut.Cqrs">
+        <HintPath>..\..\..\Libraries\SrShut.Cqrs.dll</HintPath>
+      </Reference>
+      <Reference Include="SrShut.Data">
+        <HintPath>..\..\..\Libraries\SrShut.Data.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\FesteroApp.Companies.Domain\FesteroApp.Companies.Domain.csproj" />
+    </ItemGroup>
+
+</Project>

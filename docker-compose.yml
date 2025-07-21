@@ -1,0 +1,53 @@
+version: '3.9'
+
+services:
+
+  gateway-bff:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        PROJECT_PATH: src/Gateways/FesteroApp.Gateway.Bff/FesteroApp.Gateway.Bff.csproj
+    container_name: gateway-bff
+    ports:
+      - "9000:80"
+    command: ["dotnet", "FesteroApp.Gateway.Bff.dll"]
+    depends_on:
+      - users-api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    networks:
+      - festeroapp-network
+
+  users-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        PROJECT_PATH: src/Services/Users/FesteroApp.Users.Api/FesteroApp.Users.Api.csproj
+    container_name: users-api
+    ports:
+      - "5001:80"
+    command: ["dotnet", "FesteroApp.Users.Api.dll"]
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=db;Database=FESTEROAPP;User Id=sa;Password=festeroapp2025!@$#;TrustServerCertificate=True;
+    depends_on:
+      - db
+    networks:
+      - festeroapp-network
+
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: festeroapp-sql
+    ports:
+      - "1433:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=festeroapp2025!@$#
+    networks:
+      - festeroapp-network
+
+networks:
+  festeroapp-network:
+    driver: bridge
