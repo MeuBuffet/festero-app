@@ -1,0 +1,70 @@
+// 
+// Footer
+// 
+
+.footer {
+    position: relative;
+    padding-top: 40px;
+    .footer-nav {
+        li {
+            padding: 6px 0;
+            overflow-x: hidden;
+            .footer-link {
+                color: #828b93;
+                position: relative;
+                transition: all 0.5s ease-in-out;
+                display: inline-flex;
+                align-items: center;
+                padding-inline-start: 22px;
+                transform: translateX(-22px);
+                .link-icon {
+                  position: absolute;
+                  fill: $primary;
+                  font-size: 16px;
+                  top: 5px;
+                  left: 0;
+              }
+                &:hover {
+                    color: $white;
+                    transform: translateX(0);
+                    // padding-left: 12px;
+                    &::after {
+                        width: 05px;
+                    }
+                }
+            }
+        }
+    }
+    &.bg-dark {
+        background-image: url("../images/footer-light-bg.png");
+        background-repeat: no-repeat;
+        background-position: bottom;
+    }
+    .footer-social-icon {
+        height: 36px;
+        width: 36px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        font-size: 18px;
+        background-color: rgba($white, 0.1);
+        color: $white;
+        transition: all 0.3s ease-in-out;
+        box-shadow: 0px 0px 0 0px rgba($white, 0.1);
+        &:hover {
+            background-color: rgba($white, 0.25);
+            box-shadow: 0px 0px 0 4px rgba($white, 0.1);
+        }
+    }
+}
+
+
+.footer-tagline {
+    background-color: transparent;
+    border-top: 1px solid rgba($white, 0.1);
+}
+
+.footer-text {
+    color: #828b93;
+}
