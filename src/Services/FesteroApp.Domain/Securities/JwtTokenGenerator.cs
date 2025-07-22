@@ -23,7 +23,7 @@ public class JwtTokenGenerator(IConfiguration configuration) : ITokenGenerator
                 new Claim(ClaimTypes.NameIdentifier, company.Id.ToString()),
                 new Claim(ClaimTypes.Email, company.Email!),
                 new Claim(ClaimTypes.Name, company.Name!),
-                new("tenant_id", "")
+                new Claim("tenant_id", "")
             ]),
             Expires = expiration,
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
