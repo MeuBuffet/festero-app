@@ -20,7 +20,7 @@ public class Company
 
         CreatedOn = UpdatedOn = DateTime.Now;
     }
-    
+
     public virtual Guid Id { get; set; }
 
     public virtual string? Name { get; set; }
@@ -34,11 +34,11 @@ public class Company
     public virtual DateTime? UpdatedOn { get; set; }
 
     public virtual DateTime? DeletedOn { get; set; }
-    
+
     public virtual Email Email { get; protected set; }
-    
+
     public virtual Phone Phone { get; protected set; }
-    
+
     public virtual Address Address { get; protected set; }
 
     public virtual void Update(string? name, string? corporateName, string? document, Email email, Phone phone,
@@ -53,7 +53,7 @@ public class Company
 
         UpdatedOn = DateTime.Now;
     }
-    
+
     public virtual void UpdateContact(Email email, Phone phone)
     {
         Email = email;
