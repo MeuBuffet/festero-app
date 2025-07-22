@@ -28,7 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Application\UseCases\DetailUser\" />
     <Folder Include="Application\UseCases\LoginUser\" />
     <Folder Include="Application\UseCases\UpdateUser\" />
     <Folder Include="Api\Middleware\" />
@@ -38,8 +37,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Migrations\FesteroApp.Migrations\FesteroApp.Migrations.csproj" />
-    <ProjectReference Include="..\..\Services\Users\FesteroApp.Users.Api\FesteroApp.Users.Api.csproj" />
-    <ProjectReference Include="..\..\Services\Users\FesteroApp.Users.Infrastructure\FesteroApp.Users.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Services\FesteroApp.Api\FesteroApp.Api.csproj" />
+    <ProjectReference Include="..\..\Services\FesteroApp.Application\FesteroApp.Application.csproj" />
+    <ProjectReference Include="..\..\Services\FesteroApp.Domain\FesteroApp.Domain.csproj" />
+    <ProjectReference Include="..\..\Services\Users\FesteroApp.Api\FesteroApp.Api.csproj" />
+    <ProjectReference Include="..\..\Services\Users\FesteroApp.Infrastructure\FesteroApp.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Shareds\FesteroApp.SharedKernel\FesteroApp.SharedKernel.csproj" />
   </ItemGroup>
 

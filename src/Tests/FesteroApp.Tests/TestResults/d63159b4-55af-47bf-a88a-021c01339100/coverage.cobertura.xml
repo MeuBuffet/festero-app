@@ -5,9 +5,9 @@
     <source>C:\</source>
   </sources>
   <packages>
-    <package name="FesteroApp.Users.Api" line-rate="0.5445" branch-rate="0.8" complexity="47">
+    <package name="FesteroApp.Api" line-rate="0.5445" branch-rate="0.8" complexity="47">
       <classes>
-        <class name="Program" filename="festero-app\src\FesteroApp.Users.Api\Program.cs" line-rate="0" branch-rate="0" complexity="2">
+        <class name="Program" filename="festero-app\src\FesteroApp.Api\Program.cs" line-rate="0" branch-rate="0" complexity="2">
           <methods>
             <method name="&lt;Main&gt;$" signature="(System.String[])" line-rate="0" branch-rate="0" complexity="2">
               <lines>
@@ -189,9 +189,9 @@
             <line number="113" hits="0" branch="False" />
           </lines>
         </class>
-        <class name="FesteroApp.Users.Api.Middleware.ExceptionMiddleware" filename="festero-app\src\FesteroApp.Users.Api\Middleware\ExceptionMiddleware.cs" line-rate="1" branch-rate="1" complexity="1">
+        <class name="FesteroApp.Api.Middleware.ExceptionMiddleware" filename="festero-app\src\FesteroApp.Api\Middleware\ExceptionMiddleware.cs" line-rate="1" branch-rate="1" complexity="1">
           <methods>
-            <method name=".ctor" signature="(Microsoft.AspNetCore.Http.RequestDelegate,Microsoft.Extensions.Logging.ILogger`1&lt;FesteroApp.Users.Api.Middleware.ExceptionMiddleware&gt;)" line-rate="1" branch-rate="1" complexity="1">
+            <method name=".ctor" signature="(Microsoft.AspNetCore.Http.RequestDelegate,Microsoft.Extensions.Logging.ILogger`1&lt;FesteroApp.Api.Middleware.ExceptionMiddleware&gt;)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
                 <line number="5" hits="2" branch="False" />
                 <line number="7" hits="2" branch="False" />
@@ -205,7 +205,7 @@
             <line number="8" hits="2" branch="False" />
           </lines>
         </class>
-        <class name="FesteroApp.Users.Api.Middleware.ExceptionMiddleware/&lt;Invoke&gt;d__3" filename="festero-app\src\FesteroApp.Users.Api\Middleware\ExceptionMiddleware.cs" line-rate="0.9411" branch-rate="1" complexity="1">
+        <class name="FesteroApp.Api.Middleware.ExceptionMiddleware/&lt;Invoke&gt;d__3" filename="festero-app\src\FesteroApp.Api\Middleware\ExceptionMiddleware.cs" line-rate="0.9411" branch-rate="1" complexity="1">
           <methods>
             <method name="MoveNext" signature="()" line-rate="0.9411" branch-rate="1" complexity="1">
               <lines>
@@ -249,7 +249,7 @@
             <line number="31" hits="2" branch="False" />
           </lines>
         </class>
-        <class name="FesteroApp.Users.Api.Filters.EmptyFieldsSchemaFilter" filename="festero-app\src\FesteroApp.Users.Api\Filters\EmptyFieldsSchemaFilter.cs" line-rate="0.9333" branch-rate="0.8125" complexity="16">
+        <class name="FesteroApp.Api.Filters.EmptyFieldsSchemaFilter" filename="festero-app\src\FesteroApp.Api\Filters\EmptyFieldsSchemaFilter.cs" line-rate="0.9333" branch-rate="0.8125" complexity="16">
           <methods>
             <method name="Apply" signature="(Microsoft.OpenApi.Models.OpenApiSchema,Swashbuckle.AspNetCore.SwaggerGen.SchemaFilterContext)" line-rate="0.9333" branch-rate="0.8125" complexity="16">
               <lines>
@@ -335,7 +335,7 @@
             <line number="29" hits="1" branch="False" />
           </lines>
         </class>
-        <class name="FesteroApp.Users.Api.Filters.FluentValidationFilter" filename="festero-app\src\FesteroApp.Users.Api\Filters\FluentValidationFilter.cs" line-rate="1" branch-rate="1" complexity="1">
+        <class name="FesteroApp.Api.Filters.FluentValidationFilter" filename="festero-app\src\FesteroApp.Api\Filters\FluentValidationFilter.cs" line-rate="1" branch-rate="1" complexity="1">
           <methods>
             <method name=".ctor" signature="(System.IServiceProvider)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
@@ -349,7 +349,7 @@
             <line number="9" hits="1" branch="False" />
           </lines>
         </class>
-        <class name="FesteroApp.Users.Api.Filters.FluentValidationFilter/&lt;&gt;c" filename="festero-app\src\FesteroApp.Users.Api\Filters\FluentValidationFilter.cs" line-rate="1" branch-rate="1" complexity="3">
+        <class name="FesteroApp.Api.Filters.FluentValidationFilter/&lt;&gt;c" filename="festero-app\src\FesteroApp.Api\Filters\FluentValidationFilter.cs" line-rate="1" branch-rate="1" complexity="3">
           <methods>
             <method name="&lt;OnActionExecutionAsync&gt;b__2_0" signature="(FluentValidation.Results.ValidationFailure)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
@@ -373,7 +373,7 @@
             <line number="31" hits="2" branch="False" />
           </lines>
         </class>
-        <class name="FesteroApp.Users.Api.Filters.FluentValidationFilter/&lt;OnActionExecutionAsync&gt;d__2" filename="festero-app\src\FesteroApp.Users.Api\Filters\FluentValidationFilter.cs" line-rate="0.8887999999999999" branch-rate="0.625" complexity="8">
+        <class name="FesteroApp.Api.Filters.FluentValidationFilter/&lt;OnActionExecutionAsync&gt;d__2" filename="festero-app\src\FesteroApp.Api\Filters\FluentValidationFilter.cs" line-rate="0.8887999999999999" branch-rate="0.625" complexity="8">
           <methods>
             <method name="MoveNext" signature="()" line-rate="0.8887999999999999" branch-rate="0.625" complexity="8">
               <lines>
@@ -469,7 +469,7 @@
             <line number="48" hits="1" branch="False" />
           </lines>
         </class>
-        <class name="FesteroApp.Users.Api.Filters.HttpExceptionFilter" filename="festero-app\src\FesteroApp.Users.Api\Filters\HttpExceptionFilter.cs" line-rate="1" branch-rate="1" complexity="2">
+        <class name="FesteroApp.Api.Filters.HttpExceptionFilter" filename="festero-app\src\FesteroApp.Api\Filters\HttpExceptionFilter.cs" line-rate="1" branch-rate="1" complexity="2">
           <methods>
             <method name="OnException" signature="(Microsoft.AspNetCore.Mvc.Filters.ExceptionContext)" line-rate="1" branch-rate="1" complexity="2">
               <lines>
@@ -507,7 +507,7 @@
             <line number="20" hits="1" branch="False" />
           </lines>
         </class>
-        <class name="FesteroApp.Users.Api.Controllers.BaseController" filename="festero-app\src\FesteroApp.Users.Api\Controllers\BaseController.cs" line-rate="1" branch-rate="1" complexity="2">
+        <class name="FesteroApp.Api.Controllers.BaseController" filename="festero-app\src\FesteroApp.Api\Controllers\BaseController.cs" line-rate="1" branch-rate="1" complexity="2">
           <methods>
             <method name="OnActionExecuted" signature="(Microsoft.AspNetCore.Mvc.Filters.ActionExecutedContext)" line-rate="1" branch-rate="1" complexity="2">
               <lines>
@@ -539,9 +539,9 @@
             <line number="23" hits="2" branch="False" />
           </lines>
         </class>
-        <class name="FesteroApp.Users.Api.Controllers.UserController" filename="festero-app\src\FesteroApp.Users.Api\Controllers\UserController.cs" line-rate="1" branch-rate="1" complexity="1">
+        <class name="FesteroApp.Api.Controllers.UserController" filename="festero-app\src\FesteroApp.Api\Controllers\UserController.cs" line-rate="1" branch-rate="1" complexity="1">
           <methods>
-            <method name=".ctor" signature="(Microsoft.Extensions.Logging.ILogger`1&lt;FesteroApp.Users.Api.Controllers.UserController&gt;,FesteroApp.Users.Application.UseCases.CreateUser.ICreateUserHandler,FesteroApp.Users.Application.UseCases.DetailUser.IGetUserByIdHandler,FesteroApp.Users.Application.UseCases.LoginUser.ILoginUserHandler)" line-rate="1" branch-rate="1" complexity="1">
+            <method name=".ctor" signature="(Microsoft.Extensions.Logging.ILogger`1&lt;FesteroApp.Api.Controllers.UserController&gt;,FesteroApp.Application.UseCases.CreateUser.ICreateUserHandler,FesteroApp.Application.UseCases.DetailUser.IGetUserByIdHandler,FesteroApp.Application.UseCases.LoginUser.ILoginUserHandler)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
                 <line number="11" hits="9" branch="False" />
                 <line number="13" hits="9" branch="False" />
@@ -559,7 +559,7 @@
             <line number="16" hits="9" branch="False" />
           </lines>
         </class>
-        <class name="FesteroApp.Users.Api.Controllers.UserController/&lt;Create&gt;d__6" filename="festero-app\src\FesteroApp.Users.Api\Controllers\UserController.cs" line-rate="1" branch-rate="1" complexity="2">
+        <class name="FesteroApp.Api.Controllers.UserController/&lt;Create&gt;d__6" filename="festero-app\src\FesteroApp.Api\Controllers\UserController.cs" line-rate="1" branch-rate="1" complexity="2">
           <methods>
             <method name="MoveNext" signature="()" line-rate="1" branch-rate="1" complexity="2">
               <lines>
@@ -589,7 +589,7 @@
             <line number="45" hits="2" branch="False" />
           </lines>
         </class>
-        <class name="FesteroApp.Users.Api.Controllers.UserController/&lt;GetById&gt;d__5" filename="festero-app\src\FesteroApp.Users.Api\Controllers\UserController.cs" line-rate="1" branch-rate="1" complexity="2">
+        <class name="FesteroApp.Api.Controllers.UserController/&lt;GetById&gt;d__5" filename="festero-app\src\FesteroApp.Api\Controllers\UserController.cs" line-rate="1" branch-rate="1" complexity="2">
           <methods>
             <method name="MoveNext" signature="()" line-rate="1" branch-rate="1" complexity="2">
               <lines>
@@ -619,7 +619,7 @@
             <line number="30" hits="2" branch="False" />
           </lines>
         </class>
-        <class name="FesteroApp.Users.Api.Controllers.UserController/&lt;Login&gt;d__7" filename="festero-app\src\FesteroApp.Users.Api\Controllers\UserController.cs" line-rate="1" branch-rate="1" complexity="6">
+        <class name="FesteroApp.Api.Controllers.UserController/&lt;Login&gt;d__7" filename="festero-app\src\FesteroApp.Api\Controllers\UserController.cs" line-rate="1" branch-rate="1" complexity="6">
           <methods>
             <method name="MoveNext" signature="()" line-rate="1" branch-rate="1" complexity="6">
               <lines>
@@ -665,9 +665,9 @@
         </class>
       </classes>
     </package>
-    <package name="FesteroApp.Users.Application" line-rate="0.8717" branch-rate="1" complexity="24">
+    <package name="FesteroApp.Application" line-rate="0.8717" branch-rate="1" complexity="24">
       <classes>
-        <class name="FesteroApp.Users.Application.DependencyInjection" filename="festero-app\src\FesteroApp.Users.Application\DependencyInjection.cs" line-rate="1" branch-rate="1" complexity="1">
+        <class name="FesteroApp.Application.DependencyInjection" filename="festero-app\src\FesteroApp.Application\DependencyInjection.cs" line-rate="1" branch-rate="1" complexity="1">
           <methods>
             <method name="AddApplication" signature="(Microsoft.Extensions.DependencyInjection.IServiceCollection)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
@@ -691,7 +691,7 @@
             <line number="20" hits="1" branch="False" />
           </lines>
         </class>
-        <class name="FesteroApp.Users.Application.UseCases.UpdateUser.UpdateUserCommand" filename="festero-app\src\FesteroApp.Users.Application\UseCases\UpdateUser\UpdateUserCommand.cs" line-rate="0" branch-rate="1" complexity="2">
+        <class name="FesteroApp.Application.UseCases.UpdateUser.UpdateUserCommand" filename="festero-app\src\FesteroApp.Application\UseCases\UpdateUser\UpdateUserCommand.cs" line-rate="0" branch-rate="1" complexity="2">
           <methods>
             <method name="get_Id" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
@@ -709,9 +709,9 @@
             <line number="12" hits="0" branch="False" />
           </lines>
         </class>
-        <class name="FesteroApp.Users.Application.UseCases.UpdateUser.UpdateUserHandler" filename="festero-app\src\FesteroApp.Users.Application\UseCases\UpdateUser\UpdateUserHandler.cs" line-rate="0" branch-rate="1" complexity="1">
+        <class name="FesteroApp.Application.UseCases.UpdateUser.UpdateUserHandler" filename="festero-app\src\FesteroApp.Application\UseCases\UpdateUser\UpdateUserHandler.cs" line-rate="0" branch-rate="1" complexity="1">
           <methods>
-            <method name=".ctor" signature="(FesteroApp.Users.Domain.Interfaces.IRepository`1&lt;FesteroApp.Users.Domain.Entities.Users.User&gt;,FesteroApp.Users.Domain.Interfaces.IUnitOfWork)" line-rate="0" branch-rate="1" complexity="1">
+            <method name=".ctor" signature="(FesteroApp.Domain.Interfaces.IRepository`1&lt;FesteroApp.Domain.Entities.Users.User&gt;,FesteroApp.Domain.Interfaces.IUnitOfWork)" line-rate="0" branch-rate="1" complexity="1">
               <lines>
                 <line number="6" hits="0" branch="False" />
                 <line number="8" hits="0" branch="False" />
@@ -725,7 +725,7 @@
             <line number="9" hits="0" branch="False" />
           </lines>
         </class>
-        <class name="FesteroApp.Users.Application.UseCases.UpdateUser.UpdateUserHandler/&lt;HandleAsync&gt;d__3" filename="festero-app\src\FesteroApp.Users.Application\UseCases\UpdateUser\UpdateUserHandler.cs" line-rate="0" branch-rate="1" complexity="1">
+        <class name="FesteroApp.Application.UseCases.UpdateUser.UpdateUserHandler/&lt;HandleAsync&gt;d__3" filename="festero-app\src\FesteroApp.Application\UseCases\UpdateUser\UpdateUserHandler.cs" line-rate="0" branch-rate="1" complexity="1">
           <methods>
             <method name="MoveNext" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
@@ -745,7 +745,7 @@
             <line number="18" hits="0" branch="False" />
           </lines>
         </class>
-        <class name="FesteroApp.Users.Application.UseCases.LoginUser.LoginUserCommand" filename="festero-app\src\FesteroApp.Users.Application\UseCases\LoginUser\LoginUserCommand.cs" line-rate="1" branch-rate="1" complexity="2">
+        <class name="FesteroApp.Application.UseCases.LoginUser.LoginUserCommand" filename="festero-app\src\FesteroApp.Application\UseCases\LoginUser\LoginUserCommand.cs" line-rate="1" branch-rate="1" complexity="2">
           <methods>
             <method name="get_Email" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
@@ -763,7 +763,7 @@
             <line number="13" hits="24" branch="False" />
           </lines>
         </class>
-        <class name="FesteroApp.Users.Application.UseCases.LoginUser.LoginUserCommandValidator" filename="festero-app\src\FesteroApp.Users.Application\UseCases\LoginUser\LoginUserCommandValidator.cs" line-rate="1" branch-rate="1" complexity="1">
+        <class name="FesteroApp.Application.UseCases.LoginUser.LoginUserCommandValidator" filename="festero-app\src\FesteroApp.Application\UseCases\LoginUser\LoginUserCommandValidator.cs" line-rate="1" branch-rate="1" complexity="1">
           <methods>
             <method name=".ctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
@@ -789,9 +789,9 @@
             <line number="15" hits="4" branch="False" />
           </lines>
         </class>
-        <class name="FesteroApp.Users.Application.UseCases.LoginUser.LoginUserHandler" filename="festero-app\src\FesteroApp.Users.Application\UseCases\LoginUser\LoginUserHandler.cs" line-rate="1" branch-rate="1" complexity="1">
+        <class name="FesteroApp.Application.UseCases.LoginUser.LoginUserHandler" filename="festero-app\src\FesteroApp.Application\UseCases\LoginUser\LoginUserHandler.cs" line-rate="1" branch-rate="1" complexity="1">
           <methods>
-            <method name=".ctor" signature="(FesteroApp.Users.Domain.Interfaces.IRepository`1&lt;FesteroApp.Users.Domain.Entities.Users.User&gt;,FesteroApp.Users.Domain.Interfaces.IUnitOfWork,FesteroApp.Users.Domain.Security.ITokenGenerator)" line-rate="1" branch-rate="1" complexity="1">
+            <method name=".ctor" signature="(FesteroApp.Domain.Interfaces.IRepository`1&lt;FesteroApp.Domain.Entities.Users.User&gt;,FesteroApp.Domain.Interfaces.IUnitOfWork,FesteroApp.Domain.Security.ITokenGenerator)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
                 <line number="7" hits="3" branch="False" />
                 <line number="9" hits="3" branch="False" />
@@ -807,7 +807,7 @@
             <line number="11" hits="3" branch="False" />
           </lines>
         </class>
-        <class name="FesteroApp.Users.Application.UseCases.LoginUser.LoginUserHandler/&lt;HandleAsync&gt;d__4" filename="festero-app\src\FesteroApp.Users.Application\UseCases\LoginUser\LoginUserHandler.cs" line-rate="1" branch-rate="1" complexity="2">
+        <class name="FesteroApp.Application.UseCases.LoginUser.LoginUserHandler/&lt;HandleAsync&gt;d__4" filename="festero-app\src\FesteroApp.Application\UseCases\LoginUser\LoginUserHandler.cs" line-rate="1" branch-rate="1" complexity="2">
           <methods>
             <method name="MoveNext" signature="()" line-rate="1" branch-rate="1" complexity="2">
               <lines>
@@ -841,9 +841,9 @@
             <line number="24" hits="2" branch="False" />
           </lines>
         </class>
-        <class name="FesteroApp.Users.Application.UseCases.DetailUser.GetUserByIdHandler" filename="festero-app\src\FesteroApp.Users.Application\UseCases\DetailUser\GetUserByIdHandler.cs" line-rate="1" branch-rate="1" complexity="1">
+        <class name="FesteroApp.Application.UseCases.DetailUser.GetUserByIdHandler" filename="festero-app\src\FesteroApp.Application\UseCases\DetailUser\GetUserByIdHandler.cs" line-rate="1" branch-rate="1" complexity="1">
           <methods>
-            <method name=".ctor" signature="(FesteroApp.Users.Domain.Interfaces.IRepository`1&lt;FesteroApp.Users.Domain.Entities.Users.User&gt;)" line-rate="1" branch-rate="1" complexity="1">
+            <method name=".ctor" signature="(FesteroApp.Domain.Interfaces.IRepository`1&lt;FesteroApp.Domain.Entities.Users.User&gt;)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
                 <line number="6" hits="4" branch="False" />
                 <line number="8" hits="4" branch="False" />
@@ -855,7 +855,7 @@
             <line number="8" hits="4" branch="False" />
           </lines>
         </class>
-        <class name="FesteroApp.Users.Application.UseCases.DetailUser.GetUserByIdHandler/&lt;HandleAsync&gt;d__2" filename="festero-app\src\FesteroApp.Users.Application\UseCases\DetailUser\GetUserByIdHandler.cs" line-rate="1" branch-rate="1" complexity="2">
+        <class name="FesteroApp.Application.UseCases.DetailUser.GetUserByIdHandler/&lt;HandleAsync&gt;d__2" filename="festero-app\src\FesteroApp.Application\UseCases\DetailUser\GetUserByIdHandler.cs" line-rate="1" branch-rate="1" complexity="2">
           <methods>
             <method name="MoveNext" signature="()" line-rate="1" branch-rate="1" complexity="2">
               <lines>
@@ -883,7 +883,7 @@
             <line number="16" hits="3" branch="False" />
           </lines>
         </class>
-        <class name="FesteroApp.Users.Application.UseCases.DetailUser.UserDetailQueryResult" filename="festero-app\src\FesteroApp.Users.Application\UseCases\DetailUser\UserDetailQueryResult.cs" line-rate="1" branch-rate="1" complexity="4">
+        <class name="FesteroApp.Application.UseCases.DetailUser.UserDetailQueryResult" filename="festero-app\src\FesteroApp.Application\UseCases\DetailUser\UserDetailQueryResult.cs" line-rate="1" branch-rate="1" complexity="4">
           <methods>
             <method name="get_Id" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
@@ -913,7 +913,7 @@
             <line number="3" hits="5" branch="False" />
           </lines>
         </class>
-        <class name="FesteroApp.Users.Application.UseCases.CreateUser.CreateUserCommand" filename="festero-app\src\FesteroApp.Users.Application\UseCases\CreateUser\CreateUserCommand.cs" line-rate="1" branch-rate="1" complexity="3">
+        <class name="FesteroApp.Application.UseCases.CreateUser.CreateUserCommand" filename="festero-app\src\FesteroApp.Application\UseCases\CreateUser\CreateUserCommand.cs" line-rate="1" branch-rate="1" complexity="3">
           <methods>
             <method name="get_Name" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
@@ -937,7 +937,7 @@
             <line number="16" hits="20" branch="False" />
           </lines>
         </class>
-        <class name="FesteroApp.Users.Application.UseCases.CreateUser.CreateUserCommandValidator" filename="festero-app\src\FesteroApp.Users.Application\UseCases\CreateUser\CreateUserCommandValidator.cs" line-rate="1" branch-rate="1" complexity="1">
+        <class name="FesteroApp.Application.UseCases.CreateUser.CreateUserCommandValidator" filename="festero-app\src\FesteroApp.Application\UseCases\CreateUser\CreateUserCommandValidator.cs" line-rate="1" branch-rate="1" complexity="1">
           <methods>
             <method name=".ctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
@@ -981,9 +981,9 @@
             <line number="25" hits="8" branch="False" />
           </lines>
         </class>
-        <class name="FesteroApp.Users.Application.UseCases.CreateUser.CreateUserHandler" filename="festero-app\src\FesteroApp.Users.Application\UseCases\CreateUser\CreateUserHandler.cs" line-rate="1" branch-rate="1" complexity="1">
+        <class name="FesteroApp.Application.UseCases.CreateUser.CreateUserHandler" filename="festero-app\src\FesteroApp.Application\UseCases\CreateUser\CreateUserHandler.cs" line-rate="1" branch-rate="1" complexity="1">
           <methods>
-            <method name=".ctor" signature="(FesteroApp.Users.Domain.Interfaces.IRepository`1&lt;FesteroApp.Users.Domain.Entities.Users.User&gt;,FesteroApp.Users.Domain.Interfaces.IUnitOfWork)" line-rate="1" branch-rate="1" complexity="1">
+            <method name=".ctor" signature="(FesteroApp.Domain.Interfaces.IRepository`1&lt;FesteroApp.Domain.Entities.Users.User&gt;,FesteroApp.Domain.Interfaces.IUnitOfWork)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
                 <line number="6" hits="2" branch="False" />
                 <line number="8" hits="2" branch="False" />
@@ -997,7 +997,7 @@
             <line number="9" hits="2" branch="False" />
           </lines>
         </class>
-        <class name="FesteroApp.Users.Application.UseCases.CreateUser.CreateUserHandler/&lt;HandleAsync&gt;d__3" filename="festero-app\src\FesteroApp.Users.Application\UseCases\CreateUser\CreateUserHandler.cs" line-rate="1" branch-rate="1" complexity="1">
+        <class name="FesteroApp.Application.UseCases.CreateUser.CreateUserHandler/&lt;HandleAsync&gt;d__3" filename="festero-app\src\FesteroApp.Application\UseCases\CreateUser\CreateUserHandler.cs" line-rate="1" branch-rate="1" complexity="1">
           <methods>
             <method name="MoveNext" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
@@ -1019,9 +1019,9 @@
         </class>
       </classes>
     </package>
-    <package name="FesteroApp.Users.Domain" line-rate="1" branch-rate="1" complexity="13">
+    <package name="FesteroApp.Domain" line-rate="1" branch-rate="1" complexity="13">
       <classes>
-        <class name="FesteroApp.Users.Domain.DependencyInjection" filename="festero-app\src\FesteroApp.Users.Domain\DependencyInjection.cs" line-rate="1" branch-rate="1" complexity="1">
+        <class name="FesteroApp.Domain.DependencyInjection" filename="festero-app\src\FesteroApp.Domain\DependencyInjection.cs" line-rate="1" branch-rate="1" complexity="1">
           <methods>
             <method name="AddDomain" signature="(Microsoft.Extensions.DependencyInjection.IServiceCollection)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
@@ -1039,9 +1039,9 @@
             <line number="13" hits="1" branch="False" />
           </lines>
         </class>
-        <class name="FesteroApp.Users.Domain.Security.JwtTokenGenerator" filename="festero-app\src\FesteroApp.Users.Domain\Security\JwtTokenGenerator.cs" line-rate="1" branch-rate="1" complexity="2">
+        <class name="FesteroApp.Domain.Security.JwtTokenGenerator" filename="festero-app\src\FesteroApp.Domain\Security\JwtTokenGenerator.cs" line-rate="1" branch-rate="1" complexity="2">
           <methods>
-            <method name="Generate" signature="(FesteroApp.Users.Domain.Entities.Users.User)" line-rate="1" branch-rate="1" complexity="1">
+            <method name="Generate" signature="(FesteroApp.Domain.Entities.Users.User)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
                 <line number="16" hits="1" branch="False" />
                 <line number="17" hits="1" branch="False" />
@@ -1095,7 +1095,7 @@
             <line number="13" hits="2" branch="False" />
           </lines>
         </class>
-        <class name="FesteroApp.Users.Domain.Entities.Users.User" filename="festero-app\src\FesteroApp.Users.Domain\Entities\Users\User.cs" line-rate="1" branch-rate="1" complexity="10">
+        <class name="FesteroApp.Domain.Entities.Users.User" filename="festero-app\src\FesteroApp.Domain\Entities\Users\User.cs" line-rate="1" branch-rate="1" complexity="10">
           <methods>
             <method name="get_Id" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
@@ -1185,9 +1185,9 @@
         </class>
       </classes>
     </package>
-    <package name="FesteroApp.Users.Infrastructure" line-rate="0.3333" branch-rate="1" complexity="16">
+    <package name="FesteroApp.Infrastructure" line-rate="0.3333" branch-rate="1" complexity="16">
       <classes>
-        <class name="FesteroApp.Users.Infrastructure.DependencyInjection" filename="festero-app\src\FesteroApp.Users.Infrastructure\DependencyInjection.cs" line-rate="1" branch-rate="1" complexity="1">
+        <class name="FesteroApp.Infrastructure.DependencyInjection" filename="festero-app\src\FesteroApp.Infrastructure\DependencyInjection.cs" line-rate="1" branch-rate="1" complexity="1">
           <methods>
             <method name="AddInfrastructure" signature="(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
@@ -1211,9 +1211,9 @@
             <line number="22" hits="1" branch="False" />
           </lines>
         </class>
-        <class name="FesteroApp.Users.Infrastructure.Persistence.UnitOfWork" filename="festero-app\src\FesteroApp.Users.Infrastructure\Persistence\UnitOfWork.cs" line-rate="1" branch-rate="1" complexity="1">
+        <class name="FesteroApp.Infrastructure.Persistence.UnitOfWork" filename="festero-app\src\FesteroApp.Infrastructure\Persistence\UnitOfWork.cs" line-rate="1" branch-rate="1" complexity="1">
           <methods>
-            <method name=".ctor" signature="(FesteroApp.Users.Infrastructure.Persistence.DbContexts.ApplicationDbContext)" line-rate="1" branch-rate="1" complexity="1">
+            <method name=".ctor" signature="(FesteroApp.Infrastructure.Persistence.DbContexts.ApplicationDbContext)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
                 <line number="6" hits="1" branch="False" />
                 <line number="8" hits="1" branch="False" />
@@ -1225,7 +1225,7 @@
             <line number="8" hits="1" branch="False" />
           </lines>
         </class>
-        <class name="FesteroApp.Users.Infrastructure.Persistence.UnitOfWork/&lt;CommitAsync&gt;d__2" filename="festero-app\src\FesteroApp.Users.Infrastructure\Persistence\UnitOfWork.cs" line-rate="0" branch-rate="1" complexity="1">
+        <class name="FesteroApp.Infrastructure.Persistence.UnitOfWork/&lt;CommitAsync&gt;d__2" filename="festero-app\src\FesteroApp.Infrastructure\Persistence\UnitOfWork.cs" line-rate="0" branch-rate="1" complexity="1">
           <methods>
             <method name="MoveNext" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
@@ -1237,7 +1237,7 @@
             <line number="10" hits="0" branch="False" />
           </lines>
         </class>
-        <class name="FesteroApp.Users.Infrastructure.Persistence.Repositories.Repository`1" filename="festero-app\src\FesteroApp.Users.Infrastructure\Persistence\Repositories\Repository.cs" line-rate="0.3333" branch-rate="1" complexity="3">
+        <class name="FesteroApp.Infrastructure.Persistence.Repositories.Repository`1" filename="festero-app\src\FesteroApp.Infrastructure\Persistence\Repositories\Repository.cs" line-rate="0.3333" branch-rate="1" complexity="3">
           <methods>
             <method name="Update" signature="(T)" line-rate="0" branch-rate="1" complexity="1">
               <lines>
@@ -1253,7 +1253,7 @@
                 <line number="56" hits="0" branch="False" />
               </lines>
             </method>
-            <method name=".ctor" signature="(FesteroApp.Users.Infrastructure.Persistence.DbContexts.ApplicationDbContext)" line-rate="1" branch-rate="1" complexity="1">
+            <method name=".ctor" signature="(FesteroApp.Infrastructure.Persistence.DbContexts.ApplicationDbContext)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
                 <line number="11" hits="1" branch="False" />
                 <line number="13" hits="1" branch="False" />
@@ -1273,7 +1273,7 @@
             <line number="14" hits="1" branch="False" />
           </lines>
         </class>
-        <class name="FesteroApp.Users.Infrastructure.Persistence.Repositories.Repository`1/&lt;AddAndCommitAsync&gt;d__4" filename="festero-app\src\FesteroApp.Users.Infrastructure\Persistence\Repositories\Repository.cs" line-rate="0" branch-rate="1" complexity="1">
+        <class name="FesteroApp.Infrastructure.Persistence.Repositories.Repository`1/&lt;AddAndCommitAsync&gt;d__4" filename="festero-app\src\FesteroApp.Infrastructure\Persistence\Repositories\Repository.cs" line-rate="0" branch-rate="1" complexity="1">
           <methods>
             <method name="MoveNext" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
@@ -1291,7 +1291,7 @@
             <line number="31" hits="0" branch="False" />
           </lines>
         </class>
-        <class name="FesteroApp.Users.Infrastructure.Persistence.Repositories.Repository`1/&lt;AddAsync&gt;d__3" filename="festero-app\src\FesteroApp.Users.Infrastructure\Persistence\Repositories\Repository.cs" line-rate="0" branch-rate="1" complexity="1">
+        <class name="FesteroApp.Infrastructure.Persistence.Repositories.Repository`1/&lt;AddAsync&gt;d__3" filename="festero-app\src\FesteroApp.Infrastructure\Persistence\Repositories\Repository.cs" line-rate="0" branch-rate="1" complexity="1">
           <methods>
             <method name="MoveNext" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
@@ -1307,7 +1307,7 @@
             <line number="22" hits="0" branch="False" />
           </lines>
         </class>
-        <class name="FesteroApp.Users.Infrastructure.Persistence.Repositories.Repository`1/&lt;GetAllAsync&gt;d__10" filename="festero-app\src\FesteroApp.Users.Infrastructure\Persistence\Repositories\Repository.cs" line-rate="0" branch-rate="1" complexity="1">
+        <class name="FesteroApp.Infrastructure.Persistence.Repositories.Repository`1/&lt;GetAllAsync&gt;d__10" filename="festero-app\src\FesteroApp.Infrastructure\Persistence\Repositories\Repository.cs" line-rate="0" branch-rate="1" complexity="1">
           <methods>
             <method name="MoveNext" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
@@ -1323,7 +1323,7 @@
             <line number="81" hits="0" branch="False" />
           </lines>
         </class>
-        <class name="FesteroApp.Users.Infrastructure.Persistence.Repositories.Repository`1/&lt;GetByAsync&gt;d__11`1" filename="festero-app\src\FesteroApp.Users.Infrastructure\Persistence\Repositories\Repository.cs" line-rate="0" branch-rate="1" complexity="1">
+        <class name="FesteroApp.Infrastructure.Persistence.Repositories.Repository`1/&lt;GetByAsync&gt;d__11`1" filename="festero-app\src\FesteroApp.Infrastructure\Persistence\Repositories\Repository.cs" line-rate="0" branch-rate="1" complexity="1">
           <methods>
             <method name="MoveNext" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
@@ -1339,7 +1339,7 @@
             <line number="86" hits="0" branch="False" />
           </lines>
         </class>
-        <class name="FesteroApp.Users.Infrastructure.Persistence.Repositories.Repository`1/&lt;GetByIdAsync&gt;d__9" filename="festero-app\src\FesteroApp.Users.Infrastructure\Persistence\Repositories\Repository.cs" line-rate="0" branch-rate="1" complexity="1">
+        <class name="FesteroApp.Infrastructure.Persistence.Repositories.Repository`1/&lt;GetByIdAsync&gt;d__9" filename="festero-app\src\FesteroApp.Infrastructure\Persistence\Repositories\Repository.cs" line-rate="0" branch-rate="1" complexity="1">
           <methods>
             <method name="MoveNext" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
@@ -1355,7 +1355,7 @@
             <line number="73" hits="0" branch="False" />
           </lines>
         </class>
-        <class name="FesteroApp.Users.Infrastructure.Persistence.Repositories.Repository`1/&lt;RemoveAndCommitAsync&gt;d__8" filename="festero-app\src\FesteroApp.Users.Infrastructure\Persistence\Repositories\Repository.cs" line-rate="0" branch-rate="1" complexity="1">
+        <class name="FesteroApp.Infrastructure.Persistence.Repositories.Repository`1/&lt;RemoveAndCommitAsync&gt;d__8" filename="festero-app\src\FesteroApp.Infrastructure\Persistence\Repositories\Repository.cs" line-rate="0" branch-rate="1" complexity="1">
           <methods>
             <method name="MoveNext" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
@@ -1373,7 +1373,7 @@
             <line number="65" hits="0" branch="False" />
           </lines>
         </class>
-        <class name="FesteroApp.Users.Infrastructure.Persistence.Repositories.Repository`1/&lt;UpdateAndCommitAsync&gt;d__6" filename="festero-app\src\FesteroApp.Users.Infrastructure\Persistence\Repositories\Repository.cs" line-rate="0" branch-rate="1" complexity="1">
+        <class name="FesteroApp.Infrastructure.Persistence.Repositories.Repository`1/&lt;UpdateAndCommitAsync&gt;d__6" filename="festero-app\src\FesteroApp.Infrastructure\Persistence\Repositories\Repository.cs" line-rate="0" branch-rate="1" complexity="1">
           <methods>
             <method name="MoveNext" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
@@ -1391,7 +1391,7 @@
             <line number="48" hits="0" branch="False" />
           </lines>
         </class>
-        <class name="FesteroApp.Users.Infrastructure.Persistence.DbContexts.ApplicationDbContext" filename="festero-app\src\FesteroApp.Users.Infrastructure\Persistence\DbContexts\ApplicationDbContext.cs" line-rate="0.8" branch-rate="1" complexity="3">
+        <class name="FesteroApp.Infrastructure.Persistence.DbContexts.ApplicationDbContext" filename="festero-app\src\FesteroApp.Infrastructure\Persistence\DbContexts\ApplicationDbContext.cs" line-rate="0.8" branch-rate="1" complexity="3">
           <methods>
             <method name="get_Users" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
@@ -1405,7 +1405,7 @@
                 <line number="13" hits="1" branch="False" />
               </lines>
             </method>
-            <method name=".ctor" signature="(Microsoft.EntityFrameworkCore.DbContextOptions`1&lt;FesteroApp.Users.Infrastructure.Persistence.DbContexts.ApplicationDbContext&gt;)" line-rate="1" branch-rate="1" complexity="1">
+            <method name=".ctor" signature="(Microsoft.EntityFrameworkCore.DbContextOptions`1&lt;FesteroApp.Infrastructure.Persistence.DbContexts.ApplicationDbContext&gt;)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
                 <line number="6" hits="1" branch="False" />
               </lines>

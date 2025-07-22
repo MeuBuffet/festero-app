@@ -1,5 +1,5 @@
-// using FesteroApp.Users.Domain.Interfaces;
-// using FesteroApp.Users.Infrastructure;
+// using FesteroApp.Domain.Interfaces;
+// using FesteroApp.Infrastructure;
 // using Microsoft.EntityFrameworkCore;
 // using Microsoft.Extensions.Configuration;
 // using Microsoft.Extensions.DependencyInjection;

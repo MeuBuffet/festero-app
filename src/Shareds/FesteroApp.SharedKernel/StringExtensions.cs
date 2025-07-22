@@ -1,11 +1,10 @@
-﻿namespace FesteroApp.SharedKernel
+﻿namespace FesteroApp.SharedKernel;
+
+public static class StringExtensions
 {
-    public static class StringExtensions
+    public static string ToCamelCase(this string value)
     {
-        public static string ToCamelCase(this string value)
-        {
-            if (string.IsNullOrEmpty(value)) return value;
-            return char.ToLowerInvariant(value[0]) + value[1..];
-        }
+        if (string.IsNullOrEmpty(value)) return value;
+        return char.ToLowerInvariant(value[0]) + value[1..];
     }
 }

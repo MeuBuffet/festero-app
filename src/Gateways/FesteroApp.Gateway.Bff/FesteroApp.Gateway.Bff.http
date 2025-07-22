@@ -1,3 +1,0 @@
-@FesteroApp.Gateway.Bff_HostAddress = http://localhost:5205
-Accept: application/json
-###

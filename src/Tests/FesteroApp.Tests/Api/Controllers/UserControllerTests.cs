@@ -1,7 +1,7 @@
-﻿// using FesteroApp.Users.Api.Controllers;
-// using FesteroApp.Users.Application.UseCases.CreateUser;
-// using FesteroApp.Users.Application.UseCases.DetailUser;
-// using FesteroApp.Users.Application.UseCases.LoginUser;
+﻿// using FesteroApp.Api.Controllers;
+// using FesteroApp.Application.UseCases.CreateUser;
+// using FesteroApp.Application.UseCases.DetailUser;
+// using FesteroApp.Application.UseCases.LoginUser;
 // using Microsoft.AspNetCore.Mvc;
 // using Microsoft.Extensions.Logging;
 // using Moq;
