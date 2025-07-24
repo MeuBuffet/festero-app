@@ -12,7 +12,7 @@ public class GetCompanyQueryHandler(IConfiguration configuration) :
 {
     public async Task<GetCompanyQueryResult> HandleAsync(GetCompanyQuery query)
     {
-        var orderBy = " ORDER BY C.Name ASC ";
+        var orderBy = " ORDER BY C.TradeName ASC ";
 
         var sql = $@"
         WITH RecordsRN AS (
@@ -38,7 +38,7 @@ public class GetCompanyQueryHandler(IConfiguration configuration) :
         INNER JOIN [Company] AS CC WITH(NOLOCK) ON CC.Id = @TenantId
         WHERE C.DeletedOn IS NULL
           AND CC.DeletedOn IS NULL
-          AND C.Path LIK CC.Path + '/%'
+          AND C.Path LIKE CC.Path + '/%'
         {Condition(query)}
         )
         SELECT * FROM RecordsRN WITH(NOLOCK) 

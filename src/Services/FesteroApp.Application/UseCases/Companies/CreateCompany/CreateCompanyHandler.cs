@@ -22,16 +22,16 @@ public class CreateCompanyHandler(ICompanyRepository userRepository, IUnitOfWork
         var address = new Address(command.Street!, command.Number!, command.Neighborhood!, command.Complement,
             command.PostalCode!, command.City!, command.State!);
 
-        Company? tentant = null;
+        Company? parent = null;
 
         if (command.TenantId.HasValue)
         {
-            tentant = await _repository.GetAsyncById(command.TenantId.Value);
-            Throw.IsNull(tentant, "Company.Create", "Empresa matriz não encontrada.");
+            parent = await _repository.GetAsyncById(command.TenantId.Value);
+            Throw.IsNull(parent, "Company.Create", "Empresa matriz não encontrada.");
         }
 
         var company = new Company(Guid.NewGuid(), command.LegalName, command.TradeName, command.Document, command.Type,
-            command.Industry, email, phone, address, tentant);
+            command.Industry, email, phone, address, parent);
 
         await _repository.AddAsync(company);
 
