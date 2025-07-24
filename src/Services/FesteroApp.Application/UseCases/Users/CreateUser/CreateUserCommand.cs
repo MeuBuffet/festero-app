@@ -12,12 +12,12 @@ public class CreateUserCommand : ICommand
     [Required] public string? Name { get; set; }
 
     [Required] public string? Document { get; set; }
-    
-    [Required] [EmailAddress] public string? Email { get; set; }
-    
-    [Required] public string? Password { get; set; } 
 
-    [Required] [Phone] public string? Phone { get; set; }
+    [Required][EmailAddress] public string? Email { get; set; }
+
+    [Required] public string? Password { get; set; }
+
+    [Required][Phone] public string? Phone { get; set; }
 
     [Required] public string? Street { get; set; }
 
@@ -32,7 +32,7 @@ public class CreateUserCommand : ICommand
     [Required] public string? PostalCode { get; set; }
 
     public string? Complement { get; set; }
-    
+
     public CreateUserCompany? Company { get; set; }
 
     public class CreateUserCompany
@@ -51,9 +51,9 @@ public class CreateUserCommand : ICommand
 
         [Required] public Industries? Industry { get; set; }
 
-        [Required] [EmailAddress] public string? Email { get; set; }
+        [Required][EmailAddress] public string? Email { get; set; }
 
-        [Required] [Phone] public string? Phone { get; set; }
+        [Required][Phone] public string? Phone { get; set; }
 
         [Required] public string? Street { get; set; }
 
@@ -68,7 +68,7 @@ public class CreateUserCommand : ICommand
         [Required] public string? PostalCode { get; set; }
 
         public string? Complement { get; set; }
-        
+
         [JsonIgnore] public Guid? TenantId { get; set; }
     }
 }
