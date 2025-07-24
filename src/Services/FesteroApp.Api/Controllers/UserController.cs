@@ -1,5 +1,6 @@
 using FesteroApp.Application.UseCases.Users.CreateUser;
 using FesteroApp.Application.UseCases.Users.DeleteUser;
+using FesteroApp.Application.UseCases.Users.GetDetailUser;
 using FesteroApp.Application.UseCases.Users.GetUser;
 using FesteroApp.Application.UseCases.Users.LoginUser;
 using FesteroApp.Application.UseCases.Users.UpdateUser;
@@ -29,6 +30,12 @@ public class UserController(ILogger<UserController> logger, ICommandBus commandB
     {
         query.TenantId = _tenantContext.AccessibleTenantIds;
         return await _requestBus.RequestAsync<GetUserQuery, GetUserQueryResult>(query);
+    }
+    
+    [HttpGet("{id}")]
+    public async Task<GetDetailUserQueryResult> Get(Guid id, [FromQuery] GetDetailUserQuery query)
+    {
+        return await _requestBus.RequestAsync<GetDetailUserQuery, GetDetailUserQueryResult>(new GetDetailUserQuery(id, query.Text));
     }
 
     [HttpPost("login")]
