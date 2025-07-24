@@ -32,6 +32,7 @@
     <Folder Include="Application\UseCases\UpdateUser\" />
     <Folder Include="Api\Middleware\" />
     <Folder Include="Domain\Entities\Users\" />
+    <Folder Include="Domain\Security\" />
     <Folder Include="Infrastructure\" />
   </ItemGroup>
 

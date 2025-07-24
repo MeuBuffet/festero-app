@@ -1,4 +1,3 @@
-using FesteroApp.Application.UseCases.Companies.GetCompany;
 using SrShut.Cqrs.Requests;
 using SrShut.Data;
 

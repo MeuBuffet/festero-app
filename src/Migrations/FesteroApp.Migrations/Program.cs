@@ -22,7 +22,7 @@ namespace FesteroApp.Migrations
                         .ConfigureRunner(rb => rb
                             .AddSqlServer()
                             .WithGlobalConnectionString(connectionString)
-                            .ScanIn(typeof(CreateUsersTable).Assembly).For.Migrations());
+                            .ScanIn(typeof(CreateUserTable).Assembly).For.Migrations());
                 })
                 .Build();
 

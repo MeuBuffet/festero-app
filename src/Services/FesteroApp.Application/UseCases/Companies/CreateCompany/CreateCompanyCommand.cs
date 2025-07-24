@@ -32,4 +32,6 @@ public class CreateCompanyCommand : ICommand
     [Required] public string? PostalCode { get; set; }
 
     public string? Complement { get; set; }
+    
+    [JsonIgnore] public Guid? TenantId { get; set; }
 }

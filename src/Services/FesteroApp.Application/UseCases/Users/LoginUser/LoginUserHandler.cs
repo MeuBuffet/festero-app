@@ -1,5 +1,7 @@
+using FesteroApp.Domain.Interfaces.Companies;
 using FesteroApp.Domain.Interfaces.Users;
 using FesteroApp.Domain.Securities;
+using FesteroApp.SharedKernel;
 using SrShut.Common;
 using SrShut.Cqrs.Commands;
 using SrShut.Data;
@@ -8,24 +10,39 @@ namespace FesteroApp.Application.UseCases.Users.LoginUser;
 
 public class LoginUserHandler : ICommandHandler<LoginUserCommand>
 {
-    private readonly IUserRepository _repository;
+    private readonly IUserRepository _userRepository;
+    private readonly ICompanyRepository _companyRepository;
     private readonly IUnitOfWorkFactory _unitOfWork;
-    private readonly ITokenGenerator _token;
+    private readonly ITokenGenerator _tokenGenerator;
+    private readonly ITenantContext _tenantContext;
 
-    public LoginUserHandler(IUserRepository repository, IUnitOfWorkFactory unitOfWork, ITokenGenerator token)
+    public LoginUserHandler(IUserRepository userRepository, ICompanyRepository companyRepository,
+        IUnitOfWorkFactory unitOfWork, ITokenGenerator tokenGenerator, ITenantContext tenantContext)
     {
-        _repository = repository;
+        Throw.ArgumentIsNull(userRepository);
+        Throw.ArgumentIsNull(companyRepository);
+        Throw.ArgumentIsNull(unitOfWork);
+        Throw.ArgumentIsNull(tokenGenerator);
+        Throw.ArgumentIsNull(tenantContext);
+
+        _userRepository = userRepository;
+        _companyRepository = companyRepository;
         _unitOfWork = unitOfWork;
-        _token = token;
+        _tokenGenerator = tokenGenerator;
+        _tenantContext = tenantContext;
     }
 
     public async Task HandleAsync(LoginUserCommand command)
     {
-        Throw.IsFalse(await _repository.IsCredentialsValid(command.Email!, command.Password), "User.Login",
+        Throw.IsFalse(await _userRepository.IsCredentialsValid(command.Email!, command.Password), "User.Login",
             "Usuário e/ou senha incorretas.");
 
-        var user = await _repository.GetAsyncByEmail(command.Email!);
-        var token = _token.Generate(user);
+        var tenantId = _tenantContext.TenantId;
+        Throw.IsNull(tenantId, "User.Login", "Empresa não encontrada.");
+
+        var user = await _userRepository.GetAsyncByEmail(command.Email!);
+        var company = await _companyRepository.GetAsyncById(tenantId);
+        var token = _tokenGenerator.Generate(user, company);
 
         command.Token = token;
     }

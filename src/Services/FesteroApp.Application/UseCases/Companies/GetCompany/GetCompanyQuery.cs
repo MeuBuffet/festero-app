@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using SrShut.Cqrs.Requests;
 using SrShut.Data;
 
@@ -7,13 +8,14 @@ public class GetCompanyQuery : PaginationCriteria, IRequest<GetCompanyQueryResul
 {
     public GetCompanyQuery()
     {
-        
     }
-    
+
     public GetCompanyQuery(string? text) : base()
     {
         Text = text;
     }
 
     public string? Text { get; set; }
+
+    [JsonIgnore] public Guid? TenantId { get; set; }
 }

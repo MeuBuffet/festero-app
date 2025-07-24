@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using SrShut.Cqrs.Commands;
 
 namespace FesteroApp.Application.UseCases.Users.LoginUser;

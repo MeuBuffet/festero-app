@@ -1,20 +1,15 @@
 using System.Text;
 using Dapper;
-using FesteroApp.Application.UseCases.Users.GetUser;
 using Microsoft.Extensions.Configuration;
 using SrShut.Cqrs.Requests;
 using SrShut.Data;
 
 namespace FesteroApp.Application.UseCases.Companies.GetCompany;
 
-public class GetCompanyQueryHandler :
-    BaseDataAccess,
+public class GetCompanyQueryHandler(IConfiguration configuration) :
+    BaseDataAccess(configuration),
     IRequestHandler<GetCompanyQuery, GetCompanyQueryResult>
 {
-    public GetCompanyQueryHandler(IConfiguration configuration) : base(configuration)
-    {
-    }
-
     public async Task<GetCompanyQueryResult> HandleAsync(GetCompanyQuery query)
     {
         var orderBy = " ORDER BY C.Name ASC ";
@@ -23,8 +18,8 @@ public class GetCompanyQueryHandler :
         WITH RecordsRN AS (
         SELECT 
             C.Id,
-            C.Name,
-            C.CorporateName,
+            C.LegalName,
+            C.TradeName,
             C.Document,
             C.Phone,
             C.Email,
@@ -40,7 +35,10 @@ public class GetCompanyQueryHandler :
             ROW_NUMBER() OVER({orderBy}) as NumberLine,
             COUNT(*) OVER() AS TotalRows 
         FROM [Company] AS C WITH(NOLOCK)
+        INNER JOIN [Company] AS CC WITH(NOLOCK) ON CC.Id = @TenantId
         WHERE C.DeletedOn IS NULL
+          AND CC.DeletedOn IS NULL
+          AND C.Path LIK CC.Path + '/%'
         {Condition(query)}
         )
         SELECT * FROM RecordsRN WITH(NOLOCK) 
@@ -60,8 +58,8 @@ public class GetCompanyQueryHandler :
             var item = new GetCompanyQueryResult.GetCompanyQueryItem()
             {
                 Id = row.Id,
-                Name = row.Name,
-                CorporateName = row.CorporateName,
+                LegalName = row.LegalName,
+                TradeName = row.TradeName,
                 Document = row.Document,
                 Email = row.Email,
                 Phone = row.Phone,

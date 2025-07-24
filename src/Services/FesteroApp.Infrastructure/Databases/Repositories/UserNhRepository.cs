@@ -24,7 +24,7 @@ public class UserNhRepository : EventBusRepository<User>, IUserRepository
         var session = unitOfWork.Context;
 
         return await session.Query<User>()
-            .Where(u => u.Email == email && u.Password == password)
+            .Where(u => u.Email!.Address == email && u.Password == password)
             .AnyAsync();
     }
 
@@ -34,7 +34,7 @@ public class UserNhRepository : EventBusRepository<User>, IUserRepository
         var session = unitOfWork.Context;
 
         return await session.Query<User>()
-            .Where(u => u.Email == email)
+            .Where(u => u.Email!.Address == email)
             .AnyAsync();
     }
 
@@ -44,7 +44,7 @@ public class UserNhRepository : EventBusRepository<User>, IUserRepository
         var session = unitOfWork.Context;
 
         return await session.Query<User>()
-            .Where(u => u.Email == email)
+            .Where(u => u.Email!.Address == email)
             .FirstOrDefaultAsync();
     }
 }

@@ -3,7 +3,7 @@
 namespace FesteroApp.Migrations.Versions;
 
 [Migration(202507172214)]
-public class CreateUsersTable : Migration
+public class CreateUserTable : Migration
 {
     public override void Up()
     {

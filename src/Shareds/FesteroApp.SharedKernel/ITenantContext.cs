@@ -1,4 +1,4 @@
-namespace FesteroApp.Api.Middlewares;
+namespace FesteroApp.SharedKernel;
 
 public interface ITenantContext
 {

@@ -16,9 +16,9 @@ public class GetCompanyQueryResult : PartialCollection<GetCompanyQueryResult.Get
     {
         public Guid? Id { get; set; }
         
-        public string? Name { get; set; }
+        public string? LegalName { get; set; }
         
-        public string? CorporateName { get; set; }
+        public string? TradeName { get; set; }
         
         public string? Document { get; set; }
         

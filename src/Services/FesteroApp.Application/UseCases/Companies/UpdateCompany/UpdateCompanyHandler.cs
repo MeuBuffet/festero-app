@@ -19,7 +19,7 @@ public class UpdateCompanyHandler(ICompanyRepository userRepository, IUnitOfWork
         var phone = new Phone(command.Phone!);
         var address = new Address(command.Street!, command.Number!, command.Neighborhood!, command.Complement, command.PostalCode!, command.City!, command.State!);
         
-        company.Update(company.Name, company.CorporateName, company.Document, email,  phone, address);
+        company.Update(company.LegalName, company.TradeName, company.Document, email,  phone, address);
             
         await _repository.UpdateAsync(company!);
     }

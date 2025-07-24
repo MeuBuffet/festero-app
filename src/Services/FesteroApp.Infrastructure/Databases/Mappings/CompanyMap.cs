@@ -8,22 +8,19 @@ public class CompanyMap : ClassMap<Company>
     public CompanyMap()
     {
         Id(x => x.Id).GeneratedBy.GuidComb();
-        Map(x => x.Name).Not.Nullable();
-        Map(x => x.CorporateName).Not.Nullable();
+        Map(x => x.LegalName).Not.Nullable();
+        Map(x => x.TradeName).Not.Nullable();
         Map(x => x.Document).Not.Nullable();
+
         Map(x => x.CreatedOn).Not.Nullable();
         Map(x => x.UpdatedOn).Not.Nullable();
         Map(x => x.DeletedOn).Nullable();
+        Map(x => x.Level).Not.Nullable();
+        Map(x => x.Path).Not.Nullable();
 
-        Component(x => x.Email, c =>
-        {
-            c.Map(x => x.Address).Column("Email").Not.Nullable();
-        });
+        Component(x => x.Email, c => { c.Map(x => x.Address).Column("Email").Not.Nullable(); });
 
-        Component(x => x.Phone, c =>
-        {
-            c.Map(x => x.Number).Column("Phone").Not.Nullable();
-        });
+        Component(x => x.Phone, c => { c.Map(x => x.Number).Column("Phone").Not.Nullable(); });
 
         Component(x => x.Address, c =>
         {
@@ -35,5 +32,10 @@ public class CompanyMap : ClassMap<Company>
             c.Map(x => x.City).Not.Nullable();
             c.Map(x => x.State).Not.Nullable();
         });
+        
+        References(x=>x.TentantCompany)
+            .Column("TenantId")
+            .Nullable()
+            .Cascade.None();
     }
 }

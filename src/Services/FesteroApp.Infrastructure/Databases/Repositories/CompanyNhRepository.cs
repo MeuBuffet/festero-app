@@ -8,16 +8,25 @@ using SrShut.Nhibernate;
 
 namespace FesteroApp.Infrastructure.Databases.Repositories;
 
-public class CompanyNhRepository : EventBusRepository<Company>, ICompanyRepository
+public class CompanyNhRepository(
+    IConfiguration configuration,
+    IUnitOfWorkFactory<ISession> sessionManager,
+    IServiceProvider serviceProvider)
+    : EventBusRepository<Company>(configuration, sessionManager, serviceProvider), ICompanyRepository
 {
-    public CompanyNhRepository(
-        IConfiguration configuration,
-        IUnitOfWorkFactory<ISession> sessionManager,
-        IServiceProvider serviceProvider)
-        : base(configuration, sessionManager, serviceProvider)
+    public async Task<IList<Company>> GetAccessibleCompaniesAsync(Guid currentCompanyId)
     {
-    }
+        using var unitOfWork = UnitOfWorkFactory.Get();
+        var session = unitOfWork.Context;
+        
+        var current = await session.GetAsync<Company>(currentCompanyId);
+        if (current == null) return new List<Company>();
 
+        return await session.Query<Company>()
+            .Where(c => c.Path!.StartsWith(current.Path!))
+            .ToListAsync();
+    }
+    
     public async Task<bool> HasUserByEmail(string document)
     {
         using var unitOfWork = UnitOfWorkFactory.Get();

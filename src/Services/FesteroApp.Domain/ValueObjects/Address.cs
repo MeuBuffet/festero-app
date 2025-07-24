@@ -1,3 +1,5 @@
+namespace FesteroApp.Domain.ValueObjects;
+
 public class Address
 {
     protected Address()

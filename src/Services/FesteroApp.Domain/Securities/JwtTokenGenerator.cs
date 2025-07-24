@@ -1,6 +1,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using FesteroApp.Domain.Entities.Companies;
 using FesteroApp.Domain.Entities.Users;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -11,7 +12,7 @@ public class JwtTokenGenerator(IConfiguration configuration) : ITokenGenerator
 {
     private readonly IConfiguration _configuration = configuration;
 
-    public string Generate(User company)
+    public string Generate(User user, Company company)
     {
         var key = Encoding.ASCII.GetBytes(_configuration["Security:Key"]!);
         var expiration = DateTime.UtcNow.AddHours(2);
@@ -20,10 +21,10 @@ public class JwtTokenGenerator(IConfiguration configuration) : ITokenGenerator
         {
             Subject = new ClaimsIdentity(
             [
-                new Claim(ClaimTypes.NameIdentifier, company.Id.ToString()),
-                new Claim(ClaimTypes.Email, company.Email!),
-                new Claim(ClaimTypes.Name, company.Name!),
-                new Claim("tenant_id", "")
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Email, user.Email!.Address!),
+                new Claim(ClaimTypes.Name, user.Name!),
+                new Claim("tenant_id", company.Id.ToString()),
             ]),
             Expires = expiration,
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),

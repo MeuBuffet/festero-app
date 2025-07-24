@@ -5,22 +5,16 @@ using SrShut.Data;
 
 namespace FesteroApp.Application.UseCases.Users.UpdateUser;
 
-public class UpdateUserHandler : ICommandHandler<UpdateUserCommand>
+public class UpdateUserHandler(IUserRepository repository, IUnitOfWorkFactory unitOfWork) :
+    ICommandHandler<UpdateUserCommand>
 {
-    private readonly IUserRepository _repository;
-    private readonly IUnitOfWorkFactory _unitOfWork;
-
-    public UpdateUserHandler(IUserRepository repository, IUnitOfWorkFactory unitOfWork)
-    {
-        _repository = repository;
-        _unitOfWork = unitOfWork;
-    }
+    private readonly IUnitOfWorkFactory _unitOfWork = unitOfWork;
 
     public async Task HandleAsync(UpdateUserCommand command)
     {
-        var user = await _repository.GetAsyncById(command.Id);
+        var user = await repository.GetAsyncById(command.Id);
         Throw.IsNull(user, "User", "Usuário nao encontrado.");
             
-        await _repository.UpdateAsync(user!);
+        await repository.UpdateAsync(user!);
     }
 }

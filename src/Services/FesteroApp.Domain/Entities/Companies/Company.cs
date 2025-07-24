@@ -1,33 +1,40 @@
 using FesteroApp.Domain.ValueObjects;
+using SrShut.Cqrs.Domains;
 
 namespace FesteroApp.Domain.Entities.Companies;
 
-public class Company
+public class Company : AggregateRoot<Guid>
 {
     public Company()
     {
     }
 
-    public Company(Guid id, string? name, string? corporateName, string? document, Email email, Phone phone, Address address) : this()
+    public Company(Guid id, string? legalName, string? tradeName, string? document, Email email, Phone phone,
+        Address address, Company? tentant = null) : this()
     {
         Id = id;
-        Name = name;
-        CorporateName = corporateName;
+        LegalName = legalName;
+        TradeName = tradeName;
         Document = document;
         Email = email;
         Phone = phone;
         Address = address;
+        SetTentant(tentant);
 
         CreatedOn = UpdatedOn = DateTime.Now;
     }
 
-    public virtual Guid Id { get; set; }
+    public override Guid Id { get; set; }
 
-    public virtual string? Name { get; set; }
+    public virtual string? LegalName { get; set; }
 
-    public virtual string? CorporateName { get; set; }
+    public virtual string? TradeName { get; set; }
 
     public virtual string? Document { get; set; }
+
+    public virtual int Level { get; set; }
+
+    public virtual string? Path { get; set; }
 
     public virtual DateTime? CreatedOn { get; set; }
 
@@ -41,11 +48,20 @@ public class Company
 
     public virtual Address Address { get; protected set; }
 
+    public virtual Company TentantCompany { get; protected set; }
+
+    public virtual void SetTenant(Company? tentant)
+    {
+        TentantCompany = tentant;
+        Level = tentant?.Level + 1 ?? 0;
+        Path = tentant != null ? $"{tentant.Path}/{Id}" : $"/{Id}";
+    }
+
     public virtual void Update(string? name, string? corporateName, string? document, Email email, Phone phone,
         Address address)
     {
-        Name = name;
-        CorporateName = corporateName;
+        LegalName = name;
+        TradeName = corporateName;
         Document = document;
         Email = email;
         Phone = phone;

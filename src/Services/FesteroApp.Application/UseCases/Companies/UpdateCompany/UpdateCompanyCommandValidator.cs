@@ -1,4 +1,3 @@
-using FesteroApp.Application.UseCases.Companies.CreateCompany;
 using FluentValidation;
 
 namespace FesteroApp.Application.UseCases.Companies.UpdateCompany;
@@ -8,7 +7,7 @@ public class UpdateCompanyCommandValidator : AbstractValidator<UpdateCompanyComm
     public UpdateCompanyCommandValidator()
     {
         RuleFor(x => x.Name)
-            .NotEmpty().WithMessage("Razao social é obrigatório.")
+            .NotEmpty().WithMessage("Razão social é obrigatório.")
             .MaximumLength(500).WithMessage("Tamanho máximo é de 500 caracteres.");
             
         RuleFor(x => x.CorporateName)
