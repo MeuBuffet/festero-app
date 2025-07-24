@@ -1,6 +1,7 @@
 ﻿using FesteroApp.Application.UseCases.Companies.CreateCompany;
 using FesteroApp.Application.UseCases.Companies.DeleteCompany;
 using FesteroApp.Application.UseCases.Companies.GetCompany;
+using FesteroApp.Application.UseCases.Companies.GetUserByCompany;
 using FesteroApp.Application.UseCases.Companies.UpdateCompany;
 using FesteroApp.Application.UseCases.Users.CreateUser;
 using FesteroApp.Application.UseCases.Users.DeleteUser;
@@ -24,20 +25,29 @@ public static class DependencyInjection
 
     private static void RegisterCommands(this IServiceCollection services)
     {
+        services.AddScoped<CreateCompanyHandler>();
+        services.AddScoped<UpdateCompanyHandler>();
+        services.AddScoped<DeleteCompanyHandler>();
+        
         services.AddScoped<CreateUserHandler>();
         services.AddScoped<UpdateUserHandler>();
         services.AddScoped<DeleteUserHandler>();
         
         services.AddScoped<LoginUserHandler>();
-        
-        services.AddScoped<CreateCompanyHandler>();
-        services.AddScoped<UpdateCompanyHandler>();
-        services.AddScoped<DeleteCompanyHandler>();
 
         services.AddScoped<ICommandBus>(a =>
         {
             var commandBus = a.GetService<MemoryContainerBus>() ?? throw new Exception("commandBus is not found");
 
+            var createCompanyHandler = a.GetService<CreateCompanyHandler>();
+            commandBus.Register<CreateCompanyCommand, CreateCompanyCommandValidator>(createCompanyHandler!);
+
+            var updateCompanyHandler = a.GetService<UpdateCompanyHandler>();
+            commandBus.Register<UpdateCompanyCommand, UpdateCompanyCommandValidator>(updateCompanyHandler!);
+
+            var deleteCompanyHandler = a.GetService<DeleteCompanyHandler>();
+            commandBus.Register<DeleteCompanyCommand, DeleteCompanyCommandValidator>(deleteCompanyHandler!);
+            
             var createUserHandler = a.GetService<CreateUserHandler>();
             commandBus.Register<CreateUserCommand, CreateUserCommandValidator>(createUserHandler!);
 
@@ -49,15 +59,6 @@ public static class DependencyInjection
             
             var loginUserHandler = a.GetService<LoginUserHandler>();
             commandBus.Register<LoginUserCommand, LoginUserCommandValidator>(loginUserHandler!);
-
-            var createCompanyHandler = a.GetService<CreateCompanyHandler>();
-            commandBus.Register<CreateCompanyCommand, CreateCompanyCommandValidator>(createCompanyHandler!);
-
-            var updateCompanyHandler = a.GetService<UpdateCompanyHandler>();
-            commandBus.Register<UpdateCompanyCommand, UpdateCompanyCommandValidator>(updateCompanyHandler!);
-
-            var deleteCompanyHandler = a.GetService<DeleteCompanyHandler>();
-            commandBus.Register<DeleteCompanyCommand, DeleteCompanyCommandValidator>(deleteCompanyHandler!);
             
             return commandBus;
         });
@@ -66,6 +67,8 @@ public static class DependencyInjection
     private static void RegisterQueries(this IServiceCollection services)
     {
         services.AddScoped<GetCompanyQueryHandler>();
+        services.AddScoped<GetUserByCompanyQueryHandler>();
+        
         services.AddScoped<GetUserQueryHandler>();
 
         services.AddScoped<IRequestBus>(a =>
@@ -75,6 +78,9 @@ public static class DependencyInjection
             var getCompanyQueryHandler = a.GetService<GetCompanyQueryHandler>();
             queryBus.Register<GetCompanyQuery, GetCompanyQueryResult>(getCompanyQueryHandler!);
 
+            var getUserByCompanyQueryHandler = a.GetService<GetUserByCompanyQueryHandler>();
+            queryBus.Register<GetUserByCompanyQuery, GetUserByCompanyQueryResult>(getUserByCompanyQueryHandler!);
+            
             var getUserQueryHandler = a.GetService<GetUserQueryHandler>();
             queryBus.Register<GetUserQuery, GetUserQueryResult>(getUserQueryHandler!);
             

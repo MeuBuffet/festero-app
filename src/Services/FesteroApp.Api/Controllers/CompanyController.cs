@@ -1,6 +1,7 @@
 using FesteroApp.Application.UseCases.Companies.CreateCompany;
 using FesteroApp.Application.UseCases.Companies.DeleteCompany;
 using FesteroApp.Application.UseCases.Companies.GetCompany;
+using FesteroApp.Application.UseCases.Companies.GetUserByCompany;
 using FesteroApp.Application.UseCases.Companies.UpdateCompany;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -22,6 +23,12 @@ public class CompanyController(ILogger<CompanyController> logger, ICommandBus co
     public async Task<GetCompanyQueryResult> Get([FromQuery] GetCompanyQuery query)
     {
         return await _requestBus.RequestAsync<GetCompanyQuery, GetCompanyQueryResult>(query);
+    }
+    
+    [HttpGet("{id}/users")]
+    public async Task<GetUserByCompanyQueryResult> GetUsers(Guid id, [FromQuery] GetUserByCompanyQuery query)
+    {
+        return await _requestBus.RequestAsync<GetUserByCompanyQuery, GetUserByCompanyQueryResult>(new  GetUserByCompanyQuery(id, query.Text));
     }
     
     [HttpPost]
