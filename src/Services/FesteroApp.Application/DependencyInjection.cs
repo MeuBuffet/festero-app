@@ -6,6 +6,7 @@ using FesteroApp.Application.UseCases.Companies.GetUserByCompany;
 using FesteroApp.Application.UseCases.Companies.UpdateCompany;
 using FesteroApp.Application.UseCases.Users.CreateUser;
 using FesteroApp.Application.UseCases.Users.DeleteUser;
+using FesteroApp.Application.UseCases.Users.GetDetailUser;
 using FesteroApp.Application.UseCases.Users.GetUser;
 using FesteroApp.Application.UseCases.Users.LoginUser;
 using FesteroApp.Application.UseCases.Users.UpdateUser;
@@ -71,6 +72,7 @@ public static class DependencyInjection
         services.AddScoped<GetUserByCompanyQueryHandler>();
         
         services.AddScoped<GetUserQueryHandler>();
+        services.AddScoped<GetDetailUserQueryHandler>();
 
         services.AddScoped<IRequestBus>(a =>
         {
@@ -84,6 +86,9 @@ public static class DependencyInjection
             
             var getUserQueryHandler = a.GetService<GetUserQueryHandler>();
             queryBus.Register<GetUserQuery, GetUserQueryResult>(getUserQueryHandler!);
+            
+            var getDetailUserQueryHandler = a.GetService<GetDetailUserQueryHandler>();
+            queryBus.Register<GetDetailUserQuery, GetDetailUserQueryResult>(getDetailUserQueryHandler!);
             
             return queryBus;
         });
