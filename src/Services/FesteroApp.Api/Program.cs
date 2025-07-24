@@ -36,10 +36,10 @@ CultureInfo.DefaultThreadCurrentCulture = culture;
 CultureInfo.DefaultThreadCurrentUICulture = culture;
 
 // 🧱 Add DI
+builder.Services.AddScoped<ITenantContext, TenantContext>();
 builder.Services.AddApplication();
 builder.Services.AddDomain();
 builder.Services.AddInfrastructure(builder.Configuration);
-builder.Services.AddScoped<ITenantContext, TenantContext>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddAuthorization(options =>
 {

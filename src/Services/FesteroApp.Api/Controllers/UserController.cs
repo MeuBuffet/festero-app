@@ -60,7 +60,7 @@ public class UserController(ILogger<UserController> logger, ICommandBus commandB
     }
     
     [Authorize(Policy = "ManagerOrAbove")]
-    [HttpPut("{id}")]
+    [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(Guid id, [FromBody] DeleteUserCommand command)
     {
         command.Id = id;

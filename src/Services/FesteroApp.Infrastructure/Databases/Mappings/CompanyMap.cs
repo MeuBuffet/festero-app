@@ -33,9 +33,14 @@ public class CompanyMap : ClassMap<Company>
             c.Map(x => x.State).Not.Nullable();
         });
         
-        References(x=>x.TentantCompany)
+        References(x=>x.TenantCompany)
             .Column("TenantId")
             .Nullable()
             .Cascade.None();
+        
+        HasMany(x => x.UserCompanies)
+            .KeyColumn("CompanyId")
+            .Inverse()
+            .Cascade.All();
     }
 }

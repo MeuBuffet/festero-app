@@ -24,16 +24,17 @@ public static class DependencyInjection
 
     private static void RegisterCommands(this IServiceCollection services)
     {
-        services.AddSingleton<CreateUserHandler>();
-        services.AddSingleton<UpdateUserHandler>();
-        services.AddSingleton<DeleteUserHandler>();
-        services.AddSingleton<LoginUserHandler>();
+        services.AddScoped<CreateUserHandler>();
+        services.AddScoped<UpdateUserHandler>();
+        services.AddScoped<DeleteUserHandler>();
         
-        services.AddSingleton<CreateCompanyHandler>();
-        services.AddSingleton<UpdateCompanyHandler>();
-        services.AddSingleton<DeleteCompanyHandler>();
+        services.AddScoped<LoginUserHandler>();
+        
+        services.AddScoped<CreateCompanyHandler>();
+        services.AddScoped<UpdateCompanyHandler>();
+        services.AddScoped<DeleteCompanyHandler>();
 
-        services.AddSingleton<ICommandBus>(a =>
+        services.AddScoped<ICommandBus>(a =>
         {
             var commandBus = a.GetService<MemoryContainerBus>() ?? throw new Exception("commandBus is not found");
 
@@ -64,10 +65,10 @@ public static class DependencyInjection
 
     private static void RegisterQueries(this IServiceCollection services)
     {
-        services.AddSingleton<GetCompanyQueryHandler>();
-        services.AddSingleton<GetUserQueryHandler>();
+        services.AddScoped<GetCompanyQueryHandler>();
+        services.AddScoped<GetUserQueryHandler>();
 
-        services.AddSingleton<IRequestBus>(a =>
+        services.AddScoped<IRequestBus>(a =>
         {
             var queryBus = a.GetService<MemoryContainerBus>() ?? throw new Exception("queryBus is not found");
 

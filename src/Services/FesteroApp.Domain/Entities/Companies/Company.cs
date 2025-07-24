@@ -1,3 +1,4 @@
+using FesteroApp.Domain.Entities.Users;
 using FesteroApp.Domain.ValueObjects;
 using SrShut.Cqrs.Domains;
 
@@ -7,6 +8,7 @@ public class Company : AggregateRoot<Guid>
 {
     public Company()
     {
+        UserCompanies = new List<UserCompany>();
     }
 
     public Company(Guid id, string? legalName, string? tradeName, string? document, Email email, Phone phone,
@@ -48,13 +50,15 @@ public class Company : AggregateRoot<Guid>
 
     public virtual Address Address { get; protected set; }
 
-    public virtual Company TentantCompany { get; protected set; }
+    public virtual Company TenantCompany { get; protected set; }
+    
+    public virtual IList<UserCompany> UserCompanies { get; protected set; } 
 
-    public virtual void SetTenant(Company? tentant)
+    public virtual void SetTenant(Company? tenant)
     {
-        TentantCompany = tentant;
-        Level = tentant?.Level + 1 ?? 0;
-        Path = tentant != null ? $"{tentant.Path}/{Id}" : $"/{Id}";
+        TenantCompany = tenant;
+        Level = tenant?.Level + 1 ?? 0;
+        Path = tenant != null ? $"{tenant.Path}/{Id}" : $"/{Id}";
     }
 
     public virtual void Update(string? name, string? corporateName, string? document, Email email, Phone phone,
