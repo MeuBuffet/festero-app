@@ -1,0 +1,65 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Title>Festero App</Title>
+        <Authors>FesteroApp@2025</Authors>
+        <Copyright>FesteroApp@2025</Copyright>
+        <AssemblyVersion>1.0.0</AssemblyVersion>
+        <FileVersion>1.0.0</FileVersion>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <DocumentationFile>bin\Debug\net8.0\FesteroApp.Api.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="FluentValidation" Version="12.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.18" />
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.18"/>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2"/>
+        <PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Shareds\FesteroApp.SharedKernel\FesteroApp.SharedKernel.csproj" />
+      <ProjectReference Include="..\FesteroApp.Application\FesteroApp.Application.csproj" />
+      <ProjectReference Include="..\FesteroApp.Infrastructure\FesteroApp.Infrastructure.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="SrShut.Cache">
+        <HintPath>..\..\Libraries\SrShut.Cache.dll</HintPath>
+      </Reference>
+      <Reference Include="SrShut.Common">
+        <HintPath>..\..\Libraries\SrShut.Common.dll</HintPath>
+      </Reference>
+      <Reference Include="SrShut.Cqrs">
+        <HintPath>..\..\Libraries\SrShut.Cqrs.dll</HintPath>
+      </Reference>
+      <Reference Include="SrShut.Data">
+        <HintPath>..\..\Libraries\SrShut.Data.dll</HintPath>
+      </Reference>
+      <Reference Include="SrShut.LogSystem">
+        <HintPath>..\..\Libraries\SrShut.LogSystem.dll</HintPath>
+      </Reference>
+      <Reference Include="SrShut.Mvc">
+        <HintPath>..\..\Libraries\SrShut.Mvc.dll</HintPath>
+      </Reference>
+      <Reference Include="SrShut.Nhibernate">
+        <HintPath>..\..\Libraries\SrShut.Nhibernate.dll</HintPath>
+      </Reference>
+      <Reference Include="SrShut.Security">
+        <HintPath>..\..\Libraries\SrShut.Security.dll</HintPath>
+      </Reference>
+      <Reference Include="SrShut.Tests">
+        <HintPath>..\..\Libraries\SrShut.Tests.dll</HintPath>
+      </Reference>
+      <Reference Include="SrShut.Validation">
+        <HintPath>..\..\Libraries\SrShut.Validation.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+</Project>

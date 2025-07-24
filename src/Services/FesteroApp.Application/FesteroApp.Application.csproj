@@ -1,0 +1,53 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Reference Include="SrShut.Cache">
+        <HintPath>..\..\Libraries\SrShut.Cache.dll</HintPath>
+      </Reference>
+      <Reference Include="SrShut.Common">
+        <HintPath>..\..\Libraries\SrShut.Common.dll</HintPath>
+      </Reference>
+      <Reference Include="SrShut.Cqrs">
+        <HintPath>..\..\Libraries\SrShut.Cqrs.dll</HintPath>
+      </Reference>
+      <Reference Include="SrShut.Data">
+        <HintPath>..\..\Libraries\SrShut.Data.dll</HintPath>
+      </Reference>
+      <Reference Include="SrShut.LogSystem">
+        <HintPath>..\..\Libraries\SrShut.LogSystem.dll</HintPath>
+      </Reference>
+      <Reference Include="SrShut.Mvc">
+        <HintPath>..\..\Libraries\SrShut.Mvc.dll</HintPath>
+      </Reference>
+      <Reference Include="SrShut.Nhibernate">
+        <HintPath>..\..\Libraries\SrShut.Nhibernate.dll</HintPath>
+      </Reference>
+      <Reference Include="SrShut.Security">
+        <HintPath>..\..\Libraries\SrShut.Security.dll</HintPath>
+      </Reference>
+      <Reference Include="SrShut.Tests">
+        <HintPath>..\..\Libraries\SrShut.Tests.dll</HintPath>
+      </Reference>
+      <Reference Include="SrShut.Validation">
+        <HintPath>..\..\Libraries\SrShut.Validation.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Dapper" Version="2.1.66" />
+      <PackageReference Include="FluentValidation" Version="12.0.0" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Shareds\FesteroApp.SharedKernel\FesteroApp.SharedKernel.csproj" />
+      <ProjectReference Include="..\FesteroApp.Domain\FesteroApp.Domain.csproj" />
+    </ItemGroup>
+
+</Project>
