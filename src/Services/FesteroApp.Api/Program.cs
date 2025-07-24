@@ -23,6 +23,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using MassTransit.Configuration;
 using System.Text.Json;
+using FesteroApp.SharedKernel.Securities;
 
 var builder = WebApplication.CreateBuilder(args);
 

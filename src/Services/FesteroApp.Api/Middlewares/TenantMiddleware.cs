@@ -1,6 +1,7 @@
 using System.Text.Json;
 using FesteroApp.Domain.Securities;
 using FesteroApp.SharedKernel;
+using FesteroApp.SharedKernel.Securities;
 
 namespace FesteroApp.Api.Middlewares;
 

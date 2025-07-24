@@ -1,4 +1,4 @@
-namespace FesteroApp.SharedKernel;
+namespace FesteroApp.SharedKernel.Securities;
 
 public class TenantContext : ITenantContext
 {

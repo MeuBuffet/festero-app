@@ -1,6 +1,4 @@
-using System.ComponentModel;
-
-namespace FesteroApp.SharedKernel;
+namespace FesteroApp.SharedKernel.Securities;
 
 public static class Roles
 {
