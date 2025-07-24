@@ -10,10 +10,11 @@ public class Company : AggregateRoot<Guid>
     public Company()
     {
         UserCompanies = new List<UserCompany>();
+        Children = new List<Company>();
     }
 
     public Company(Guid id, string? legalName, string? tradeName, string? document, string? type, Industries? industry,
-        Email? email, Phone? phone, Address? address, Company? tentant = null) : this()
+        Email? email, Phone? phone, Address? address, Company? parent = null) : this()
     {
         Id = id;
         LegalName = legalName;
@@ -24,7 +25,7 @@ public class Company : AggregateRoot<Guid>
         Email = email;
         Phone = phone;
         Address = address;
-        SetTenant(tentant);
+        SetTenant(parent);
 
         CreatedOn = UpdatedOn = DateTime.Now;
     }
@@ -57,15 +58,17 @@ public class Company : AggregateRoot<Guid>
 
     public virtual Address? Address { get; protected set; }
 
-    public virtual Company? TenantCompany { get; protected set; }
+    public virtual Company? Parent { get; protected set; }
 
+    public virtual IList<Company> Children { get; protected set; }
+    
     public virtual IList<UserCompany> UserCompanies { get; protected set; }
 
-    public virtual void SetTenant(Company? tenant)
+    public virtual void SetTenant(Company? parent)
     {
-        TenantCompany = tenant;
-        Level = tenant?.Level + 1 ?? 0;
-        Path = tenant != null ? $"{tenant.Path}/{Id}" : $"/{Id}";
+        Parent = parent;
+        Level = parent?.Level + 1 ?? 0;
+        Path = parent != null ? $"{parent.Path}/{Id}" : $"/{Id}";
     }
 
     public virtual void Update(string? legalName, string? tradeName, string? document, string? type, Industries? industry,
