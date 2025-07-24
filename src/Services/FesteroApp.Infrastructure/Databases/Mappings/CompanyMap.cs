@@ -11,6 +11,8 @@ public class CompanyMap : ClassMap<Company>
         Map(x => x.LegalName).Not.Nullable();
         Map(x => x.TradeName).Not.Nullable();
         Map(x => x.Document).Not.Nullable();
+        Map(x => x.Type).Not.Nullable();
+        Map(x => x.Industry).Not.Nullable();
 
         Map(x => x.CreatedOn).Not.Nullable();
         Map(x => x.UpdatedOn).Not.Nullable();

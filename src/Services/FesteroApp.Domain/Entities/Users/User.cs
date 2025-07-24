@@ -1,5 +1,6 @@
 using FesteroApp.Domain.Entities.Companies;
 using FesteroApp.Domain.ValueObjects;
+using FesteroApp.SharedKernel;
 using SrShut.Cqrs.Domains;
 
 namespace FesteroApp.Domain.Entities.Users;
@@ -47,11 +48,11 @@ public class User : AggregateRoot<Guid>
 
     public virtual IList<UserCompany> Companies { get; set; }
 
-    public virtual void AddCompany(Company company)
+    public virtual void AddCompany(string role, Company company)
     {
         var entity = Companies.FirstOrDefault(c => c.Company == company);
 
-        entity ??= new UserCompany(this, company);
+        entity ??= new UserCompany(role, this, company);
 
         Companies.Add(entity);
 

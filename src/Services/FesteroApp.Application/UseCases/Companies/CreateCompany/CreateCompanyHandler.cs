@@ -16,10 +16,11 @@ public class CreateCompanyHandler(ICompanyRepository userRepository, IUnitOfWork
     public async Task HandleAsync(CreateCompanyCommand command)
     {
         using var scope = _unitOfWork.Get(true);
-            
+
         var email = new Email(command.Email!);
         var phone = new Phone(command.Phone!);
-        var address = new Address(command.Street!, command.Number!, command.Neighborhood!, command.Complement, command.PostalCode!, command.City!, command.State!);
+        var address = new Address(command.Street!, command.Number!, command.Neighborhood!, command.Complement,
+            command.PostalCode!, command.City!, command.State!);
 
         Company? tentant = null;
 
@@ -28,13 +29,14 @@ public class CreateCompanyHandler(ICompanyRepository userRepository, IUnitOfWork
             tentant = await _repository.GetAsyncById(command.TenantId.Value);
             Throw.IsNull(tentant, "Company.Create", "Empresa matriz não encontrada.");
         }
-        
-        var company = new Company(Guid.NewGuid(), command.Name, command.CorporateName, command.Document,  email, phone, address, tentant);
+
+        var company = new Company(Guid.NewGuid(), command.LegalName, command.TradeName, command.Document, command.Type,
+            command.Industry, email, phone, address, tentant);
 
         await _repository.AddAsync(company);
 
         command.Id = company.Id;
-        
+
         scope.Complete();
     }
 }

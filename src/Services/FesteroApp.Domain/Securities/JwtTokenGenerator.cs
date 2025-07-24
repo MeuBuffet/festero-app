@@ -1,6 +1,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Text.Json;
 using FesteroApp.Domain.Entities.Companies;
 using FesteroApp.Domain.Entities.Users;
 using Microsoft.Extensions.Configuration;
@@ -12,10 +13,15 @@ public class JwtTokenGenerator(IConfiguration configuration) : ITokenGenerator
 {
     private readonly IConfiguration _configuration = configuration;
 
-    public string Generate(User user, Company company)
+    public string Generate(User user, List<UserCompany> companies)
     {
-        var key = Encoding.ASCII.GetBytes(_configuration["Security:Key"]!);
-        var expiration = DateTime.UtcNow.AddHours(2);
+        var key = Encoding.ASCII.GetBytes(_configuration["Security:Secret"]!);
+        var expiration = DateTime.UtcNow.AddHours(4);
+        var resources = user.Companies.Select(c => new ResourcesAccess
+        {
+            TenantId = c.Company.Id,
+            Role = c.Role.ToString(),
+        }).ToList();
 
         var tokenDescriptor = new SecurityTokenDescriptor
         {
@@ -24,10 +30,11 @@ public class JwtTokenGenerator(IConfiguration configuration) : ITokenGenerator
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Email, user.Email!.Address!),
                 new Claim(ClaimTypes.Name, user.Name!),
-                new Claim("tenant_id", company.Id.ToString()),
+                new Claim("resources", JsonSerializer.Serialize(resources)),
             ]),
             Expires = expiration,
-            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
+            SigningCredentials =
+                new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
             Issuer = _configuration["Security:Issuer"],
             Audience = _configuration["Security:Audience"]
         };

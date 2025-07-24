@@ -5,5 +5,5 @@ namespace FesteroApp.Domain.Securities;
 
 public interface ITokenGenerator
 {
-    string Generate(User user, Company company);
+    string Generate(User user, List<UserCompany> companies);
 }

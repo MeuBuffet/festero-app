@@ -2,5 +2,9 @@ namespace FesteroApp.SharedKernel;
 
 public interface ITenantContext
 {
-    string TenantId { get; set; }
+    Guid? CurrentTenantId { get; set; }
+    
+    List<Guid> AccessibleTenantIds { get; set; }
+    
+    string? RoleInCurrentTenant { get; set; } 
 }

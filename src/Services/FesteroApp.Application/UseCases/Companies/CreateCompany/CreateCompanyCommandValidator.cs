@@ -6,11 +6,11 @@ public class CreateCompanyCommandValidator : AbstractValidator<CreateCompanyComm
 {
     public CreateCompanyCommandValidator()
     {
-        RuleFor(x => x.Name)
+        RuleFor(x => x.LegalName)
             .NotEmpty().WithMessage("Razao social é obrigatório.")
             .MaximumLength(500).WithMessage("Tamanho máximo é de 500 caracteres.");
             
-        RuleFor(x => x.CorporateName)
+        RuleFor(x => x.TradeName)
             .NotEmpty().WithMessage("Nome fantasia é obrigatório.")
             .MaximumLength(500).WithMessage("Tamanho máximo é de 500 caracteres.");
             

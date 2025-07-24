@@ -37,12 +37,8 @@ public class LoginUserHandler : ICommandHandler<LoginUserCommand>
         Throw.IsFalse(await _userRepository.IsCredentialsValid(command.Email!, command.Password), "User.Login",
             "Usuário e/ou senha incorretas.");
 
-        var tenantId = _tenantContext.TenantId;
-        Throw.IsNull(tenantId, "User.Login", "Empresa não encontrada.");
-
         var user = await _userRepository.GetAsyncByEmail(command.Email!);
-        var company = await _companyRepository.GetAsyncById(tenantId);
-        var token = _tokenGenerator.Generate(user, company);
+        var token = _tokenGenerator.Generate(user, user.Companies.ToList());
 
         command.Token = token;
     }

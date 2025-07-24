@@ -9,6 +9,7 @@ public class CreateUserCompanyTable : Migration
     {
         Create.Table("UserCompany")
             .WithColumn("Id").AsInt32().PrimaryKey().Identity()
+            .WithColumn("Role").AsString(20).NotNullable()
             .WithColumn("UserId").AsGuid().Nullable().ForeignKey("FK_UserCompany_User", "User", "Id")
             .WithColumn("CompanyId").AsGuid().Nullable().ForeignKey("FK_UserCompany_Company", "Company", "Id");
     }

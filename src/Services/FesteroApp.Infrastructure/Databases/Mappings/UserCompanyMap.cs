@@ -10,6 +10,8 @@ public class UserCompanyMap : ClassMap<UserCompany>
         Table("UserCompany");
         
         Id(m => m.Id).GeneratedBy.Identity();
+        
+        Map(m => m.Role).Not.Nullable();
 
         References(x => x.User)
             .Column("UserId")

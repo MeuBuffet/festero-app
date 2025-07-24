@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using FesteroApp.Domain.Enums;
 using SrShut.Cqrs.Commands;
 
 namespace FesteroApp.Application.UseCases.Companies.UpdateCompany;
@@ -7,15 +8,19 @@ public class UpdateCompanyCommand : ICommand
 {
     [Required] public Guid Id { get; set; }
 
-    [Required] public string? Name { get; set; }
+    [Required] public string? LegalName { get; set; }
 
-    [Required] public string? CorporateName { get; set; }
+    [Required] public string? TradeName { get; set; }
 
     [Required] public string? Document { get; set; }
-    
-    [Required] public string? Email { get; set; }
 
-    [Required] public string? Phone { get; set; }
+    [Required] public string? Type { get; set; }
+
+    [Required] public Industries? Industry { get; set; }
+
+    [Required] [EmailAddress] public string? Email { get; set; }
+
+    [Required] [Phone] public string? Phone { get; set; }
 
     [Required] public string? Street { get; set; }
 

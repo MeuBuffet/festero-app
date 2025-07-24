@@ -1,4 +1,5 @@
 using FesteroApp.Domain.Entities.Companies;
+using FesteroApp.SharedKernel;
 
 namespace FesteroApp.Domain.Entities.Users;
 
@@ -8,13 +9,16 @@ public class UserCompany
     {
     }
 
-    public UserCompany(User user, Company company) : this()
+    public UserCompany(string role, User user, Company company) : this()
     {
+        Role = role;
         User = user;
         Company = company;
     }
 
     public virtual int Id { get; set; }
+    
+    public virtual string Role { get; set; }
 
     public virtual User User { get; set; }
 
