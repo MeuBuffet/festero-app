@@ -31,7 +31,7 @@ public class UserController(ILogger<UserController> logger, ICommandBus commandB
     }
 
     [HttpPost("login")]
-    public async Task<IActionResult> Login([FromForm] LoginUserCommand command)
+    public async Task<IActionResult> Login([FromBody] LoginUserCommand command)
     {
         await _commandBus.SendAsync(command);
 

@@ -19,6 +19,10 @@ using Microsoft.AspNetCore.Authorization;
 using SrShut.Common.AppSettings;
 using SrShut.Cqrs.Traces;
 using SrShut.Mvc;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using MassTransit.Configuration;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -55,7 +59,12 @@ builder.Services.AddAuthorization(options =>
 });
 
 services.AddControllers(a => { a.Filters.Add(typeof(UnitOfWorkAttribute)); })
-    .AddJsonOptions(a => { a.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()); });
+    .AddJsonOptions(a => {
+        a.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+        a.JsonSerializerOptions.PropertyNameCaseInsensitive = true; 
+        a.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase; 
+    });
+   
 
 // LogManager.Configuration = new NLogLoggingConfiguration(builder.Configuration.GetSection("NLog"));
 // builder.Logging.ClearProviders();
@@ -140,6 +149,12 @@ builder.Services.AddAuthentication("Bearer").AddJwtBearer("Bearer", options =>
         }
     };
 });
+
+builder.Services.Configure<ApiBehaviorOptions>(options =>
+{
+    options.SuppressModelStateInvalidFilter = true;
+});
+
 
 var app = builder.Build();
 

@@ -34,7 +34,8 @@
 						<label for="password" class="d-flex align-items-center fs-13px text-gray-600">
 							Senha
 						</label>
-						<i class="fa-solid fa-eye" :class="showPassword ? 'bi-eye-slash' : 'bi-eye'" @click="togglePassword"
+						<i class="fa-solid fa-eye" :class="showPassword ? 'bi-eye-slash' : 'bi-eye'"
+							@click="togglePassword"
 							style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;"></i>
 					</div>
 
@@ -61,19 +62,24 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import { onBeforeRouteLeave } from 'vue-router'
+import { onBeforeRouteLeave, useRouter } from 'vue-router';
 import { useAppOptionStore } from '@/stores/app-option';
+import { useAuthStore } from '../store';
 import backgroundImage from '@/assets/images/background/login/background.png';
+import { useToast } from 'vue-toast-notification';
 
 const email = ref('');
 const password = ref('');
 const showPassword = ref(false);
+const router = useRouter();
+const toast = useToast();
 
 const togglePassword = () => {
 	showPassword.value = !showPassword.value;
 };
 
 const appOption = useAppOptionStore();
+const authStore = useAuthStore();
 
 onMounted(() => {
 	appOption.appSidebarHide = true;
@@ -87,8 +93,12 @@ onBeforeRouteLeave(() => {
 	appOption.appContentClass = '';
 });
 
-const checkForm = (e: Event) => {
+const checkForm = async (e: Event) => {
 	e.preventDefault();
-	console.log('Cadastrando:', { email: email.value, password: password.value });
+	try {
+		await authStore.login({ email: email.value, password: password.value });
+	} catch (error: any) {
+		toast.error(error?.message || 'Falha ao fazer login.');
+	}
 };
 </script>

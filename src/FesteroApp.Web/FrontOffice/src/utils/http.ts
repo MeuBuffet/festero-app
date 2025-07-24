@@ -1,67 +1,85 @@
-import axios, { AxiosInstance, AxiosResponse, AxiosRequestConfig } from "axios";
-import { useAuthStore } from "@/modules/auth/store/auth.store";
-import { useAppStore } from "@/stores/app-global";
+/* eslint-disable */
+import axios, {
+  type AxiosInstance,
+  type AxiosResponse,
+  type AxiosRequestConfig,
+} from "axios";
 import { useToast } from "vue-toast-notification";
-import type { App } from "vue";
 
 const toast = useToast();
 
-export class HTTP {
+class HTTP {
   private instance: AxiosInstance;
 
-  constructor(url: string) {
-    this.instance = axios.create({
-      baseURL: import.meta.env.VITE_APP_API_URL as string,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    this.setInterceptors();
-    Object.assign(this, this.instance);
-  }
-  private setInterceptors() {
-    const authStore = useAuthStore();
-    const appStore = useAppStore();
+  constructor() {
+    const baseURL = import.meta.env.VITE_APP_API_URL;
+    this.instance = axios.create({ baseURL });
 
+    this.setInterceptors();
+  }
+
+  private setInterceptors() {
     this.instance.interceptors.request.use(
-      (config: AxiosRequestConfig) => {
+      async (config) => {
+        const { useAppStore } = await import("@/stores/app-global");
+        const { useAuthStore } = await import("@/modules/auth/store");
+
+        const appStore = useAppStore();
+        const authStore = useAuthStore();
+
         appStore.showLoading();
-        if (authStore.isAuthenticated && authStore.current?.token) {
-          config.headers = config.headers || {};
-          config.headers.Authorization = `Bearer ${authStore.current.token}`;
+
+        if (authStore.isAuthenticated && authStore.current.token) {
+          config.headers = {
+            ...config.headers,
+            Authorization: `Bearer ${authStore.current.token}`,
+          };
         }
+
         return config;
       },
-      (error: AxiosError) => {
-        appStore.hideLoading();
-        return Promise.reject(error);
-      }
+      (error) => Promise.reject(error)
     );
+
     this.instance.interceptors.response.use(
-      (response: AxiosResponse) => {
+      async (response) => {
+        const { useAppStore } = await import("@/stores/app-global");
+        const appStore = useAppStore();
         appStore.hideLoading();
         return response;
       },
-      (error: AxiosError) => {
+      async (error) => {
+        const { useAppStore } = await import("@/stores/app-global");
+        const { useAuthStore } = await import("@/modules/auth/store");
+
+        const appStore = useAppStore();
+        const authStore = useAuthStore();
+
         appStore.hideLoading();
 
-        const status = error.response?.status;
-        const data = error.response?.data;
+        const response = error.response;
+        if (response) {
+          const status = response.status;
 
-        if (status === 401) {
-          toast.error("Você não está autenticado, faça o login novamente.", {
-            timeout: 7000,
-          });
-          authStore.signOut();
-        } else if ([400, 403, 404, 405, 409, 422].includes(status || 0)) {
-          const message =
-            (data?.title ?? data) || "Erro ao processar requisição.";
-          toast.error(message, { timeout: 7000 });
-        } else if (status === 500) {
-          toast.error(
-            "Ocorreu um erro no sistema. Tente novamente mais tarde.",
-            { timeout: 7000 }
-          );
+          if ([400, 401, 403].includes(status)) {
+            const errors = response.data.errors;
+
+            if (status === 401) {
+              authStore.errorAccount = status;
+            }
+
+            if (status === 403) {
+              toast.error("Usuário não tem permissão para executar essa ação.", { duration: 7000 });
+            }
+
+            const messages = errors ?? response.data.messages?.errors ?? [];
+
+            messages.forEach((err: any) => {
+              toast.error(err.message ?? err, { duration: 7000 });
+            });
+          } else if ([500, 503, 504].includes(status)) {
+            toast.error("Ocorreu um erro no sistema, por favor, tente novamente mais tarde.", { duration: 7000 });
+          }
         }
 
         return Promise.reject(error);
@@ -69,34 +87,21 @@ export class HTTP {
     );
   }
 
-  // Expõe os métodos padrão se necessário
-  get<T = any>(
-    url: string,
-    config?: AxiosRequestConfig
-  ): Promise<AxiosResponse<T>> {
-    return this.instance.get(url, config);
+  get<T = any, R = AxiosResponse<T>>(url: string, config?: AxiosRequestConfig): Promise<R> {
+    return this.instance.get<T, R>(url, config);
   }
 
-  post<T = any>(
-    url: string,
-    data?: any,
-    config?: AxiosRequestConfig
-  ): Promise<AxiosResponse<T>> {
-    return this.instance.post(url, data, config);
+  post<T = any, R = AxiosResponse<T>>(url: string, data?: any, config?: AxiosRequestConfig): Promise<R> {
+    return this.instance.post<T, R>(url, data, config);
   }
 
-  put<T = any>(
-    url: string,
-    data?: any,
-    config?: AxiosRequestConfig
-  ): Promise<AxiosResponse<T>> {
-    return this.instance.put(url, data, config);
+  put<T = any, R = AxiosResponse<T>>(url: string, data?: any, config?: AxiosRequestConfig): Promise<R> {
+    return this.instance.put<T, R>(url, data, config);
   }
 
-  delete<T = any>(
-    url: string,
-    config?: AxiosRequestConfig
-  ): Promise<AxiosResponse<T>> {
-    return this.instance.delete(url, config);
+  delete<T = any, R = AxiosResponse<T>>(url: string, config?: AxiosRequestConfig): Promise<R> {
+    return this.instance.delete<T, R>(url, config);
   }
 }
+
+export default HTTP;

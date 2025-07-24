@@ -6,11 +6,10 @@ import {
   type RouteLocationNormalized,
 } from "vue-router";
 
-import Register from "@/modules/auth/views/register.vue";
 import moment from "moment";
-import { useAuthStore } from "@/modules/auth/store/auth.store";
+import { useAuthStore } from "@/modules/auth/store";
 
-function isTokenExpired(expires: string): boolean {
+function isTokenExpired(expires: Date): boolean {
   return moment().isAfter(moment(expires));
 }
 
@@ -21,13 +20,10 @@ export function ifAuthenticated(
 ) {
   const auth = useAuthStore();
 
-  // Se ainda não carregou o estado do localStorage
-  if (!auth.current) auth.loadFromStorage();
-
   if (
     auth.isAuthenticated &&
     auth.current &&
-    !isTokenExpired(auth.current.expires)
+    !isTokenExpired(auth.current.expireIn!)
   ) {
     next();
   } else {
@@ -52,7 +48,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: "/auth/register",
     name: "register",
-    component: Register,
+    component: () => import("@/modules/auth/views/register.vue"),
   },
   {
     path: "/:pathMatch(.*)*",
