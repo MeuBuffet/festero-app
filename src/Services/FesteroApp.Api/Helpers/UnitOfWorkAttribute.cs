@@ -10,6 +10,7 @@ public class UnitOfWorkAttribute(IUnitOfWorkFactory uofwFactory) : ActionFilterA
     public override void OnActionExecuting(ActionExecutingContext filterContext)
     {
         filterContext.HttpContext.Items.Add("SessionKey", _uofwFactory.Get());
+        
         base.OnActionExecuting(filterContext);
     }
 

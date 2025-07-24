@@ -24,6 +24,7 @@ public class TenantMiddleware
         }
 
         var resourcesClaim = user.FindFirst("resources")?.Value;
+        
         if (string.IsNullOrWhiteSpace(resourcesClaim))
             throw new UnauthorizedAccessException("Permissões do usuário não encontradas.");
 
@@ -47,7 +48,6 @@ public class TenantMiddleware
 
         if (string.IsNullOrWhiteSpace(tenantIdFromHeader))
         {
-            // Fallback: assume o primeiro tenant disponível
             tenantContext.CurrentTenantId = tenantIds.First();
         }
         else if (Guid.TryParse(tenantIdFromHeader, out var currentTenantId))

@@ -18,12 +18,14 @@ public class RoleInTenantRequirementHandler : AuthorizationHandler<RoleInTenantR
     protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, RoleInTenantRequirement requirement)
     {
         var resourcesClaim = context.User.FindFirst("resources")?.Value;
+        
         if (string.IsNullOrWhiteSpace(resourcesClaim)) return Task.CompletedTask;
 
         var resources = JsonSerializer.Deserialize<List<ResourcesAccess>>(resourcesClaim);
         var tenantId = _tenantContext.CurrentTenantId;
 
         var match = resources?.FirstOrDefault(r => r.TenantId == tenantId);
+        
         if (match != null && requirement.AllowedRoles.Contains(match.Role))
         {
             _tenantContext.RoleInCurrentTenant = match.Role;

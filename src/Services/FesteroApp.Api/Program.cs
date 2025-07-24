@@ -139,10 +139,10 @@ builder.Services.AddAuthentication("Bearer").AddJwtBearer("Bearer", options =>
             context.Response.StatusCode = StatusCodes.Status403Forbidden;
             context.Response.ContentType = "application/json";
 
-            var result = System.Text.Json.JsonSerializer.Serialize(new
+            var result = JsonSerializer.Serialize(new
             {
                 success = false,
-                message = "Voce nao tem permissao para acessar este recurso."
+                message = "Voce nao tem permissão para acessar este recurso."
             });
 
             return context.Response.WriteAsync(result);

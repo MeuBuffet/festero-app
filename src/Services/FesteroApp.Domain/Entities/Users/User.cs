@@ -1,6 +1,5 @@
 using FesteroApp.Domain.Entities.Companies;
 using FesteroApp.Domain.ValueObjects;
-using FesteroApp.SharedKernel;
 using SrShut.Cqrs.Domains;
 
 namespace FesteroApp.Domain.Entities.Users;

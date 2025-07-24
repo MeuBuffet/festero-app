@@ -14,10 +14,10 @@ public class Email
         Address = address.ToLowerInvariant();
     }
 
+    public virtual string Address { get; protected set; }
+    
     public override bool Equals(object? obj) =>
         obj is Email other && Address == other.Address;
 
     public override int GetHashCode() => Address.GetHashCode();
-
-    public virtual string Address { get; protected set; }
 }

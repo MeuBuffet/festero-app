@@ -17,11 +17,6 @@ public class Address
         State = state;
     }
 
-    public override bool Equals(object? obj) =>
-        obj is Address other && Street == other.Street && Number == other.Number;
-
-    public override int GetHashCode() => HashCode.Combine(Street, Number);
-
     public virtual string? Street { get; protected set; }
 
     public virtual string? Number { get; protected set; }
@@ -35,4 +30,9 @@ public class Address
     public virtual string? City { get; protected set; }
 
     public virtual string? State { get; protected set; }
+
+    public override bool Equals(object? obj) =>
+        obj is Address other && Street == other.Street && Number == other.Number;
+
+    public override int GetHashCode() => HashCode.Combine(Street, Number);
 }
