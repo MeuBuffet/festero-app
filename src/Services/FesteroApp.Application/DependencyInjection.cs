@@ -2,6 +2,7 @@
 using FesteroApp.Application.UseCases.Companies.DeleteCompany;
 using FesteroApp.Application.UseCases.Companies.GetCompany;
 using FesteroApp.Application.UseCases.Companies.GetUserByCompany;
+using FesteroApp.Application.UseCases.Companies.GetUserByCompany;
 using FesteroApp.Application.UseCases.Companies.UpdateCompany;
 using FesteroApp.Application.UseCases.Users.CreateUser;
 using FesteroApp.Application.UseCases.Users.DeleteUser;
