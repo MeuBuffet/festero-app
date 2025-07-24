@@ -3,6 +3,7 @@ using FesteroApp.Application.UseCases.Users.DeleteUser;
 using FesteroApp.Application.UseCases.Users.GetUser;
 using FesteroApp.Application.UseCases.Users.LoginUser;
 using FesteroApp.Application.UseCases.Users.UpdateUser;
+using FesteroApp.Domain.Interfaces.Users;
 using FesteroApp.SharedKernel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,21 +14,22 @@ namespace FesteroApp.Api.Controllers;
 
 [ApiController]
 [Route("api/users")]
-public class UserController(ILogger<UserController> logger, ICommandBus commandBus, IRequestBus requestBus)
+public class UserController(ILogger<UserController> logger, ICommandBus commandBus, IRequestBus requestBus, ITenantContext tenantContext)
     : BaseController
 {
     private readonly ILogger<UserController> _logger = logger;
     private readonly ICommandBus _commandBus = commandBus;
     private readonly IRequestBus _requestBus = requestBus;
+    private readonly ITenantContext _tenantContext = tenantContext;
 
-    [Authorize(Policy = "All")]
+    [Authorize(Policy = "TenantViewer")]
     [HttpGet]
     public async Task<GetUserQueryResult> Get([FromQuery] GetUserQuery query)
     {
+        query.TenantId = _tenantContext.AccessibleTenantIds;
         return await _requestBus.RequestAsync<GetUserQuery, GetUserQueryResult>(query);
     }
 
-    [Authorize(Policy = "All")]
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromForm] LoginUserCommand command)
     {
@@ -36,10 +38,9 @@ public class UserController(ILogger<UserController> logger, ICommandBus commandB
         if (string.IsNullOrEmpty(command.Token) || string.IsNullOrWhiteSpace(command.Token))
             return Unauthorized(new { Message = "Usuário e/ou senha inválidos." });
 
-        return Ok(new { command = command.Token });
+        return Ok(new { command.Token });
     }
 
-    [Authorize(Policy = "ManagerOrAbove")]
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateUserCommand command)
     {
@@ -48,7 +49,6 @@ public class UserController(ILogger<UserController> logger, ICommandBus commandB
         return Ok(new { command.Id });
     }
 
-    [Authorize(Policy = "CollaboratorOrAbove")]
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(Guid id, [FromBody] UpdateUserCommand command)
     {
@@ -58,9 +58,8 @@ public class UserController(ILogger<UserController> logger, ICommandBus commandB
 
         return Ok(new { command.Id });
     }
-    
-    [Authorize(Policy = "ManagerOrAbove")]
-    [HttpPut("{id}")]
+
+    [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(Guid id, [FromBody] DeleteUserCommand command)
     {
         command.Id = id;

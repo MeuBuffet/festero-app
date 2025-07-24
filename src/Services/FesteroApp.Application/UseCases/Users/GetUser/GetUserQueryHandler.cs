@@ -29,7 +29,9 @@ public class GetUserQueryHandler :
                     ROW_NUMBER() OVER({orderBy}) as NumberLine,
                     COUNT(*) OVER() AS TotalRows 
                 FROM [User] AS U WITH(NOLOCK)
+                INNER JOIN [UserCompany] AS UCO ON U.Id = UCO.UserId 
                 WHERE U.DeletedOn IS NULL
+                  AND UCO.CompanyId = @TenantId
                 {Condition(query)}
             )
             SELECT * FROM RecordsRN WITH(NOLOCK) 

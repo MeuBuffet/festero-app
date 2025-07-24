@@ -7,12 +7,15 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using System.Text.Json.Serialization;
+using FesteroApp.Api.Authorization.Handlers;
+using FesteroApp.Api.Authorization.Requirements;
 using FesteroApp.Api.Helpers;
 using FesteroApp.Api.Middlewares;
 using FesteroApp.Application;
 using FesteroApp.Domain;
 using FesteroApp.Infrastructure;
 using FesteroApp.SharedKernel;
+using Microsoft.AspNetCore.Authorization;
 using SrShut.Common.AppSettings;
 using SrShut.Cqrs.Traces;
 using SrShut.Mvc;
@@ -39,18 +42,16 @@ CultureInfo.DefaultThreadCurrentUICulture = culture;
 builder.Services.AddApplication();
 builder.Services.AddDomain();
 builder.Services.AddInfrastructure(builder.Configuration);
-builder.Services.AddScoped<ITenantContext, TenantContext>();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ITenantContext, TenantContext>();
+builder.Services.AddScoped<IAuthorizationHandler, RoleInTenantRequirementHandler>();
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("OwnerOnly", policy =>
-        policy.RequireRole($"{Roles.OWNER}"));
-    options.AddPolicy("ManagerOrAbove", policy =>
-        policy.RequireRole($"{Roles.OWNER}, {Roles.ADMIN}"));
-    options.AddPolicy("CollaboratorOrAbove", policy =>
-        policy.RequireClaim($"{Roles.OWNER}, {Roles.ADMIN}, {Roles.COLLABORATOR}"));
-    options.AddPolicy("All", policy =>
-        policy.RequireClaim($"{Roles.OWNER}, {Roles.ADMIN}, {Roles.COLLABORATOR}, {Roles.VIEWER}"));
+    options.AddPolicy("TenantAdmin", policy =>
+        policy.Requirements.Add(new RoleInTenantRequirement("OWNER", "ADMIN")));
+    
+    options.AddPolicy("TenantViewer", policy =>
+        policy.Requirements.Add(new RoleInTenantRequirement("VIEWER", "COLLABORATOR", "ADMIN", "OWNER")));
 });
 
 services.AddControllers(a => { a.Filters.Add(typeof(UnitOfWorkAttribute)); })
@@ -116,8 +117,8 @@ builder.Services.AddAuthentication("Bearer").AddJwtBearer("Bearer", options =>
     {
         ValidateIssuer = true,
         ValidateAudience = true,
-        ValidIssuer = "festeroapp",
-        ValidAudience = "festeroapp",
+        ValidIssuer = "FesteroAuth",
+        ValidAudience = "FesteroApiClients",
         IssuerSigningKey = new SymmetricSecurityKey(
             Encoding.UTF8.GetBytes(configuration["Security:Secret"]!))
     };
@@ -152,14 +153,14 @@ var app = builder.Build();
 //     app.UseHsts();
 // }
 
-app.UseMiddleware<ExceptionHandlingMiddleware>();
-app.UseMiddleware<TenantMiddleware>();
 app.UseTrace();
 app.UseHttpsRedirection();
 app.UseRouting();
 app.UseCors("FesteroAppPolicy");
 app.UseAuthentication();
+app.UseMiddleware<TenantMiddleware>();
 app.UseAuthorization();
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.MapControllers();
 app.UseSwagger(c =>
 {

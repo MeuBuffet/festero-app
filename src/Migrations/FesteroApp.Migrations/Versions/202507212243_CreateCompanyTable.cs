@@ -12,6 +12,8 @@ public class CreateCompanyTable : Migration
             .WithColumn("LegalName").AsString(500).NotNullable()
             .WithColumn("TradeName").AsString(500).NotNullable()
             .WithColumn("Document").AsString(20).NotNullable()
+            .WithColumn("Type").AsString(100).NotNullable()
+            .WithColumn("Industry").AsString(20).NotNullable()
             .WithColumn("Email").AsString(150).NotNullable()
             .WithColumn("Phone").AsString(20).NotNullable()
             .WithColumn("Street").AsString(150).NotNullable()

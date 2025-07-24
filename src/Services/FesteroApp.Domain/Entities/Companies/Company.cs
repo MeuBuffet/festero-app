@@ -1,3 +1,5 @@
+using FesteroApp.Domain.Entities.Users;
+using FesteroApp.Domain.Enums;
 using FesteroApp.Domain.ValueObjects;
 using SrShut.Cqrs.Domains;
 
@@ -7,15 +9,18 @@ public class Company : AggregateRoot<Guid>
 {
     public Company()
     {
+        UserCompanies = new List<UserCompany>();
     }
 
-    public Company(Guid id, string? legalName, string? tradeName, string? document, Email email, Phone phone,
-        Address address, Company? tentant = null) : this()
+    public Company(Guid id, string? legalName, string? tradeName, string? document, string? type, Industries? industry,
+        Email? email, Phone? phone, Address? address, Company? tentant = null) : this()
     {
         Id = id;
         LegalName = legalName;
         TradeName = tradeName;
         Document = document;
+        Type = type;
+        Industry = industry;
         Email = email;
         Phone = phone;
         Address = address;
@@ -32,7 +37,11 @@ public class Company : AggregateRoot<Guid>
 
     public virtual string? Document { get; set; }
 
-    public virtual int Level { get; set; }
+    public virtual string? Type { get; set; }
+
+    public virtual Industries? Industry { get; set; }
+
+    public virtual int? Level { get; set; }
 
     public virtual string? Path { get; set; }
 
@@ -42,27 +51,31 @@ public class Company : AggregateRoot<Guid>
 
     public virtual DateTime? DeletedOn { get; set; }
 
-    public virtual Email Email { get; protected set; }
+    public virtual Email? Email { get; protected set; }
 
-    public virtual Phone Phone { get; protected set; }
+    public virtual Phone? Phone { get; protected set; }
 
-    public virtual Address Address { get; protected set; }
+    public virtual Address? Address { get; protected set; }
 
-    public virtual Company TentantCompany { get; protected set; }
+    public virtual Company? TenantCompany { get; protected set; }
 
-    public virtual void SetTenant(Company? tentant)
+    public virtual IList<UserCompany> UserCompanies { get; protected set; }
+
+    public virtual void SetTenant(Company? tenant)
     {
-        TentantCompany = tentant;
-        Level = tentant?.Level + 1 ?? 0;
-        Path = tentant != null ? $"{tentant.Path}/{Id}" : $"/{Id}";
+        TenantCompany = tenant;
+        Level = tenant?.Level + 1 ?? 0;
+        Path = tenant != null ? $"{tenant.Path}/{Id}" : $"/{Id}";
     }
 
-    public virtual void Update(string? name, string? corporateName, string? document, Email email, Phone phone,
-        Address address)
+    public virtual void Update(string? legalName, string? tradeName, string? document, string? type, Industries? industry,
+        Email? email, Phone? phone, Address? address)
     {
-        LegalName = name;
-        TradeName = corporateName;
+        LegalName = legalName;
+        TradeName = tradeName;
         Document = document;
+        Type = type;
+        Industry = industry;
         Email = email;
         Phone = phone;
         Address = address;

@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using SrShut.Cqrs.Requests;
 using SrShut.Data;
 
@@ -7,7 +8,7 @@ public class GetUserQuery : PaginationCriteria, IRequest<GetUserQueryResult>
 {
     public GetUserQuery()
     {
-        
+        TenantId = [];
     }
     
     public GetUserQuery(string? text) : base()
@@ -16,4 +17,6 @@ public class GetUserQuery : PaginationCriteria, IRequest<GetUserQueryResult>
     }
 
     public string? Text { get; set; }
+    
+    [JsonIgnore] public List<Guid> TenantId { get; set; }
 }

@@ -11,6 +11,8 @@ public class CompanyMap : ClassMap<Company>
         Map(x => x.LegalName).Not.Nullable();
         Map(x => x.TradeName).Not.Nullable();
         Map(x => x.Document).Not.Nullable();
+        Map(x => x.Type).Not.Nullable();
+        Map(x => x.Industry).Not.Nullable();
 
         Map(x => x.CreatedOn).Not.Nullable();
         Map(x => x.UpdatedOn).Not.Nullable();
@@ -33,9 +35,14 @@ public class CompanyMap : ClassMap<Company>
             c.Map(x => x.State).Not.Nullable();
         });
         
-        References(x=>x.TentantCompany)
+        References(x=>x.TenantCompany)
             .Column("TenantId")
             .Nullable()
             .Cascade.None();
+        
+        HasMany(x => x.UserCompanies)
+            .KeyColumn("CompanyId")
+            .Inverse()
+            .Cascade.All();
     }
 }

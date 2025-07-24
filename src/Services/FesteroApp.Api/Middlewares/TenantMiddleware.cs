@@ -1,3 +1,5 @@
+using System.Text.Json;
+using FesteroApp.Domain.Securities;
 using FesteroApp.SharedKernel;
 
 namespace FesteroApp.Api.Middlewares;
@@ -6,23 +8,58 @@ public class TenantMiddleware
 {
     private readonly RequestDelegate _next;
 
-    public TenantMiddleware(RequestDelegate next) => _next = next;
+    public TenantMiddleware(RequestDelegate next)
+    {
+        _next = next;
+    }
 
     public async Task Invoke(HttpContext context, ITenantContext tenantContext)
     {
         var user = context.User;
-        var rolesRequiringTenant = new[] { $"{Roles.OWNER}, {Roles.ADMIN}, {Roles.COLLABORATOR}, {Roles.VIEWER}" };
-        var isTenantRequired = user.Identity?.IsAuthenticated == true
-                               && rolesRequiringTenant.Any(role => user.IsInRole(role));
 
-        if (isTenantRequired)
+        if (user.Identity?.IsAuthenticated != true)
         {
-            var tenantId = context.Request.Headers["X-Tenant-Id"].FirstOrDefault();
+            await _next(context);
+            return;
+        }
 
-            if (string.IsNullOrEmpty(tenantId))
-                throw new UnauthorizedAccessException("Tenant não encontrado.");
+        var resourcesClaim = user.FindFirst("resources")?.Value;
+        if (string.IsNullOrWhiteSpace(resourcesClaim))
+            throw new UnauthorizedAccessException("Permissões do usuário não encontradas.");
 
-            tenantContext.TenantId = tenantId;
+        List<ResourcesAccess>? resources;
+        try
+        {
+            resources = JsonSerializer.Deserialize<List<ResourcesAccess>>(resourcesClaim);
+        }
+        catch
+        {
+            throw new UnauthorizedAccessException("Não foi possível interpretar as permissões do usuário.");
+        }
+
+        if (resources is null || !resources.Any())
+            throw new UnauthorizedAccessException("Nenhum tenant disponível para este usuário.");
+
+        var tenantIds = resources.Select(r => r.TenantId).Distinct().ToList();
+        tenantContext.AccessibleTenantIds = tenantIds;
+
+        var tenantIdFromHeader = context.Request.Headers["X-Tenant-Id"].FirstOrDefault();
+
+        if (string.IsNullOrWhiteSpace(tenantIdFromHeader))
+        {
+            // Fallback: assume o primeiro tenant disponível
+            tenantContext.CurrentTenantId = tenantIds.First();
+        }
+        else if (Guid.TryParse(tenantIdFromHeader, out var currentTenantId))
+        {
+            if (!tenantIds.Contains(currentTenantId))
+                throw new UnauthorizedAccessException("Usuário não tem acesso ao tenant especificado.");
+
+            tenantContext.CurrentTenantId = currentTenantId;
+        }
+        else
+        {
+            throw new UnauthorizedAccessException("Header X-Tenant-Id inválido.");
         }
 
         await _next(context);

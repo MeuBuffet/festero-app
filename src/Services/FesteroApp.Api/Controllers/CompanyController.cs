@@ -18,14 +18,12 @@ public class CompanyController(ILogger<CompanyController> logger, ICommandBus co
     private readonly ICommandBus _commandBus = commandBus;
     private readonly IRequestBus _requestBus = requestBus;
 
-    [Authorize(Policy = "CollaboratorOrAbove")]
     [HttpGet]
     public async Task<GetCompanyQueryResult> Get([FromQuery] GetCompanyQuery query)
     {
         return await _requestBus.RequestAsync<GetCompanyQuery, GetCompanyQueryResult>(query);
     }
     
-    [Authorize(Policy = "OwnerOnly")]
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateCompanyCommand command)
     {
@@ -34,7 +32,6 @@ public class CompanyController(ILogger<CompanyController> logger, ICommandBus co
         return Ok(new { command.Id });
     }
 
-    [Authorize(Policy = "ManagerOrAbove")]
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(Guid id, [FromBody] UpdateCompanyCommand command)
     {
@@ -45,7 +42,6 @@ public class CompanyController(ILogger<CompanyController> logger, ICommandBus co
         return Ok(new { command.Id });
     }
     
-    [Authorize(Policy = "OwnerOnly")]
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(Guid id, [FromBody] DeleteCompanyCommand command)
     {

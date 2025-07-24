@@ -5,7 +5,7 @@ using SrShut.Data;
 
 namespace FesteroApp.Application.UseCases.Companies.UpdateCompany;
 
-public class UpdateCompanyHandler(ICompanyRepository userRepository, IUnitOfWorkFactory unitOfWork):
+public class UpdateCompanyHandler(ICompanyRepository userRepository, IUnitOfWorkFactory unitOfWork) :
     ICommandHandler<UpdateCompanyCommand>
 {
     private readonly ICompanyRepository _repository = userRepository;
@@ -17,10 +17,12 @@ public class UpdateCompanyHandler(ICompanyRepository userRepository, IUnitOfWork
 
         var email = new Email(command.Email!);
         var phone = new Phone(command.Phone!);
-        var address = new Address(command.Street!, command.Number!, command.Neighborhood!, command.Complement, command.PostalCode!, command.City!, command.State!);
-        
-        company.Update(company.LegalName, company.TradeName, company.Document, email,  phone, address);
-            
+        var address = new Address(command.Street!, command.Number!, command.Neighborhood!, command.Complement,
+            command.PostalCode!, command.City!, command.State!);
+
+        company.Update(company.LegalName, company.TradeName, company.Document, command.Type, command.Industry, email,
+            phone, address);
+
         await _repository.UpdateAsync(company!);
     }
 }

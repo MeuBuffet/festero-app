@@ -3,6 +3,7 @@ using FesteroApp.Domain.Entities.Users;
 using FesteroApp.Domain.Interfaces.Companies;
 using FesteroApp.Domain.Interfaces.Users;
 using FesteroApp.Domain.ValueObjects;
+using FesteroApp.SharedKernel;
 using SrShut.Common;
 using SrShut.Cqrs.Commands;
 using SrShut.Data;
@@ -43,13 +44,13 @@ public class CreateUserHandler(
         }
 
         var company = new Company(Guid.NewGuid(), command.Company.LegalName, command.Company.TradeName,
-            command.Company.Document, companyEmail, companyPhone, companyAddress, tentant);
+            command.Company.Document, command.Company.Type, command.Company.Industry, companyEmail, companyPhone, companyAddress, tentant);
         var user = new User(Guid.NewGuid(), command.Name, company.Document, command.Password, userEmail, userPhone,
             userAddress);
 
         await _companyRepository.AddAsync(company);
         
-        user.AddCompany(company);
+        user.AddCompany(Roles.ADMIN, company);
         
         await _userRepository.AddAsync(user);
 
