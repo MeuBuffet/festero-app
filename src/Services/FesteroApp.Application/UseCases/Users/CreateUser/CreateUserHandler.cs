@@ -4,6 +4,7 @@ using FesteroApp.Domain.Interfaces.Companies;
 using FesteroApp.Domain.Interfaces.Users;
 using FesteroApp.Domain.ValueObjects;
 using FesteroApp.SharedKernel;
+using FesteroApp.SharedKernel.Securities;
 using SrShut.Common;
 using SrShut.Cqrs.Commands;
 using SrShut.Data;
@@ -24,6 +25,9 @@ public class CreateUserHandler(
     {
         using var scope = _unitOfWork.Get(true);
 
+        Throw.IsTrue(await _userRepository.HasUserByEmail(command.Email!), "User.Create", "Este e-mail já está vinculado. Verifique sua senha ou utilize um e-mail diferente para continuar.");
+        Throw.IsTrue(await _userRepository.HasUserByEmail(command.Company!.Email!), "Company.Create", "Este e-mail já está vinculado. Verifique sua senha ou utilize um e-mail diferente para continuar.");
+        
         var userEmail = new Email(command.Email!);
         var userPhone = new Phone(command.Phone!);
         var userAddress = new Address(command.Street!, command.Number!, command.Neighborhood!, command.Complement,
