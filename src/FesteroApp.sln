@@ -11,19 +11,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3-Migrations", "3-Migration
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4-Tests", "4-Tests", "{6060A4E7-8C70-4D10-9251-9146A4DDA73E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FesteroApp.Migrations", "Migrations\FesteroApp.Migrations\FesteroApp.Migrations.csproj", "{C5957117-1C21-45D5-BCE9-546F1FBF0E68}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FesteroApp.Migrations", "Migrations\FesteroApp.Migrations\FesteroApp.Migrations.csproj", "{C5957117-1C21-45D5-BCE9-546F1FBF0E68}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FesteroApp.SharedKernel", "Shareds\FesteroApp.SharedKernel\FesteroApp.SharedKernel.csproj", "{8EDD34EB-9AA0-4C1E-A9F7-0C4A07F2FBB6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FesteroApp.SharedKernel", "Shareds\FesteroApp.SharedKernel\FesteroApp.SharedKernel.csproj", "{8EDD34EB-9AA0-4C1E-A9F7-0C4A07F2FBB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FesteroApp.Tests", "Tests\FesteroApp.Tests\FesteroApp.Tests.csproj", "{15BB626A-B3C5-411B-809C-62798934113D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FesteroApp.Tests", "Tests\FesteroApp.Tests\FesteroApp.Tests.csproj", "{15BB626A-B3C5-411B-809C-62798934113D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FesteroApp.Api", "Services\FesteroApp.Api\FesteroApp.Api.csproj", "{EECECCA7-BA02-46E2-B2F3-5001DDD57679}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FesteroApp.Api", "Services\FesteroApp.Api\FesteroApp.Api.csproj", "{EECECCA7-BA02-46E2-B2F3-5001DDD57679}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FesteroApp.Application", "Services\FesteroApp.Application\FesteroApp.Application.csproj", "{9FE04592-E048-4CC0-9FFF-4BCFFDEB1F5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FesteroApp.Application", "Services\FesteroApp.Application\FesteroApp.Application.csproj", "{9FE04592-E048-4CC0-9FFF-4BCFFDEB1F5C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FesteroApp.Domain", "Services\FesteroApp.Domain\FesteroApp.Domain.csproj", "{121D10AF-F410-4554-8929-DC53328459DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FesteroApp.Domain", "Services\FesteroApp.Domain\FesteroApp.Domain.csproj", "{121D10AF-F410-4554-8929-DC53328459DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FesteroApp.Infrastructure", "Services\FesteroApp.Infrastructure\FesteroApp.Infrastructure.csproj", "{ECECAA9E-165C-4D9C-9ACF-B5B263644762}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FesteroApp.Infrastructure", "Services\FesteroApp.Infrastructure\FesteroApp.Infrastructure.csproj", "{ECECAA9E-165C-4D9C-9ACF-B5B263644762}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,7 +40,6 @@ Global
 		{8EDD34EB-9AA0-4C1E-A9F7-0C4A07F2FBB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8EDD34EB-9AA0-4C1E-A9F7-0C4A07F2FBB6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{15BB626A-B3C5-411B-809C-62798934113D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{15BB626A-B3C5-411B-809C-62798934113D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15BB626A-B3C5-411B-809C-62798934113D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15BB626A-B3C5-411B-809C-62798934113D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EECECCA7-BA02-46E2-B2F3-5001DDD57679}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -63,9 +62,6 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {18EA6DCA-4811-4E2D-B57F-8E9E21D09F44}
-	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{C5957117-1C21-45D5-BCE9-546F1FBF0E68} = {4EE093D5-3D2E-4FDE-9537-83BEE05BA21D}
 		{8EDD34EB-9AA0-4C1E-A9F7-0C4A07F2FBB6} = {81D48BE0-E72F-4238-959B-C322D249FA7A}
@@ -74,5 +70,8 @@ Global
 		{9FE04592-E048-4CC0-9FFF-4BCFFDEB1F5C} = {D5F45561-5BB5-46E7-BF17-1D9F9B45B9CB}
 		{121D10AF-F410-4554-8929-DC53328459DB} = {D5F45561-5BB5-46E7-BF17-1D9F9B45B9CB}
 		{ECECAA9E-165C-4D9C-9ACF-B5B263644762} = {D5F45561-5BB5-46E7-BF17-1D9F9B45B9CB}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {18EA6DCA-4811-4E2D-B57F-8E9E21D09F44}
 	EndGlobalSection
 EndGlobal

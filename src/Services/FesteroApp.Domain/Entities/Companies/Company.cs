@@ -19,7 +19,7 @@ public class Company : AggregateRoot<Guid>
         Email = email;
         Phone = phone;
         Address = address;
-        SetTentant(tentant);
+        SetTenant(tentant);
 
         CreatedOn = UpdatedOn = DateTime.Now;
     }
