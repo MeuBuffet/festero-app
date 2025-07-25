@@ -3,7 +3,7 @@
 		<div class="news-feed">
 			<div class="news-image" :style="{ backgroundImage: `url(${backgroundImage})` }"></div>
 			<div class="news-caption">
-				<h4 class="caption-title"><b>Festero</b> Registro</h4>
+				<h4 class="caption-title"><b>Festero</b> Login</h4>
 				<p>Organize eventos com praticidade, estilo e profissionalismo com a Festero.</p>
 			</div>
 		</div>
