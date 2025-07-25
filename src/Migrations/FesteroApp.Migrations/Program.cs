@@ -15,7 +15,6 @@ namespace FesteroApp.Migrations
                 .ConfigureServices((context, services) =>
                 {
                     var connectionString = context.Configuration.GetConnectionString("DefaultConnectionString");
-                    Console.WriteLine($"Conectando com: {connectionString}");
 
                     services
                         .AddFluentMigratorCore()

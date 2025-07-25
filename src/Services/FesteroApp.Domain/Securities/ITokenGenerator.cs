@@ -1,4 +1,3 @@
-using FesteroApp.Domain.Entities.Companies;
 using FesteroApp.Domain.Entities.Users;
 
 namespace FesteroApp.Domain.Securities;

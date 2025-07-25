@@ -1,7 +1,6 @@
 using FesteroApp.Domain.Interfaces.Companies;
 using FesteroApp.Domain.Interfaces.Users;
 using FesteroApp.Domain.Securities;
-using FesteroApp.SharedKernel;
 using FesteroApp.SharedKernel.Securities;
 using SrShut.Common;
 using SrShut.Cqrs.Commands;

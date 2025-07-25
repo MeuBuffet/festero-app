@@ -1,4 +1,3 @@
-using System.Text;
 using Dapper;
 using Microsoft.Extensions.Configuration;
 using SrShut.Cqrs.Requests;

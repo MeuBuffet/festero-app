@@ -14,14 +14,11 @@ using FesteroApp.Api.Middlewares;
 using FesteroApp.Application;
 using FesteroApp.Domain;
 using FesteroApp.Infrastructure;
-using FesteroApp.SharedKernel;
 using Microsoft.AspNetCore.Authorization;
 using SrShut.Common.AppSettings;
 using SrShut.Cqrs.Traces;
 using SrShut.Mvc;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using MassTransit.Configuration;
 using System.Text.Json;
 using FesteroApp.SharedKernel.Securities;
 

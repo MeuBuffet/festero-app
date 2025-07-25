@@ -4,8 +4,6 @@ using FesteroApp.Application.UseCases.Users.GetDetailUser;
 using FesteroApp.Application.UseCases.Users.GetUser;
 using FesteroApp.Application.UseCases.Users.LoginUser;
 using FesteroApp.Application.UseCases.Users.UpdateUser;
-using FesteroApp.Domain.Interfaces.Users;
-using FesteroApp.SharedKernel;
 using FesteroApp.SharedKernel.Securities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

@@ -1,5 +1,4 @@
 using FesteroApp.Domain.Entities.Companies;
-using FesteroApp.SharedKernel;
 
 namespace FesteroApp.Domain.Entities.Users;
 

@@ -1,8 +1,9 @@
-﻿using FesteroApp.Application.UseCases.Companies.CreateCompany;
+﻿using FesteroApp.Application.Services;
+using FesteroApp.Application.UseCases.Companies.CreateCompany;
 using FesteroApp.Application.UseCases.Companies.DeleteCompany;
 using FesteroApp.Application.UseCases.Companies.GetCompany;
 using FesteroApp.Application.UseCases.Companies.GetUserByCompany;
-using FesteroApp.Application.UseCases.Companies.GetUserByCompany;
+using FesteroApp.Application.UseCases.Companies.InviteUserCompany;
 using FesteroApp.Application.UseCases.Companies.UpdateCompany;
 using FesteroApp.Application.UseCases.Users.CreateUser;
 using FesteroApp.Application.UseCases.Users.DeleteUser;
@@ -14,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SrShut.Cqrs.Bus;
 using SrShut.Cqrs.Commands;
 using SrShut.Cqrs.Requests;
+using CreateCompanyCommandValidator = FesteroApp.Application.UseCases.Companies.CreateCompany.CreateCompanyCommandValidator;
 
 namespace FesteroApp.Application;
 
@@ -21,6 +23,8 @@ public static class DependencyInjection
 {
     public static void AddApplication(this IServiceCollection services)
     {
+        services.AddScoped<IEmailService, EmailService>();
+        
         RegisterCommands(services);
         RegisterQueries(services);
     }
@@ -30,6 +34,7 @@ public static class DependencyInjection
         services.AddScoped<CreateCompanyHandler>();
         services.AddScoped<UpdateCompanyHandler>();
         services.AddScoped<DeleteCompanyHandler>();
+        services.AddScoped<InviteUserCompanyHandler>();
         
         services.AddScoped<CreateUserHandler>();
         services.AddScoped<UpdateUserHandler>();
@@ -49,6 +54,9 @@ public static class DependencyInjection
 
             var deleteCompanyHandler = a.GetService<DeleteCompanyHandler>();
             commandBus.Register<DeleteCompanyCommand, DeleteCompanyCommandValidator>(deleteCompanyHandler!);
+            
+            var inviteUserCompanyHandler = a.GetService<InviteUserCompanyHandler>();
+            commandBus.Register<InviteUserCompanyCommand, InviteUserCompanyCommandValidator>(inviteUserCompanyHandler!);
             
             var createUserHandler = a.GetService<CreateUserHandler>();
             commandBus.Register<CreateUserCommand, CreateUserCommandValidator>(createUserHandler!);

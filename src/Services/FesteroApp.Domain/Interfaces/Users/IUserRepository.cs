@@ -10,4 +10,5 @@ public interface IUserRepository: IRepository<User>
     Task<bool> HasUserByEmail(string email);
 
     Task<User> GetAsyncByEmail(string email);
+    Task<bool> HasUserByDocument(string document);
 }

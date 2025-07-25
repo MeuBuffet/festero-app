@@ -1,7 +1,6 @@
 using System.Text.Json;
 using FesteroApp.Api.Authorization.Requirements;
 using FesteroApp.Domain.Securities;
-using FesteroApp.SharedKernel;
 using FesteroApp.SharedKernel.Securities;
 using Microsoft.AspNetCore.Authorization;
 

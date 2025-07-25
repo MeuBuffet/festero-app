@@ -10,6 +10,17 @@ public class User : AggregateRoot<Guid>
     {
         Companies = new List<UserCompany>();
     }
+    
+    public User(Guid id, string? name, string? document, string? password, Email? email) : this()
+    {
+        Id = id;
+        Name = name;
+        Document = document;
+        Password = password;
+        Email = email;
+
+        CreatedOn = UpdatedOn = DateTime.Now;
+    }
 
     public User(Guid id, string? name, string? document, string? password, Email? email, Phone? phone,
         Address? address) : this()

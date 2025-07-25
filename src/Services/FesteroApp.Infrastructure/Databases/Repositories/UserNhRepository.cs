@@ -47,4 +47,14 @@ public class UserNhRepository : EventBusRepository<User>, IUserRepository
             .Where(u => u.Email!.Address == email)
             .FirstOrDefaultAsync();
     }
+
+    public async Task<bool> HasUserByDocument(string document)
+    {
+        using var unitOfWork = UnitOfWorkFactory.Get();
+        var session = unitOfWork.Context;
+
+        return await session.Query<User>()
+            .Where(u => u.Document! == document)
+            .AnyAsync();
+    }
 }

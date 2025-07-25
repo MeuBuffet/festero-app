@@ -1,4 +1,3 @@
-using SrShut.Common.Collections;
 using SrShut.Cqrs.Requests;
 
 namespace FesteroApp.Application.UseCases.Users.GetDetailUser;

@@ -1,6 +1,4 @@
-using System.Text.Json.Serialization;
 using SrShut.Cqrs.Requests;
-using SrShut.Data;
 
 namespace FesteroApp.Application.UseCases.Users.GetDetailUser;
 

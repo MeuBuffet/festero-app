@@ -2,8 +2,8 @@ using FesteroApp.Application.UseCases.Companies.CreateCompany;
 using FesteroApp.Application.UseCases.Companies.DeleteCompany;
 using FesteroApp.Application.UseCases.Companies.GetCompany;
 using FesteroApp.Application.UseCases.Companies.GetUserByCompany;
+using FesteroApp.Application.UseCases.Companies.InviteUserCompany;
 using FesteroApp.Application.UseCases.Companies.UpdateCompany;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SrShut.Cqrs.Commands;
 using SrShut.Cqrs.Requests;
@@ -34,6 +34,16 @@ public class CompanyController(ILogger<CompanyController> logger, ICommandBus co
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateCompanyCommand command)
     {
+        await _commandBus.SendAsync(command);
+
+        return Ok(new { command.Id });
+    }
+    
+    [HttpPost("{id}/invite")]
+    public async Task<IActionResult> Invite(Guid id, [FromBody] InviteUserCompanyCommand command)
+    {
+        command.Id = id;
+        
         await _commandBus.SendAsync(command);
 
         return Ok(new { command.Id });
