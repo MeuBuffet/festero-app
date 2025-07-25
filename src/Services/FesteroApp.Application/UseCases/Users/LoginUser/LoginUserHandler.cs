@@ -34,7 +34,7 @@ public class LoginUserHandler : ICommandHandler<LoginUserCommand>
 
     public async Task HandleAsync(LoginUserCommand command)
     {
-        // using var scope = _unitOfWork.Get();
+        using var scope = _unitOfWork.Get(true);
         
         Throw.IsFalse(await _userRepository.IsCredentialsValid(command.Email!, command.Password), "User.Login",
             "Usuário e/ou senha incorretas.");
@@ -42,8 +42,8 @@ public class LoginUserHandler : ICommandHandler<LoginUserCommand>
         var user = await _userRepository.GetAsyncByEmail(command.Email!);
         var token = _tokenGenerator.Generate(user, user.Companies.ToList());
 
-        command.Token = token;
+        command.User = token;
         
-        // scope.Complete();
+        scope.Complete();
     }
 }

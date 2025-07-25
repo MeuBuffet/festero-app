@@ -45,8 +45,8 @@ builder.Services.AddApplication();
 builder.Services.AddDomain();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddScoped<ITenantContext, TenantContext>();
-builder.Services.AddScoped<IAuthorizationHandler, RoleInTenantRequirementHandler>();
+builder.Services.AddSingleton<ITenantContext, TenantContext>();
+builder.Services.AddSingleton<IAuthorizationHandler, RoleInTenantRequirementHandler>();
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("TenantAdmin", policy =>

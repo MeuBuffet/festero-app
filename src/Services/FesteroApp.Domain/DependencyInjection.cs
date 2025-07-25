@@ -8,6 +8,6 @@ public static class DependencyInjection
     public static void AddDomain(this IServiceCollection services)
     {
         services.AddSingleton<ITokenGenerator, JwtTokenGenerator>();
-        services.AddScoped<IPasswordGenerator, PasswordGenerator>();
+        services.AddSingleton<IPasswordGenerator, PasswordGenerator>();
     }
 }

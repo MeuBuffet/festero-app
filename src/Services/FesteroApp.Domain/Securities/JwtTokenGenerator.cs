@@ -12,25 +12,30 @@ public class JwtTokenGenerator(IConfiguration configuration) : ITokenGenerator
 {
     private readonly IConfiguration _configuration = configuration;
 
-    public string Generate(User user, List<UserCompany> companies)
+    public CurrentUserToken Generate(User user, List<UserCompany> companies)
     {
         var key = Encoding.ASCII.GetBytes(_configuration["Security:Secret"]!);
         var expiration = DateTime.UtcNow.AddHours(4);
+
         var resources = user.Companies.Select(c => new ResourcesAccess
         {
             TenantId = c.Company.Id,
             Role = c.Role.ToString(),
         }).ToList();
 
+        var roles = companies.Select(c => c.Role.ToString()).Distinct().ToList();
+
+        var claims = new List<Claim>
+        {
+            new(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new(ClaimTypes.Email, user.Email!.Address!),
+            new(ClaimTypes.Name, user.Name!),
+            new("resources", JsonSerializer.Serialize(resources))
+        };
+
         var tokenDescriptor = new SecurityTokenDescriptor
         {
-            Subject = new ClaimsIdentity(
-            [
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Email, user.Email!.Address!),
-                new Claim(ClaimTypes.Name, user.Name!),
-                new Claim("resources", JsonSerializer.Serialize(resources)),
-            ]),
+            Subject = new ClaimsIdentity(claims),
             Expires = expiration,
             SigningCredentials =
                 new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
@@ -39,7 +44,16 @@ public class JwtTokenGenerator(IConfiguration configuration) : ITokenGenerator
         };
 
         var tokenHandler = new JwtSecurityTokenHandler();
+        var token = tokenHandler.WriteToken(tokenHandler.CreateToken(tokenDescriptor));
 
-        return tokenHandler.WriteToken(tokenHandler.CreateToken(tokenDescriptor));
+        return new CurrentUserToken
+        {
+            Id = user.Id,
+            Name = user.Name!,
+            Email = user.Email!.Address!,
+            Token = $"Bearer {token}",
+            ExpireIn = expiration,
+            Roles = roles
+        };
     }
 }

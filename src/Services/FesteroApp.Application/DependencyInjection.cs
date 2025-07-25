@@ -23,7 +23,7 @@ public static class DependencyInjection
 {
     public static void AddApplication(this IServiceCollection services)
     {
-        services.AddScoped<IEmailService, EmailService>();
+        services.AddSingleton<IEmailService, EmailService>();
         
         RegisterCommands(services);
         RegisterQueries(services);
@@ -31,18 +31,18 @@ public static class DependencyInjection
 
     private static void RegisterCommands(this IServiceCollection services)
     {
-        services.AddScoped<CreateCompanyHandler>();
-        services.AddScoped<UpdateCompanyHandler>();
-        services.AddScoped<DeleteCompanyHandler>();
-        services.AddScoped<InviteUserCompanyHandler>();
+        services.AddSingleton<CreateCompanyHandler>();
+        services.AddSingleton<UpdateCompanyHandler>();
+        services.AddSingleton<DeleteCompanyHandler>();
+        services.AddSingleton<InviteUserCompanyHandler>();
         
-        services.AddScoped<CreateUserHandler>();
-        services.AddScoped<UpdateUserHandler>();
-        services.AddScoped<DeleteUserHandler>();
+        services.AddSingleton<CreateUserHandler>();
+        services.AddSingleton<UpdateUserHandler>();
+        services.AddSingleton<DeleteUserHandler>();
         
-        services.AddScoped<LoginUserHandler>();
+        services.AddSingleton<LoginUserHandler>();
 
-        services.AddScoped<ICommandBus>(a =>
+        services.AddSingleton<ICommandBus>(a =>
         {
             var commandBus = a.GetService<MemoryContainerBus>() ?? throw new Exception("commandBus is not found");
 
@@ -76,13 +76,13 @@ public static class DependencyInjection
 
     private static void RegisterQueries(this IServiceCollection services)
     {
-        services.AddScoped<GetCompanyQueryHandler>();
-        services.AddScoped<GetUserByCompanyQueryHandler>();
+        services.AddSingleton<GetCompanyQueryHandler>();
+        services.AddSingleton<GetUserByCompanyQueryHandler>();
         
-        services.AddScoped<GetUserQueryHandler>();
-        services.AddScoped<GetDetailUserQueryHandler>();
+        services.AddSingleton<GetUserQueryHandler>();
+        services.AddSingleton<GetDetailUserQueryHandler>();
 
-        services.AddScoped<IRequestBus>(a =>
+        services.AddSingleton<IRequestBus>(a =>
         {
             var queryBus = a.GetService<MemoryContainerBus>() ?? throw new Exception("queryBus is not found");
 

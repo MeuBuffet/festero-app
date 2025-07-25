@@ -24,9 +24,11 @@ public class UserNhRepository : EventBusRepository<User>, IUserRepository
         var session = unitOfWork.Context;
 
         return await session.Query<User>()
-            .Fetch(u=>u.Companies)
             .Where(u => u.Email!.Address == email && u.Password == password)
             .AnyAsync();
+        
+        unitOfWork.Complete();
+        session.Dispose();
     }
 
     public async Task<bool> HasUserByEmail(string email)
@@ -35,7 +37,6 @@ public class UserNhRepository : EventBusRepository<User>, IUserRepository
         var session = unitOfWork.Context;
 
         return await session.Query<User>()
-            .Fetch(u=>u.Companies)
             .Where(u => u.Email!.Address == email)
             .AnyAsync();
     }

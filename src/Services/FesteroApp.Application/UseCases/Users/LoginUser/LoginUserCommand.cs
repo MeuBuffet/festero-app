@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using FesteroApp.Domain.Securities;
 using SrShut.Cqrs.Commands;
 
 namespace FesteroApp.Application.UseCases.Users.LoginUser;
@@ -11,5 +12,5 @@ public class LoginUserCommand : ICommand
     [DataType(DataType.Password)]
     public string? Password { get; set; }
 
-    public string? Token { get; set; }
+    public CurrentUserToken? User { get; set; }
 }

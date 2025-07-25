@@ -47,8 +47,8 @@ public static class DependencyInjection
 
     private static void RegisterRepositories(this IServiceCollection services)
     {
-        services.AddScoped<ICompanyRepository, CompanyNhRepository>();
-        services.AddScoped<IUserRepository, UserNhRepository>();
+        services.AddSingleton<ICompanyRepository, CompanyNhRepository>();
+        services.AddSingleton<IUserRepository, UserNhRepository>();
     }
 
     private static void RegisterBus(this IServiceCollection services)
