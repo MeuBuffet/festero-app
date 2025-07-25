@@ -33,8 +33,10 @@ bld/
 msbuild.log
 msbuild.err
 msbuild.wrn
+.nuxt/
 
 # Visual Studio 2015
 .vs/
 .env
 src/Services/FesteroApp.Api/appsettings.json
+.nuxt/
