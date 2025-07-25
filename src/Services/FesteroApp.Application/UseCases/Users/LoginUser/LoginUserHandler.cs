@@ -34,6 +34,8 @@ public class LoginUserHandler : ICommandHandler<LoginUserCommand>
 
     public async Task HandleAsync(LoginUserCommand command)
     {
+        // using var scope = _unitOfWork.Get();
+        
         Throw.IsFalse(await _userRepository.IsCredentialsValid(command.Email!, command.Password), "User.Login",
             "Usuário e/ou senha incorretas.");
 
@@ -41,5 +43,7 @@ public class LoginUserHandler : ICommandHandler<LoginUserCommand>
         var token = _tokenGenerator.Generate(user, user.Companies.ToList());
 
         command.Token = token;
+        
+        // scope.Complete();
     }
 }

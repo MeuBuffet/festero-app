@@ -47,8 +47,8 @@ public static class DependencyInjection
 
     private static void RegisterRepositories(this IServiceCollection services)
     {
-        services.AddSingleton<ICompanyRepository, CompanyNhRepository>();
-        services.AddSingleton<IUserRepository, UserNhRepository>();
+        services.AddScoped<ICompanyRepository, CompanyNhRepository>();
+        services.AddScoped<IUserRepository, UserNhRepository>();
     }
 
     private static void RegisterBus(this IServiceCollection services)
@@ -63,15 +63,15 @@ public static class DependencyInjection
     {
     }
 
-    private static ISessionFactory CreateNhFactory(IConfiguration configuration)
+    private static ISessionFactory CreateNhFactory(this IConfiguration configuration)
     {
         var connection = configuration.ConnectionString("DefaultConnectionString");
-            
-        return Fluently.Configure()
+
+        return Fluently
+            .Configure()
             .Database(MsSqlConfiguration.MsSql2012.IsolationLevel(IsolationLevel.ReadCommitted)
+                .ShowSql()
                 .ConnectionString(connection.ConnectionString))
-            .Mappings(m => m.FluentMappings.AddFromAssemblyOf<UserMap>()
-                .Conventions.Add(DefaultLazy.Never()))
-            .BuildSessionFactory();
+            .Mappings(m => m.FluentMappings.AddFromAssemblyOf<UserMap>().Conventions.Add(DefaultLazy.Never())).BuildSessionFactory();
     }
 }

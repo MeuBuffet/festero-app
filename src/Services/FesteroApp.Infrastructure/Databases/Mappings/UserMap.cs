@@ -34,7 +34,10 @@ public class UserMap : ClassMap<User>
 
         HasMany(x => x.Companies)
             .KeyColumn("UserId")
-            .Inverse()
-            .Cascade.All();
+            .ExtraLazyLoad()
+            .AsBag()
+            .BatchSize(16)
+            .Inverse().Cascade
+            .AllDeleteOrphan();
     }
 }
