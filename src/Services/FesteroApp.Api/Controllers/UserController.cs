@@ -31,7 +31,7 @@ public class UserController(ILogger<UserController> logger, ICommandBus commandB
     }
     
     [HttpGet("{id}")]
-    public async Task<GetDetailUserQueryResult> Get(Guid id, [FromQuery] GetDetailUserQuery query)
+    public async Task<GetDetailUserQueryResult> GetDetail(Guid id, [FromQuery] GetDetailUserQuery query)
     {
         return await _requestBus.RequestAsync<GetDetailUserQuery, GetDetailUserQueryResult>(new GetDetailUserQuery(id, query.Text));
     }
