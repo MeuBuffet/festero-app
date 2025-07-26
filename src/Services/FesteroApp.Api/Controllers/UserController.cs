@@ -41,10 +41,10 @@ public class UserController(ILogger<UserController> logger, ICommandBus commandB
     {
         await _commandBus.SendAsync(command);
 
-        if (command.User == null)
+        if (string.IsNullOrEmpty(command.Token) || string.IsNullOrWhiteSpace(command.Token))
             return Unauthorized(new { Message = "Usuário e/ou senha inválidos." });
 
-        return Ok(command.User.Token);
+        return Ok(command.Token);
     }
 
     [HttpPost]

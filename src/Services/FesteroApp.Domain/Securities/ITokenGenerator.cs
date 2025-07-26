@@ -4,5 +4,5 @@ namespace FesteroApp.Domain.Securities;
 
 public interface ITokenGenerator
 {
-    CurrentUserToken Generate(User user, List<UserCompany> companies);
+    string Generate(User user, List<UserCompany> companies);
 }

@@ -6,7 +6,7 @@ export default {
 <template>
 	<!-- BEGIN breadcrumb -->
 	<ol class="breadcrumb float-xl-end">
-		<li class="breadcrumb-item"><a href="javascript:;">Home</a></li>
+		<li class="breadcrumb-item"><a href="javascript:;">InÍcio</a></li>
 		<li class="breadcrumb-item"><a href="javascript:;">Library</a></li>
 		<li class="breadcrumb-item active">Data</li>
 	</ol>

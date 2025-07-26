@@ -1,4 +1,4 @@
-import { useToast } from "vue-toastification";
+import { useToast } from "vue-toast-notification";
 
 export interface ToastOptions {
   text: string;
@@ -19,6 +19,7 @@ export interface HelpersType {
   validateCNPJ: (document: string) => boolean;
   validateNotText: (document: string) => boolean;
   maxDate: (document: string) => boolean;
+  translateRole: (role: string) => string;
 }
 
 const toastMessage = ({
@@ -34,7 +35,7 @@ const toastMessage = ({
   };
 
   const toastFunction = toastTypes[type];
-  toastFunction(text, { timeout: time });
+  toastFunction(text, { duration: time });
 };
 
 const statusMessages = {
@@ -194,6 +195,19 @@ const helpers: HelpersType = {
   maxDate(date: string): boolean {
     const today = new Date().toISOString().split("T")[0];
     return date <= today;
+  },
+
+  translateRole(role?: string): string {
+    switch (role?.toUpperCase()) {
+      case "OWNER":
+        return "Proprietário";
+      case "ADMIN":
+        return "Administrador";
+      case "COLLABORATOR":
+        return "Colaborador";
+      default:
+        return role ?? "Convidado";
+    }
   },
 };
 

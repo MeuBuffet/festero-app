@@ -7,6 +7,7 @@ import type {
 import axios from "axios";
 import HTTP from "@/utils/http";
 import router from "@/router";
+import { decodeJwt } from "@/helpers/authHelper";
 
 const api = new HTTP();
 
@@ -17,7 +18,11 @@ export interface AccountType {
     email?: string;
     expireIn?: Date;
     token?: string;
-    roles?: string[];
+    roles?: {
+      tenantId?: string | undefined;
+      company?: string | undefined;
+      role?: string | undefined;
+    }[];
   };
   isAuthenticated: boolean;
   errorAccount: number | null;
@@ -25,7 +30,7 @@ export interface AccountType {
 
 export const useAuthStore = defineStore("auth", {
   state: (): AccountType => ({
-    current: { roles: [] },
+    current: { roles: [{}] },
     isAuthenticated: false,
     errorAccount: null,
   }),
@@ -34,20 +39,38 @@ export const useAuthStore = defineStore("auth", {
     async login(payload: LoginPayload) {
       try {
         const response = await api.post("/api/users/login", payload);
-        const { token, user, expireIn, roles } = response.data;
+        const token = response.data.split(" ")[1];
+
+        if (!token) throw new Error("Autênticação ausente");
+
+        const decoded = decodeJwt(token);
+
+        if (!decoded) throw new Error("Autênticação inválida");
+
+        const { id, name, email, expireIn, roles } = decoded;
+
+        const parsedRoles =
+          typeof roles === "string"
+            ? JSON.parse(roles).map((r: any) => ({
+                tenantId: r.TenantId,
+                company: r.Company,
+                role: r.Role,
+              }))
+            : [];
 
         this.current = {
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          token,
+          id: id || "",
+          name: name || "",
+          email: email || "",
           expireIn,
-          roles,
+          roles: parsedRoles,
         };
+
         this.isAuthenticated = true;
         this.errorAccount = null;
 
         localStorage.setItem("token", token);
+        localStorage.setItem("user",JSON.stringify(this.current));
 
         router.push({ name: "home" });
       } catch (error: any) {

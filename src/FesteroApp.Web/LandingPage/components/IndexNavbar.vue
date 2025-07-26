@@ -11,7 +11,7 @@
       <b-collapse class="navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mx-auto navbar-center" id="mySidenav">
           <li class="nav-item">
-            <a href="#home" class="nav-link">Home</a>
+            <a href="#home" class="nav-link">Início</a>
           </li>
           <li class="nav-item">
             <a href="#demo" class="nav-link">Demo</a>

@@ -42,7 +42,7 @@ public class LoginUserHandler : ICommandHandler<LoginUserCommand>
         var user = await _userRepository.GetAsyncByEmail(command.Email!);
         var token = _tokenGenerator.Generate(user, user.Companies.ToList());
 
-        command.User = token;
+        command.Token = token;
         
         scope.Complete();
     }

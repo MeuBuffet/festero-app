@@ -2,7 +2,8 @@
 import { getCurrentInstance, onMounted } from 'vue';
 import { RouterLink, RouterView } from 'vue-router';
 import { useAppOptionStore } from '@/stores/app-option';
-import { ProgressFinisher, useProgress } from '@marcoschulte/vue3-progress';
+import type { ProgressFinisher } from '@marcoschulte/vue3-progress';
+import { useProgress } from '@marcoschulte/vue3-progress';
 import AppSidebar from '@/components/app/Sidebar.vue';
 import AppSidebarRight from '@/components/app/SidebarRight.vue';
 import AppHeader from '@/components/app/Header.vue';

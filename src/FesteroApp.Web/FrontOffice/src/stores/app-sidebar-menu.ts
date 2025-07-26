@@ -6,7 +6,7 @@ export const useAppSidebarMenuStore = defineStore("appSidebarMenu", () => {
 		is_header: true
 	},
 	{ 
-		url: '/', icon: 'fa fa-sitemap', title: 'Home'
+		url: '/', icon: 'fa fa-sitemap', title: 'Início'
 	}
 	/*
 	{ url: '/menu', icon: 'fa fa-align-left', title: 'Menu Level',

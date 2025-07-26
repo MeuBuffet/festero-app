@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using FesteroApp.Domain.Securities;
 using SrShut.Cqrs.Commands;
 
@@ -12,5 +13,5 @@ public class LoginUserCommand : ICommand
     [DataType(DataType.Password)]
     public string? Password { get; set; }
 
-    public CurrentUserToken? User { get; set; }
+    [JsonIgnore] public string? Token { get; set; }
 }

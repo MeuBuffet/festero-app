@@ -6,13 +6,12 @@ export interface AuthState {
 }
 
 export interface AuthUser {
-  user: {
-    id: number
-    name: string
-    email: string
-  }
-  token: string
-  expires: string
+  id: string;
+  name: string;
+  email: string;
+  roles: any[]; 
+  token: string;
+  expires: string;
 }
 
 export interface LoginPayload {
@@ -34,3 +33,18 @@ export interface RegisterPayload {
 export interface ForgotPasswordPayload {
   email: string
 }
+
+export interface Notification {
+  title: string;
+  desc?: string;
+  icon?: string;
+  iconMedia?: string;
+  img?: string;
+  time?: string;
+}
+
+export type Events = {
+  'user:login': { id: string; name: string };
+  'notification:new': { title: string; message: string };
+  // adicione outros eventos aqui
+};
