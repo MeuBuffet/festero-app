@@ -21,6 +21,9 @@ using SrShut.Mvc;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using FesteroApp.SharedKernel.Securities;
+using NLog;
+using NLog.Extensions.Logging;
+using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -63,11 +66,10 @@ services.AddControllers(a => { a.Filters.Add(typeof(UnitOfWorkAttribute)); })
         a.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase; 
     });
    
-
-// LogManager.Configuration = new NLogLoggingConfiguration(builder.Configuration.GetSection("NLog"));
-// builder.Logging.ClearProviders();
-// builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
-// builder.Logging.AddNLog(configuration);
+LogManager.Configuration = new NLogLoggingConfiguration(builder.Configuration.GetSection("NLog"));
+builder.Logging.ClearProviders();
+builder.Logging.SetMinimumLevel(LogLevel.Warning);
+builder.Logging.AddNLog(configuration);
 
 services.AddCors(option => option.AddPolicy("FesteroAppPolicy", policyBuilder =>
 {

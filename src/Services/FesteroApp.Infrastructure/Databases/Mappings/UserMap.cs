@@ -7,15 +7,15 @@ public class UserMap : ClassMap<User>
 {
     public UserMap()
     {
-        Id(m => m.Id).Not.Nullable();
+        Id(x => x.Id).Not.Nullable();
 
-        Map(m => m.Name).Not.Nullable();
-        Map(m => m.Document).Not.Nullable();
-        Map(m => m.Password).Not.Nullable();
+        Map(x => x.Name).Not.Nullable();
+        Map(x => x.Document).Not.Nullable();
+        Map(x => x.Password).Not.Nullable();
 
-        Map(m => m.CreatedOn).Not.Nullable();
-        Map(m => m.UpdatedOn).Not.Nullable();
-        Map(m => m.DeletedOn).Nullable();
+        Map(x => x.CreatedOn).Not.Nullable();
+        Map(x => x.UpdatedOn).Not.Nullable();
+        Map(x => x.DeletedOn).Nullable();
 
         Component(x => x.Email, c => { c.Map(x => x!.Address).Column("Email").Not.Nullable(); });
 

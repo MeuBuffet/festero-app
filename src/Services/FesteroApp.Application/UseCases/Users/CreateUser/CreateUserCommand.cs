@@ -35,9 +35,9 @@ public class CreateUserCommand : ICommand
 
     public string? Complement { get; set; }
     
-    public CreateUserCompany? Company { get; set; }
+    public CreateUserOrganization? Organization { get; set; }
 
-    public class CreateUserCompany
+    public class CreateUserOrganization
     {
         [Required] public string? LegalName { get; set; }
 

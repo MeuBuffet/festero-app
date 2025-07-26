@@ -1,4 +1,4 @@
-using FesteroApp.Domain.Interfaces.Companies;
+using FesteroApp.Domain.Interfaces.Organizations;
 using FesteroApp.Domain.Interfaces.Users;
 using FesteroApp.Domain.Securities;
 using FesteroApp.SharedKernel.Securities;
@@ -11,22 +11,22 @@ namespace FesteroApp.Application.UseCases.Users.LoginUser;
 public class LoginUserHandler : ICommandHandler<LoginUserCommand>
 {
     private readonly IUserRepository _userRepository;
-    private readonly ICompanyRepository _companyRepository;
+    private readonly IOrganizationRepository _organizationRepository;
     private readonly IUnitOfWorkFactory _unitOfWork;
     private readonly ITokenGenerator _tokenGenerator;
     private readonly ITenantContext _tenantContext;
 
-    public LoginUserHandler(IUserRepository userRepository, ICompanyRepository companyRepository,
+    public LoginUserHandler(IUserRepository userRepository, IOrganizationRepository organizationRepository,
         IUnitOfWorkFactory unitOfWork, ITokenGenerator tokenGenerator, ITenantContext tenantContext)
     {
         Throw.ArgumentIsNull(userRepository);
-        Throw.ArgumentIsNull(companyRepository);
+        Throw.ArgumentIsNull(organizationRepository);
         Throw.ArgumentIsNull(unitOfWork);
         Throw.ArgumentIsNull(tokenGenerator);
         Throw.ArgumentIsNull(tenantContext);
 
         _userRepository = userRepository;
-        _companyRepository = companyRepository;
+        _organizationRepository = organizationRepository;
         _unitOfWork = unitOfWork;
         _tokenGenerator = tokenGenerator;
         _tenantContext = tenantContext;

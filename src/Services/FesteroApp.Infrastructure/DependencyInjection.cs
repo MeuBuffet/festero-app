@@ -1,5 +1,5 @@
 ﻿using System.Data;
-using FesteroApp.Domain.Interfaces.Companies;
+using FesteroApp.Domain.Interfaces.Organizations;
 using FesteroApp.Domain.Interfaces.Users;
 using FesteroApp.Infrastructure.Databases.Mappings;
 using FesteroApp.Infrastructure.Databases.Repositories;
@@ -47,7 +47,7 @@ public static class DependencyInjection
 
     private static void RegisterRepositories(this IServiceCollection services)
     {
-        services.AddSingleton<ICompanyRepository, CompanyNhRepository>();
+        services.AddSingleton<IOrganizationRepository, OrganizationNhRepository>();
         services.AddSingleton<IUserRepository, UserNhRepository>();
     }
 

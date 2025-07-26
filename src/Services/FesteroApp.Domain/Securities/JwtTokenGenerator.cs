@@ -12,15 +12,15 @@ public class JwtTokenGenerator(IConfiguration configuration) : ITokenGenerator
 {
     private readonly IConfiguration _configuration = configuration;
 
-    public string Generate(User user, List<UserCompany> companies)
+    public string Generate(User user, List<UserOrganization> companies)
     {
         var key = Encoding.ASCII.GetBytes(_configuration["Security:Secret"]!);
         var expiration = DateTime.UtcNow.AddHours(4);
 
         var resources = user.Companies.Select(c => new ResourcesAccess
         {
-            TenantId = c.Company.Id,
-            Company = c.Company.TradeName!,
+            TenantId = c.Organization.Id,
+            Company = c.Organization.TradeName!,
             Role = c.Role.ToString(),
         }).ToList();
 

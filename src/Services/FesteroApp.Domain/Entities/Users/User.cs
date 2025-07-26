@@ -1,4 +1,4 @@
-using FesteroApp.Domain.Entities.Companies;
+using FesteroApp.Domain.Entities.Organizations;
 using FesteroApp.Domain.ValueObjects;
 using SrShut.Cqrs.Domains;
 
@@ -8,7 +8,7 @@ public class User : AggregateRoot<Guid>
 {
     public User()
     {
-        Companies = new List<UserCompany>();
+        Companies = new List<UserOrganization>();
     }
     
     public User(Guid id, string? name, string? document, string? password, Email? email) : this()
@@ -27,7 +27,7 @@ public class User : AggregateRoot<Guid>
     {
         Id = id;
         Name = name;
-        Document = document;
+        Document = SrShut.Common.Document.OnlyNumbers(document);
         Password = password;
         Email = email;
         Phone = phone;
@@ -56,13 +56,13 @@ public class User : AggregateRoot<Guid>
 
     public virtual DateTime? DeletedOn { get; set; }
 
-    public virtual IList<UserCompany> Companies { get; set; }
+    public virtual IList<UserOrganization> Companies { get; set; }
 
-    public virtual void AddCompany(string role, Company company)
+    public virtual void AddOrganization(string role, Organization organization)
     {
-        var entity = Companies.FirstOrDefault(c => c.Company == company);
+        var entity = Companies.FirstOrDefault(c => c.Organization.Equals(organization));
 
-        entity ??= new UserCompany(role, this, company);
+        entity ??= new UserOrganization(role, this, organization);
 
         Companies.Add(entity);
 
