@@ -5,6 +5,7 @@ using FesteroApp.Application.UseCases.Organizations.GetOrganization;
 using FesteroApp.Application.UseCases.Organizations.GetUserByOrganization;
 using FesteroApp.Application.UseCases.Organizations.InviteUserOrganization;
 using FesteroApp.Application.UseCases.Organizations.UpdateOrganization;
+using FesteroApp.Application.UseCases.Organizations.UpdateOrganizationConfiguration;
 using FesteroApp.Application.UseCases.Users.CreateUser;
 using FesteroApp.Application.UseCases.Users.DeleteUser;
 using FesteroApp.Application.UseCases.Users.GetDetailUser;
@@ -34,6 +35,7 @@ public static class DependencyInjection
         services.AddSingleton<UpdateOrganizationHandler>();
         services.AddSingleton<DeleteOrganizationHandler>();
         services.AddSingleton<InviteUserOrganizationHandler>();
+        services.AddSingleton<UpdateOrganizationConfigurationHandler>();
         
         services.AddSingleton<CreateUserHandler>();
         services.AddSingleton<UpdateUserHandler>();
@@ -57,6 +59,9 @@ public static class DependencyInjection
             var inviteUserOrganizationHandler = a.GetService<InviteUserOrganizationHandler>();
             commandBus.Register<InviteUserOrganizationCommand, InviteUserOrganizationCommandValidator>(inviteUserOrganizationHandler!);
             
+            var updateOrganizationConfigurationHandler = a.GetService<UpdateOrganizationConfigurationHandler>();
+            commandBus.Register<UpdateOrganizationConfigurationCommand, UpdateOrganizationConfigurationCommandValidator>(updateOrganizationConfigurationHandler!);
+
             var createUserHandler = a.GetService<CreateUserHandler>();
             commandBus.Register<CreateUserCommand, CreateUserCommandValidator>(createUserHandler!);
 

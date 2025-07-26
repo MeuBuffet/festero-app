@@ -7,7 +7,7 @@ public class UpdateOrganizationConfigurationCommand : ICommand
 {
     [Required] public Guid Id { get; set; }
 
-    public TimeSpan? WorkdayStart { get; private set; }
+    public TimeSpan? WorkdayStart { get; set; }
 
-    public TimeSpan? WorkdayEnd { get; private set; }
+    public TimeSpan? WorkdayEnd { get; set; }
 }
