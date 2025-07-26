@@ -11,9 +11,12 @@ import AppTopMenu from '@/components/app/TopMenu.vue';
 import AppFooter from '@/components/app/Footer.vue';
 import AppThemePanel from '@/components/app/ThemePanel.vue';
 import router from './router';
+import { useAuthStore } from '@/modules/auth/store';
 
 const appOption = useAppOptionStore();
 const internalInstance = getCurrentInstance();
+const auth = useAuthStore();
+auth.restoreSession();
 
 const progresses = [] as ProgressFinisher[];
 

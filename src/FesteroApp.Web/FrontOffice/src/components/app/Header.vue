@@ -6,10 +6,12 @@ import { slideToggle } from "@/composables/slideToggle.ts";
 import AppHeaderMegaMenu from "@/components/app/HeaderMegaMenu.vue";
 import type { AuthUser, Notification } from "@/modules/auth/store/types";
 import utils from "@/utils/helpers";
+import { useAuthStore } from '@/modules/auth/store/index';
 
 const appOption = useAppOptionStore();
 const notificationData = ref<Notification[]>([]);
 const user = ref<AuthUser | null>(null);
+const auth = useAuthStore();
 
 const translatedRole = computed(() => {
   const role = user.value?.roles?.[0]?.Role;
@@ -220,7 +222,7 @@ onMounted(() => {
           <a href="javascript:;" class="dropdown-item">Calendário</a>
           <a href="javascript:;" class="dropdown-item">Configurações</a>
           <div class="dropdown-divider"></div>
-          <a href="javascript:;" class="dropdown-item">Sair</a>
+          <a href="javascript:;" class="dropdown-item" @click="auth.logout()">Sair</a>
         </div>
       </div>
     </div>
