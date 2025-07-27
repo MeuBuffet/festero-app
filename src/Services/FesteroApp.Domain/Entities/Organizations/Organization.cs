@@ -14,9 +14,8 @@ public class Organization : AggregateRoot<Guid>
         Configuration = new OrganizationConfiguration(this);
     }
 
-    public Organization(Guid id, string? legalName, string? tradeName, string? document, string? type,
-        Industries? industry,
-        Email? email, Phone? phone, Address? address, Organization? parent = null) : this()
+    public Organization(Guid id, string? legalName, string? tradeName, string? document, OrganizationTypes? type,
+        Industries? industry, Email? email, Phone? phone, Address? address, Organization? parent = null) : this()
     {
         Id = id;
         LegalName = legalName;
@@ -41,7 +40,7 @@ public class Organization : AggregateRoot<Guid>
 
     public virtual string? Document { get; set; }
 
-    public virtual string? Type { get; set; }
+    public virtual OrganizationTypes? Type { get; set; }
 
     public virtual Industries? Industry { get; set; }
 
@@ -76,8 +75,7 @@ public class Organization : AggregateRoot<Guid>
         Path = parent != null ? $"{parent.Path}/{Id}" : $"/{Id}";
     }
 
-    public virtual void Update(string? legalName, string? tradeName, string? document, string? type,
-        Industries? industry,
+    public virtual void Update(string? legalName, string? tradeName, string? document, OrganizationTypes? type, Industries? industry,
         Email? email, Phone? phone, Address? address)
     {
         LegalName = legalName;

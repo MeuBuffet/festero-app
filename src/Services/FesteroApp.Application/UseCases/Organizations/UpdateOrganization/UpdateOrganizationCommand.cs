@@ -12,7 +12,7 @@ public class UpdateOrganizationCommand : ICommand
 
     [Required] public string? TradeName { get; set; }
 
-    [Required] public string? Type { get; set; }
+    [Required] public OrganizationTypes? Type { get; set; }
 
     [Required] public Industries? Industry { get; set; }
 

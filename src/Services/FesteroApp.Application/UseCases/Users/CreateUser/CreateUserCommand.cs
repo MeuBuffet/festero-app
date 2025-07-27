@@ -45,7 +45,7 @@ public class CreateUserCommand : ICommand
 
         [Required] public string? Document { get; set; }
 
-        [Required] public string? Type { get; set; }
+        [Required] public OrganizationTypes? Type { get; set; }
 
         [Required] public Industries? Industry { get; set; }
 
